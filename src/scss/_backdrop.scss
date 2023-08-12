@@ -1,0 +1,128 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Component
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use 'sass:map';
+@use './breakpoint';
+
+//////////////////////////////////////////////
+// B. Variables
+//////////////////////////////////////////////
+
+:root {
+    --backdrop-fixed-height: 400px;
+}
+
+//////////////////////////////////////////////
+// C. Component
+//////////////////////////////////////////////
+
+@layer component {
+
+    // Backdrop Block
+
+    .backdrop {
+        position: relative;
+    }
+
+    // Backdrop Elements
+
+    .backdrop:not([class*="--stack"]):not([class*="--fixed"]){
+        .backdrop__cover {
+            position: absolute;
+        }
+    }
+
+    .backdrop__image {
+        position: relative;
+
+        img {
+            min-width: 100%;
+            min-height: 100%;
+        }
+    }
+
+    .backdrop__image__credit {
+        position: absolute;
+        inset-block-end: 0;
+        inset-inline-end: 0;
+
+        font-size: var(--font-size-sm);
+        
+        padding: 0.25rem 0.75rem;
+
+        width: auto;
+        
+        z-index: 500;
+    }
+
+    .backdrop__cover {
+        inset: 0;
+
+        display: grid;
+
+        align-content: center;
+
+        > * {
+            width: 100%;
+        }
+    }
+
+    // Backdrop Stack Modifiers
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .backdrop--stack#{$mod} {
+
+                .backdrop__cover {
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    // Backdrop Fixed Modifier
+
+    .backdrop--fixed {
+        overflow: hidden;
+
+        display: grid;
+
+        &:not([class*='aspect-ratio-']) {
+            min-height: var(--backdrop-fixed-height);
+        }
+
+        .backdrop__image {
+            position: absolute !important;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+
+            display: flex;
+            overflow: hidden;
+
+            img {
+                object-fit: cover;
+                object-position: 50% 50%;
+            }
+        }
+
+        .backdrop__cover {
+            position: relative;
+        }
+    }
+
+} // end @layer

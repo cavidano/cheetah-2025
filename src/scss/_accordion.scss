@@ -1,0 +1,96 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Component
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use './accent';
+
+//////////////////////////////////////////////
+// B. Variables
+//////////////////////////////////////////////
+
+:root {
+    --accordion-button-padding-x: var(--spacer-3);
+
+    --accordion-button-padding-y: var(--button-padding-y);
+
+    --accordion-panel-padding-x: var(--spacer-3);
+    
+    --accordion-panel-padding-y: var(--spacer-3);
+    
+    --accordion-active-color: currentColor;
+
+    --accordion-animation: 0.2s ease-out;
+}
+
+//////////////////////////////////////////////
+// C. Component
+//////////////////////////////////////////////
+
+@layer component {
+
+    // Accordion Elements
+
+    .accordion__button {
+        position: relative;
+        
+        display: flex;
+        justify-content: space-between;
+
+        width: 100%;
+
+        padding: var(--accordion-button-padding-y) var(--accordion-button-padding-x);
+
+        margin-bottom: 0;
+
+        cursor: pointer;
+
+        @extend %caret;
+
+        &:not(:first-child) {
+            border-top-width: var(--border-width);
+            border-top-style: var(--border-style);
+            border-top-color: inherit;
+        }
+
+        &:not([aria-expanded="true"])::before {
+            transform: rotate(0deg);
+        }
+        
+        &::before {
+            transition: transform var(--accordion-animation);
+        }
+
+        &[aria-expanded="true"] {
+            text-decoration: underline;
+
+            color: var(--accordion-active-color);
+
+            &::before {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .accordion__panel {
+        overflow: hidden;
+
+        transition: max-height var(--accordion-animation);
+        
+        max-height: 0;
+    }
+
+    .accordion__panel__content {
+        padding: var(--accordion-panel-padding-y) var(--accordion-panel-padding-x);
+    }
+
+} // end @layer

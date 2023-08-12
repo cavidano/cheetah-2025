@@ -1,0 +1,54 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Component
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+:root {
+    --card-padding-x: var(--spacer-3);
+    
+    --card-padding-y: var(--spacer-3);
+}
+
+//////////////////////////////////////////////
+// B. Component
+//////////////////////////////////////////////
+
+@layer component {
+
+    // Card Block
+
+    .card {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+        
+        height: 100%;
+    }
+
+    // Card Elements
+
+    .card__head {
+        padding: calc(var(--card-padding-y) * 0.5) var(--card-padding-x);
+        
+        font-size: var(--font-size-sm);
+    }
+
+    .card__body {
+        padding: var(--card-padding-y) var(--card-padding-x);
+    }
+
+    .card__foot {
+        margin-top: auto;
+        padding: calc(var(--card-padding-y) * 0.75) var(--card-padding-x);
+    }
+
+} // end @layer

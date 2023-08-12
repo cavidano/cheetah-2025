@@ -1,0 +1,378 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Font Weight Utilities
+// D. Font Size Utilities
+// E. Headings
+// F. Banner Headline Utility
+// G. Body Selectors
+// H. Text Align Utilities
+// I. Text Transform Utilities
+// J. Text Decoration Utilities
+// K. Word Wrap Utilities
+// L. Truncate Text Utility
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use 'sass:map';
+@use './breakpoint';
+
+//////////////////////////////////////////////
+// B. Variables
+//////////////////////////////////////////////
+
+// Import Open Source Fonts
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+
+:root {
+
+    // Font Families and Weights
+
+    --body-font-family: "Source Sans Pro", sans-serif;
+
+    --header-font-family: var(--body-font-family);
+    
+    --body-font-weight-normal: 400;
+    --body-font-weight-medium: 600;
+    --body-font-weight-bold: 700;
+
+    // Base Font Size and Type Scale
+
+    --base-font-size: 0.9rem; // Smallest Font Size
+
+    --type-scale: 1.2; // Minor Third
+
+    // Body Font Sizes
+
+    --font-size-sm: var(--base-font-size);
+    --font-size-md: calc(var(--font-size-sm) * var(--type-scale));
+    --font-size-rg: calc(var(--font-size-md) * var(--type-scale)); // Body
+    --font-size-lg: calc(var(--font-size-rg) * var(--type-scale));
+
+    // Header Font Sizes
+
+    --h1-font-size: calc(var(--h2-font-size) * var(--type-scale));
+    --h2-font-size: calc(var(--h3-font-size) * var(--type-scale));
+    --h3-font-size: calc(var(--h4-font-size) * var(--type-scale));
+    --h4-font-size: calc(var(--h5-font-size) * var(--type-scale));
+    --h5-font-size: calc(var(--h6-font-size) * var(--type-scale));
+    --h6-font-size: var(--font-size-rg);
+
+    // Banner Headline 
+
+    --banner-headline-font-size: calc(var(--h1-font-size) * var(--type-scale));
+
+    --banner-headline-font-weight: var(--body-font-weight-normal);
+
+    // Line Heights
+
+    --body-line-height: 1.5;
+
+    --header-line-height: 1.125;
+
+    // Margin
+
+    --paragraph-margin-bottom: 1.25em;
+    
+    --header-margin-bottom: 0.25em;
+}
+
+//////////////////////////////////////////////
+// C. Base Selectors
+//////////////////////////////////////////////
+
+@layer base {
+
+    body {
+        font-family: var(--body-font-family);
+
+        font-size: var(--font-size-rg);
+        
+        font-weight: var(--body-font-weight-normal);
+        
+        line-height: var(--body-line-height);
+    }
+
+    p, 
+    p ~ ul:not([class]),
+    p ~ ol:not([class]) {
+        &:not(:last-child){
+            margin-block-end: var(--paragraph-margin-bottom);
+        }
+    }
+
+    :is(
+        p ~ ul:not([class]),
+        p ~ ol:not([class]) 
+    ) li {
+        margin-block-end: var(--spacer-1);
+    }
+
+    p ~ ul:not([class]) {
+        --list-item-padding: 1em;
+
+        li {
+            margin-inline-start: var(--list-item-padding);
+        }
+    }
+
+    ol:not([class]) {
+        --list-item-padding: 2em;
+
+        list-style: none;
+
+        counter-reset: list-item-counter;
+    
+        li {
+            position: relative;
+            
+            padding-inline-start: var(--list-item-padding);
+
+            counter-increment: list-item-counter;
+        }
+
+        li::before {
+            position: absolute;
+            inset-inline-start: 0;
+
+            content: counters(list-item-counter, ".") ". ";
+        }
+
+    }
+
+    figure {
+        figcaption {
+            font-size: var(--font-size-sm);
+            opacity: 0.85;
+            margin-block-start: var(--spacer-2);
+        }
+    }
+
+    blockquote {
+        margin-block-end: var(--paragraph-margin-bottom);
+    }
+
+    :is(
+        h1, .h1,
+        h2, .h2, 
+        h3, .h3,
+        h4, .h4,
+        h5, .h5, 
+        h6, .h6 
+    ) {
+        font-family: var(--header-font-family);
+        font-weight: var(--body-font-weight-bold);
+        line-height: var(--header-line-height);
+
+        &:not(.accordion__button):not(.alert__title):not(:last-child){
+            margin-block-end: var(--header-margin-bottom);
+        }
+    }
+} // end @layer
+
+//////////////////////////////////////////////
+// D. Font Size and Font Weight Utilities
+//////////////////////////////////////////////
+
+@layer utility {
+
+    // Font Size
+
+    $font-sizes: (
+
+        sm: (
+            size: var(--font-size-sm)
+        ),
+
+        md: (
+            size: var(--font-size-md)
+        ),
+
+        rg: (
+            size: var(--font-size-rg)
+        ),
+
+        lg: (
+            size: var(--font-size-lg)
+        ),
+        
+    );
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            @each $key, $font-size-map in $font-sizes {
+                .font-size-#{$key}#{$mod} {
+                    font-size: map.get($font-size-map, "size");
+
+                    @if map.has-key($font-size-map, "line-height") {
+                        line-height: map.get($font-size-map, "line-height");
+                    }
+                }
+            }
+        }
+    }
+
+    // Font Weight
+
+    $font-weights: (
+        normal: var(--body-font-weight-normal),
+        medium: var(--body-font-weight-medium),
+        bold: var(--body-font-weight-bold),
+    );
+
+    @each $key, $value in $font-weights {
+        .font-weight-#{$key} {
+            font-weight: #{$value};
+        }
+    }
+} // end @layer
+
+//////////////////////////////////////////////
+// E. Heading Sizes and Utilities
+//////////////////////////////////////////////
+
+$headers: (
+
+    h1: (
+        size: var(--h1-font-size)
+    ),
+
+    h2: (
+        size: var(--h2-font-size)
+    ),
+    
+    h3: (
+        size: var(--h3-font-size)
+    ),
+
+    h4: (
+        size: var(--h4-font-size)
+    ),
+    
+    h5: (
+        size: var(--h5-font-size)
+    ),
+
+    h6: (
+        size: var(--h6-font-size)
+    )
+);
+
+@layer base {
+        
+    @each $key, $header-map in $headers {
+
+        #{$key} {
+            font-size: map.get($header-map, "size");
+        }
+    }
+
+} // end @layer
+
+@layer utility {
+
+    // h1 - h6
+
+    @each $key, $header-map in $headers {
+
+        .#{$key} {
+            font-size: map.get($header-map, "size");
+        }
+    }
+
+    // Banner Headline
+
+    .banner-headline {
+        font-weight: var(--banner-headline-font-weight);
+
+        font-size: var(--banner-headline-font-size);
+
+        line-height: var(--header-line-height);
+    }
+
+} // end @layer
+
+//////////////////////////////////////////////
+// F. Text Utilities
+//////////////////////////////////////////////
+
+@layer utility {
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            // Text Align
+
+            .text-align-left#{$mod} {
+                text-align: start;
+            }
+            
+            .text-align-center#{$mod} {
+                text-align: center;
+            }
+
+            .text-align-right#{$mod} {
+                text-align: end;
+            }
+
+            // Text Transform
+
+            .text-transform-capitalize#{$mod} {
+                text-transform: capitalize;
+            }
+
+            .text-transform-uppercase#{$mod} {
+                text-transform: uppercase;
+            }
+
+            .text-transform-lowercase#{$mod} {
+                text-transform: lowercase;
+            }
+
+            // Text Decoration
+
+            .text-decoration-underline#{$mod} {
+                text-decoration: underline auto;
+            }
+
+            .text-decoration-line-through#{$mod} {
+                text-decoration: line-through auto;
+            }
+
+            .text-decoration-none#{$mod} {
+                text-decoration: none;
+            }
+
+            // Word Wrap
+
+            .nowrap#{$mod} {
+                white-space: nowrap;
+            }
+
+            .break-word#{$mod} {
+                overflow-wrap: break-word;
+            }
+
+            // Truncate Text
+            
+            .truncate-text#{$mod} {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+        }
+    }
+
+} // end @layer

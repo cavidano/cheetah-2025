@@ -1,0 +1,64 @@
+/*
+
+In this file:
+
+// A. Generic Links
+// B. Utilities
+
+*/
+
+//////////////////////////////////////////////
+// A. Generic Links
+//////////////////////////////////////////////
+
+@layer base {
+
+    a {
+        color: currentColor;
+    }
+
+    p > a {
+        text-decoration: underline;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+
+    a[data-logo="brand"] {
+        display: inline-block;
+
+        &:focus {
+            opacity: 0.85;
+        }
+
+        > svg {
+            fill: currentColor;
+            display: block;
+        }
+    }
+
+} // end @layer
+
+//////////////////////////////////////////////
+// B. Utilities
+//////////////////////////////////////////////
+
+@layer utility {
+
+    .expanded-link {
+        &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            
+            z-index: 1;
+            pointer-events: auto;
+        }
+    }
+
+} // end @layer

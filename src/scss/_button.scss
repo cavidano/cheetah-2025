@@ -1,0 +1,322 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Selector Resets
+// C. Component
+
+*/
+
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use './accent';
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+:root {
+    --button-padding-x: 1em;
+
+    --button-padding-y: 0.75em;
+
+    --button-font-family: var(--body-font-family);
+
+    --button-font-weight: var(--body-font-weight-bold);
+    
+    --button-text-transform: initial;
+    
+    --button-letter-spacing: normal;
+
+    --button-border-radius: 0.25em;
+    
+    --button-outline-border-width: calc( var(--border-width) * 2);
+
+    --button-icon-only-size: 2.5em;
+
+    --button-icon-over-text-width: 4em; 
+    
+    --button-icon-over-text-border-radius: var(--button-border-radius);
+    
+    --button-icon-over-text-font-size: 0.675em;
+    
+    --button-group-gap: 0.5em;
+}
+
+//////////////////////////////////////////////
+// B. Selector Resets
+//////////////////////////////////////////////
+
+@layer base {
+
+    button {
+        cursor: pointer;
+        
+        font-family: inherit;
+
+        &:not([class*="theme-"]) {
+            background-color: transparent;
+        }
+
+        &:not([class*="border-"]) {
+            border: none;
+        }
+
+    }
+
+} // end @layer
+
+//////////////////////////////////////////////
+// C. Component
+//////////////////////////////////////////////
+
+@layer component {
+
+    .button {
+        --button-opacity-hover: 0.75;   
+        --subtle-fill-opacity: 0.05;
+
+        position: relative;
+
+        display: inline-block;
+        
+        vertical-align: middle;
+        
+        line-height: normal;
+        
+        text-align: center;
+        
+        cursor: pointer;
+
+        border-radius: var(--button-border-radius);
+
+        transition: opacity 0.5s ease-out;
+
+        &:not([class*="button--icon-only"]) {
+            font-family: var(--button-font-family);
+
+            text-transform: var(--button-text-transform);
+
+            letter-spacing: var(--button-letter-spacing);
+        }
+
+        &:not(
+            [class*="button--outline"],
+            [class*="button--icon-over-text"],
+            [class*="theme-"],
+            [class*="background-color"],
+            [data-toggle="dropdown"]
+        ) {
+            @extend %subtle-fill-psuedo;
+        }
+
+        &:hover, 
+        &:focus, 
+        &:active {
+            opacity: var(--button-opacity-hover);
+        }
+
+        &:not([class*="button--icon-only"]):not([class*="button--icon-over-text"]) {
+            padding: var(--button-padding-y) var(--button-padding-x);
+            font-weight: var(--button-font-weight);
+        }
+
+        &[aria-disabled="true"] {
+            opacity: var(--button-opacity-hover);
+            cursor: not-allowed;
+        }
+        
+    }
+
+    // Outline Modifier
+
+    .button--outline {
+        background-color: transparent;
+        box-shadow: inset 0 0 0 var(--button-outline-border-width, 2px) currentColor;
+    }
+
+    // Has Icon Modifiers
+
+    [class*="button--has-icon"] {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover,
+        &:focus {
+            .button__text {
+                text-decoration: underline;
+            }
+        }
+
+        &:not([class*="--disperse"]) {
+            .button__text {
+                margin-inline: 0.5em;
+            }
+        }
+    }
+
+    .button--has-icon--disperse {
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    // Button Icon Only Modifier
+
+    .button--icon-only {
+        display: inline-flex;
+        flex-shrink: 0;
+
+        align-items: center;
+        justify-content: center;
+
+        width: var(--button-icon-only-size);
+        height: var(--button-icon-only-size);
+
+        aspect-ratio: 1;
+
+        [class*="icon-"] {
+            --icon-size: 1.25em;
+
+            display: flex;
+        }
+    }
+
+    // Icon Only Tooltip (via JS)
+
+    .button__tooltip {
+        --button-tooltip-background: hsla(0, 0%, 0%, 0.9);
+
+        position: absolute;
+        top: -150000px;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        display: block;
+
+        margin-block-start: var(--spacer-2);
+
+        padding: 0.5em 1em;
+
+        border-radius: inherit;
+
+        background-color: var(--button-tooltip-background);
+
+        color: white;
+
+        font-size: var(--font-size-sm);
+
+        white-space: nowrap;
+
+        pointer-events: none;
+
+        &.left {
+            transform: unset;
+            right: unset;
+            inset-inline-start: 0;
+        }
+
+        &.right {
+            transform: unset;
+            left: unset;
+            inset-inline-end: 0;
+        }
+    }
+
+    .tooltip-show > .button__tooltip {
+        inset-block-start: 100%;
+
+        animation-name: fadeIn;
+        animation-duration: 0.5s;
+    }
+
+    @keyframes fadeIn {
+
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+
+    }
+
+    // Button Icon Label Modifier
+
+    .button--icon-over-text {
+        --font-size-sm: 0.75rem;
+        --focus-outline-offset: -4px;
+
+        display: flex;
+        flex-direction: column;
+        
+        text-align: center;
+        
+        gap: 0.375em;
+
+        width: var(--button-icon-over-text-width);
+
+        span.icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-inline: auto;
+
+            width: var(--button-icon-only-size);
+            height: var(--button-icon-only-size);
+
+            aspect-ratio: 1;
+
+            border-radius: var(--button-icon-over-text-border-radius);
+
+            @extend %subtle-fill-psuedo;
+        }
+
+        [class*="__text"] {
+            min-width: 100%;
+
+            font-size: var(--button-icon-over-text-font-size);
+
+            font-weight: var(--body-font-weight-bold);
+        }
+
+        &:focus-visible {
+            outline: unset;
+
+            > [class*="icon"] {
+                outline: var(--focus-outline-size) var(--focus-outline-style) var(--focus-outline-color);
+                outline-offset: var(--focus-outline-offset);
+            }
+        }
+    }
+
+    // Button Group
+
+    .button-group {
+        --gap-size: var(--button-group-gap);
+        
+        display: flex;
+
+        gap: var(--gap-size);
+
+        min-height: var(--button-icon-only-size);
+
+        > [class*="button"]:not(.button--icon-only) {
+            --button-padding-y: 0;
+
+            display: flex;
+            align-self: stretch;
+            align-items: center;
+            flex-shrink: 0;
+            
+            font-size: 80%;
+        }
+    }
+
+} // end @layer

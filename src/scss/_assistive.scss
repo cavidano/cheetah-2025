@@ -1,0 +1,129 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Hover Focus
+// C. Utilities
+
+*/
+
+////////////////////////////////////////
+// A. Variables
+////////////////////////////////////////
+
+:root {
+    --focus-outline-size: calc(var(--border-width) * 2);
+
+    --focus-outline-color: currentColor;
+    
+    --focus-outline-style: solid;
+
+    --focus-outline-distance: calc(var(--border-width) * 4);
+}
+
+//////////////////////////////////////////////
+// B. Hover Focus
+//////////////////////////////////////////////
+
+%hover-focus {
+
+    &:hover,
+    &:focus {
+        &:not(
+            [aria-disabled="true"],
+            [class*="icon"],
+            [class*="nav--has-icons"] > li > *,
+            p > a
+        ) {
+            text-decoration: underline;
+        }
+    }
+
+    &:not([class*="button--icon-over-text"]):focus-visible {
+        outline: var(--focus-outline-size) var(--focus-outline-style) var(--focus-outline-color);
+        outline-offset: var(--focus-outline-distance);
+    }
+
+    &[class*="backdrop"]:focus-visible {
+          position: relative;
+          z-index: 1;
+
+        > * {
+            z-index: -1;
+        }
+    }
+}
+
+@layer base {
+
+    :is(a, button) {
+        --focus-outline-distance: calc(var(--focus-outline-size) * -1);
+
+        @extend %hover-focus;
+        
+        &.button {
+            --focus-outline-distance: calc(var(--focus-outline-size) * -2);
+        }
+        
+        &.button--outline,
+        &.lightbox-thumbnail,
+        &[class*="backdrop"] {
+            --focus-outline-distance: calc(var(--focus-outline-size) * -3);
+        }
+
+    }
+
+} // end @layer
+
+//////////////////////////////////////////////
+// C. Utilities
+//////////////////////////////////////////////
+
+@layer utility {
+
+    // Shared Utilities
+
+    .focusable-only, 
+    .screen-reader-only {
+        position: absolute;
+    }
+
+    // Screen Reader Only Utility
+
+    .screen-reader-only {
+        overflow: hidden;
+
+        width: 1px;
+        height: 1px;
+        
+        clip: rect(0, 0, 0, 0);
+        
+        white-space: nowrap;
+    }
+
+    // Focusable Only Utility
+
+    .focusable-only {
+
+        &:not(:focus) {
+            @extend .screen-reader-only;
+        }
+
+        inset-block-start: var(--spacer-1);
+        inset-inline-start: var(--spacer-1);
+
+        padding: var(--button-padding-y) var(--button-padding-x);
+
+        font-size: var(--font-size-sm);
+        
+        color: var(--dark);
+        
+        background-color: rgba( white, 0.95);
+        
+        box-shadow: 0 0 0.25rem currentColor;
+        
+        z-index: 12000;
+    }
+
+} // end @layer
