@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        natura11y: [
+        cheetah: [
             './src/index.js'
         ]
     }

@@ -5,7 +5,8 @@
   "private": false,
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "dev": "bundle exec jekyll serve"
   },
   "style": "dist/css/natura11y.css",
   "main": "src/index.js",
