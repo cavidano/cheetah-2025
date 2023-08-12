@@ -32,6 +32,8 @@ In this file:
 ////////////////////////////////////////
 
 :root {
+    --nav-font-family: var(--body-font-family);
+
     --nav-gap: 0.75em;
 
     --nav-divider-padding-y: 0.625em;
@@ -51,6 +53,8 @@ In this file:
     list-style: none;
 
     line-height: normal;
+    
+    font-family: var(--nav-font-family);
 
     > li {
         position: relative;

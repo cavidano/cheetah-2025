@@ -16,13 +16,20 @@ In this file:
 
     --body-font-family: 'Georgia', serif;
 
+
+    --body-font-weight-normal: 300;
+    --body-font-weight-medium: 600;
+    --body-font-weight-bold: 700;
+
     --header-font-family: 'Roboto', sans-serif;
     
-    --base-font-size: 0.9rem; // 16px
+    --base-font-size: 1rem; // 16px
 
     --type-scale: 1.2; // Minor Third
 
-    --body-line-height: 1.55;
+    // --body-line-height: 1.55;
+
+    --nav-font-family: var(--header-font-family);
 
     // Containers
 
