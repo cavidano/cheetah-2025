@@ -56,3 +56,9 @@ In this file:
 @use './table';
 @use './typography';
 @use './z-index';
+
+//////////////////////////////////////////////
+// C. Custom Partials
+//////////////////////////////////////////////
+
+@use './customSCSS/theme';

@@ -1,0 +1,72 @@
+/*
+
+In this file:
+
+// A. Variables
+
+*/
+
+//////////////////////////////////////////////
+// A. Custom Properties
+//////////////////////////////////////////////
+
+:root {
+
+    // Body Font Stack
+
+    --body-font-family: 'Georgia', serif;
+
+    --header-font-family: 'Roboto', sans-serif;
+    
+    --base-font-size: 0.9rem; // 16px
+
+    --type-scale: 1.2; // Minor Third
+
+    --body-line-height: 1.55;
+
+    // Containers
+
+    --narrow-width: 44rem;
+    --medium-width: calc( var(--narrow-width) * 1.5);
+    --wide-width: calc( var(--narrow-width) * 2.5);
+
+    // Buttons
+
+    --button-padding-x: 1.25em;
+
+    --button-icon-only-size: 2.25em;
+    
+    --button-outline-border-width: var(--border-width);
+
+    --button-icon-only-size: 2.25em;
+
+    --button--icon-label-border-radius: 100%; 
+
+    // Spacing
+
+    --spacer-3: calc(var(--spacer-base) * 1.25);
+    --spacer-4: calc(var(--spacer-base) * 2);
+    --spacer-5: calc(var(--spacer-base) * 4);
+
+    // Grid
+
+    --grid-sidebar-width: 18rem;
+
+    // Form
+
+    --form-field-border-color: var(--border-color);
+
+    // Lightbox Icons
+
+    --lightbox-button-icon-image: "\f13d";
+    --lightbox-button-icon-video: "\f169";
+}
+
+@media screen and (max-width: 1000px) {
+
+    :root {
+        --base-font-size: 0.875rem; // 16px
+
+        --type-scale: 1.15; // Minor Third
+    }
+}
