@@ -32,6 +32,12 @@ In this file:
 
     // Buttons
 
+    --button-font-family: var(--header-font-family);
+
+    --button-font-weight: var(--body-font-weight-bold);
+    
+    // --button-text-transform: uppercase;
+
     --button-padding-x: 1.25em;
 
     --button-icon-only-size: 2.25em;

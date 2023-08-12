@@ -23,7 +23,7 @@ In this file:
 @use './border';
 @use './button';
 @use './collapse';
-@use './color';
+// @use './color';
 @use './document';
 @use './icon';
 @use './link';
@@ -61,4 +61,5 @@ In this file:
 // C. Custom Partials
 //////////////////////////////////////////////
 
+@use './customSCSS/color';
 @use './customSCSS/theme';
