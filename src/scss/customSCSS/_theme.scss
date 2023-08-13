@@ -16,16 +16,15 @@ In this file:
 
     --body-font-family: 'Georgia', serif;
 
-
     --body-font-weight-normal: 300;
     --body-font-weight-medium: 600;
     --body-font-weight-bold: 700;
 
     --header-font-family: 'Roboto', sans-serif;
     
-    --base-font-size: 1rem; // 16px
+    --base-font-size: 0.875rem; // 16px
 
-    --type-scale: 1.2; // Minor Third
+    --type-scale: 1.25; // Minor Third
 
     // --body-line-height: 1.55;
 
@@ -33,7 +32,13 @@ In this file:
 
     // Containers
 
-    --narrow-width: 44rem;
+
+    --body-max-width: 2200px;
+
+    --html-background-color: var(--dark);
+    
+
+    --narrow-width: 42rem;
     --medium-width: calc( var(--narrow-width) * 1.5);
     --wide-width: calc( var(--narrow-width) * 2.5);
 
@@ -42,6 +47,8 @@ In this file:
     --button-font-family: var(--header-font-family);
 
     --button-font-weight: var(--body-font-weight-bold);
+
+    --button-border-radius: 0;
     
     // --button-text-transform: uppercase;
 
@@ -75,11 +82,34 @@ In this file:
     --lightbox-button-icon-video: "\f169";
 }
 
-@media screen and (max-width: 1000px) {
+/*
 
+// Banner
+
+*/
+
+#banner.backdrop {
+    --banner-headline-font-size: 8rem;
+    --backdrop-fixed-height: 600px;
+
+    .banner-headline {
+        color: var(--primary-dark);
+    }
+}
+
+/*
+
+// Typography
+
+*/
+
+@media screen and (max-width: 1024px) {
     :root {
-        --base-font-size: 0.875rem; // 16px
+        --type-scale: 1.1375;
+        --spacer-base: 0.675rem;
+    }
 
-        --type-scale: 1.15; // Minor Third
+    #introduction.backdrop {
+        --backdrop-fixed-height: 450px;
     }
 }
