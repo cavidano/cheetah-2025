@@ -3,10 +3,10 @@ layout: global
 title: Home
 ---
 
-<section class="backdrop backdrop--stack--lg theme-dark">
+<section class="backdrop backdrop--stack--lg theme-dark" id="introduction">
 
     <div class="backdrop__image gradient-veneer-bottom">
-        <img class="opacity-80" src="./images/banner-01.jpg" alt="Placeholder">
+        <img class="opacity-80" src="./images/banner-introduction.jpg" alt="Placeholder">
     </div>
 
     <div class="backdrop__cover align-content-end">
@@ -44,7 +44,7 @@ title: Home
             <div class="backdrop backdrop--fixed theme-dark aspect-ratio-16x9" id="introduction">
 
                 <div class="backdrop__image gradient-veneer-bottom">
-                    <img class="opacity-40" src="./images/feature-01.jpg" alt="Placeholder">
+                    <img class="opacity-70" src="./images/feature-01.jpg" alt="Placeholder">
                 </div>
 
                 <div class="backdrop__cover align-content-end">
@@ -54,15 +54,15 @@ title: Home
                         <div class="narrow">
                         
                             <h2 class="h4">
-                                Aliquam Nulla Facilisi
+                                Sponsor A Cheetah
                             </h2>
 
                             <p>
-                                Donec ultrices tincidunt arcu non sodales neque sodales ut etiam sit amet nisl purus in mollis nunc sed id semper risus.
+                                Get twice yearly video updates straight from CCF's Field Centres in Namibia and Somaliland.
                             </p>
 
                             <a class="button 👉 theme-primary font-size-md" href="#1">
-                                Read the Report
+                                Become a CCF sponsor
                             </a>
                             
                         </div>
@@ -75,18 +75,38 @@ title: Home
         
         </div>
 
-        <div class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 100%">
+        <div class="backdrop backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 100%">
 
             <div class="backdrop__image gradient-veneer-bottom">
-                <img class="opacity-40" src="./images/banner-01.jpg" alt="Placeholder">
+                <img class="opacity-80" src="./images/feature-02.jpg" alt="Placeholder">
             </div>
 
             <div class="backdrop__cover align-content-end">
 
                 <div class="container wide text-shadow margin-y-2">
 
-                    <a class="button 👉 theme-primary font-size-md" href="#1">
-                        Read the Report
+                    <a class="button 👉 theme-secondary font-size-md width-100" href="#1">
+                        2022 Annual Report
+                    </a>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 100%">
+
+            <div class="backdrop__image gradient-veneer-bottom">
+                <img class="opacity-80" src="./images/feature-03.jpg" alt="Placeholder">
+            </div>
+
+            <div class="backdrop__cover align-content-end">
+
+                <div class="container wide text-shadow margin-y-2">
+
+                    <a class="button 👉 theme-secondary font-size-md width-100" href="#1">
+                        2022 Annual Report
                     </a>
                     
                 </div>
@@ -95,26 +115,6 @@ title: Home
 
         </div>
         
-        <div class="backdrop backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 100%">
-
-            <div class="backdrop__image gradient-veneer-bottom">
-                <img class="opacity-40" src="./images/banner-01.jpg" alt="Placeholder">
-            </div>
-
-            <div class="backdrop__cover align-content-end">
-
-                <div class="container wide text-shadow margin-y-2">
-
-                    <a class="button 👉 theme-primary font-size-md" href="#1">
-                        Read the Report
-                    </a>
-                    
-                </div>
-
-            </div>
-
-        </div>
-
     </div>
 
 </section>
@@ -314,25 +314,93 @@ title: Home
 
 </section>
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+<section class="backdrop backdrop--stack--lg theme-dark" id="sign-up">
 
+    <div class="backdrop__image gradient-veneer-bottom">
+        <img class="opacity-30" src="./images/banner-donate.jpg" alt="Placeholder">
+    </div>
+
+    <div class="backdrop__cover">
+
+        <div class="container medium padding-y-5 align-self-end">
+
+            <h1 class="text-align-center text-shadow margin-bottom-4">
+                Keep up with the cheetahs
+            </h1>
+
+            <form class="container narrow">
+                                    
+                <div class="grid grid__columns-2 gap-2">
+
+                    <div 
+                        class="form-entry"
+                        data-required="true"
+                        data-error-message="First Name is required!">
+
+                        <label class="form-entry__field form-entry__field--float">
+
+                            <span class="form-entry__field__label">
+                                First Name
+                            </span>
+                            
+                            <span class="form-entry__field__input">
+                                <input type="text" id="account-first-name" name="accountFirstName" />
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                    <div 
+                        class="form-entry"
+                        data-required="true"
+                        data-error-message="Password is required!">
+
+                        <label class="form-entry__field form-entry__field--float">
+
+                            <span class="form-entry__field__label">
+                                Last Name
+                            </span>
+                            
+                            <span class="form-entry__field__input">
+                                <input type="text" id="account-last-name" name="accountLastName" />
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                    <div 
+                        class="form-entry grid__colspan-2"
+                        data-required="true"
+                        data-error-message="Password is required!">
+
+                        <label class="form-entry__field form-entry__field--float">
+
+                            <span class="form-entry__field__label">
+                                Email
+                            </span>
+                            
+                            <span class="form-entry__field__input">
+                                <input type="email" id="account-email" name="accountEmail" />
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                    <hr class="grid__colspan-2" />
+
+                    <button class="button theme-primary width-100" type="submit">
+                        Sign Up
+                    </button>
+
+                </div>
+
+            </form>
+            
+        </div>
+
+    </div>
 
 </section>
