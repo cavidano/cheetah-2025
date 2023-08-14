@@ -21,6 +21,7 @@ const devPages = {
     'Backdrop': 'backdrop',
     'Card': 'card',
     'Color': 'color',
+    'CustomLayouts': 'custom-layouts',
     'Footer': 'footer',
     'Form': 'form',
     'Grid': 'grid',
@@ -35,7 +36,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Color}.html`;
+const devPage = `${devPages.CustomLayouts}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

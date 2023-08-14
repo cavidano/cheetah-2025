@@ -3,20 +3,20 @@ layout: global
 title: Home
 ---
 
-<section class="backdrop backdrop--stack--lg theme-dark" id="introduction">
+<section class="backdrop backdrop--stack--lg theme-light theme-dark--lg" id="introduction">
 
-    <div class="backdrop__image gradient-veneer-bottom">
-        <img class="opacity-80" src="./images/banner-introduction.jpg" alt="Placeholder">
+    <div class="backdrop__image gradient-veneer-bottom--lg">
+        <img class="opacity-80--lg" src="./images/banner-introduction.jpg" alt="Placeholder">
     </div>
 
     <div class="backdrop__cover align-content-end">
 
-        <div class="container wide text-shadow margin-y-4">
+        <div class="container wide text-shadow margin-y-5">
 
             <div class="narrow">
             
                 <h1>
-                    Aliquam Nulla Facilisi
+                    Aliquam Nulla
                 </h1>
 
                 <p>
@@ -35,47 +35,43 @@ title: Home
 
 </section>
 
-<section class="container wide">
+<section class="container wide margin-y-6" id="featured">
 
-    <div class="grid grid--column-3 gap-border margin-y-5">
+    <div class="grid grid--features">
+        
+        <div class="backdrop backdrop--fixed theme-dark">
 
-        <div class="grid__colspan-2 grid__rowspan-2">
+            <div class="backdrop__image gradient-veneer-bottom">
+                <img class="opacity-70" src="./images/feature-01.jpg" alt="Placeholder">
+            </div>
 
-            <div class="backdrop backdrop--fixed theme-dark aspect-ratio-16x9" id="introduction">
+            <div class="backdrop__cover align-content-end">
 
-                <div class="backdrop__image gradient-veneer-bottom">
-                    <img class="opacity-70" src="./images/feature-01.jpg" alt="Placeholder">
-                </div>
+                <div class="container wide text-shadow margin-y-4">
 
-                <div class="backdrop__cover align-content-end">
+                    <div class="narrow">
+                    
+                        <h2 class="h4">
+                            Sponsor A Cheetah
+                        </h2>
 
-                    <div class="container wide text-shadow margin-y-4">
+                        <p>
+                            Get twice yearly video updates straight from CCF's Field Centres in Namibia and Somaliland.
+                        </p>
 
-                        <div class="narrow">
+                        <a class="button 👉 theme-primary font-size-md" href="#1">
+                            Become a CCF sponsor
+                        </a>
                         
-                            <h2 class="h4">
-                                Sponsor A Cheetah
-                            </h2>
-
-                            <p>
-                                Get twice yearly video updates straight from CCF's Field Centres in Namibia and Somaliland.
-                            </p>
-
-                            <a class="button 👉 theme-primary font-size-md" href="#1">
-                                Become a CCF sponsor
-                            </a>
-                            
-                        </div>
-
                     </div>
 
                 </div>
 
             </div>
-        
+
         </div>
 
-        <div class="backdrop backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 100%">
+        <div class="backdrop backdrop--fixed theme-dark">
 
             <div class="backdrop__image gradient-veneer-bottom">
                 <img class="opacity-80" src="./images/feature-02.jpg" alt="Placeholder">
@@ -95,7 +91,7 @@ title: Home
 
         </div>
 
-        <div class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 100%">
+        <div class="backdrop backdrop--fixed theme-dark">
 
             <div class="backdrop__image gradient-veneer-bottom">
                 <img class="opacity-80" src="./images/feature-03.jpg" alt="Placeholder">
@@ -141,12 +137,12 @@ title: Home
         </a>
 
         <a href="#1" class="article-preview">
-            <img class="margin-bottom-2" src="./images/news-01.jpg" alt="Placeholder">
+            <img class="margin-bottom-2" src="./images/news-02.jpg" alt="Placeholder">
             <h2 class="h6">Title of First Article</h2>
         </a>
 
         <a href="#1" class="article-preview">
-            <img class="margin-bottom-2" src="./images/news-01.jpg" alt="Placeholder">
+            <img class="margin-bottom-2" src="./images/news-03.jpg" alt="Placeholder">
             <h2 class="h6">Title of First Article</h2>
         </a>
 
@@ -170,8 +166,19 @@ title: Home
 
     <div class="grid grid--column-2 gap-3">
 
-        <img src="./images/news-01.jpg" alt="Placeholder">
-        <img src="./images/news-01.jpg" alt="Placeholder">
+        <iframe
+            class="aspect-ratio-16x9"
+            src="https://www.youtube.com/embed/ox40M7LwBMU"
+            title="Cheetah Conservation Fund Featured Video"
+            allowfullscreen>
+        </iframe>
+
+        <iframe
+            class="aspect-ratio-16x9"
+            src="https://www.youtube.com/embed/RKSgu9la04g"
+            title="Cheetah Conservation Fund Featured Video"
+            allowfullscreen>
+        </iframe>
     
     </div>
 
@@ -244,7 +251,7 @@ title: Home
 
 </section>
 
-<section class="theme-light overflow-hidden padding-y-6">
+<section class="theme-light african-border-block padding-y-6">
 
     <div class="container narrow margin-bottom-4 text-align-center">
 
@@ -254,9 +261,9 @@ title: Home
 
     </div>
 
-    <div class="container medium">
+    <div class="container medium text-align-center font-size-md">
 
-        <div class="grid grid--column-3--lg gap-5 text-align-center font-size-md margin-bottom-5">
+        <div class="grid grid--column-3--lg gap-5 margin-y-5">
 
             <div class="flex-column align-content-center">
 
@@ -264,7 +271,7 @@ title: Home
                     <img src="./images/cheetah-facts-01.jpg" alt="Placeholder" />
                 </div>
 
-                <h3 class="h5">
+                <h3 class="h5 text-color-secondary">
                     Spot the difference
                 </h3>
                 <p>
@@ -278,11 +285,11 @@ title: Home
                     <img src="./images/cheetah-facts-02.jpg" alt="Placeholder" />
                 </div>
 
-                <h3 class="h5">
-                    Spot the difference
+                <h3 class="h5 text-color-secondary">
+                    Built for speed
                 </h3>
                 <p>
-                    Adult cheetahs are easily distinguished from other big cats by their solid black spots.
+                    The cheetahs’ unique body structures allow them to achieve incredible speeds of up to 70 mph (113 km/hr).
                 </p>
             </div>
 
@@ -292,27 +299,60 @@ title: Home
                     <img src="./images/cheetah-facts-03.jpg" alt="Placeholder" />
                 </div>
 
-                <h3 class="h5">
-                    Spot the difference
+                <h3 class="h5 text-color-secondary">
+                    A natural rudder
                 </h3>
                 <p>
-                    Adult cheetahs are easily distinguished from other big cats by their solid black spots.
+                    When running, cheetahs use their tails to steer and change direction, like a rudder on a boat.
                 </p>
             </div>
 
         </div>
 
-        <div class="text-align-center">
-        
-            <a class="button theme-primary font-size-md margin-x-auto" href="#1">
-                Learn more about cheetahs
-            </a>
+        <a class="button theme-primary margin-x-auto" href="#1">
+            Learn more about cheetahs
+        </a>
+
+    </div>
+
+</section>
+
+<section class="theme-secondary">
+
+<div class="backdrop backdrop--stack--lg" id="introduction">
+
+    <div class="backdrop__image">
+        <picture>
+            <source media="(max-width: 768px)" srcset="./images/cheetah-range-sm.svg">
+            <img src="images/cheetah-range-lg.svg" alt="Description of image">
+        </picture>
+    </div>
+
+    <div class="backdrop__cover">
+
+        <div class="container wide text-shadow margin-y-5">
+
+            <div class="narrow">
+            
+                <h3 class="text-color-primary">
+                    Shrinking habitat
+                </h3>
+
+                <p>
+                    In the last 100 years, the world has lost 90% of the wild cheetah population. Today, one-third of wild cheetahs live in southern Africa. CCF is working across Africa to save the species throughout its range.
+                </p>
+
+                <a class="button 👉 theme-primary font-size-md" href="#1">
+                    Read the Report
+                </a>
+                
+            </div>
 
         </div>
 
     </div>
 
-</section>
+</div>
 
 <section class="backdrop backdrop--stack--lg theme-dark" id="sign-up">
 

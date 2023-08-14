@@ -32,7 +32,6 @@ In this file:
 
     // Containers
 
-
     --body-max-width: 2200px;
 
     --html-background-color: var(--dark);
@@ -111,5 +110,85 @@ In this file:
 
     #introduction.backdrop {
         --backdrop-fixed-height: 450px;
+    }
+}
+
+/*
+
+// Custom Layouts
+
+*/
+
+.grid--features {
+    display: grid;
+
+    grid-gap: var(--border-width);
+
+    > .backdrop {
+        --backdrop-fixed-height: 0;
+
+        aspect-ratio: 16 / 9;
+
+        max-width: 100%;
+    }
+
+    > .backdrop {
+        &:nth-of-type(1) {
+            grid-area: primary;
+        }
+
+        &:nth-of-type(2) {
+            grid-area: secondary;
+        }
+
+        &:nth-of-type(3) {
+            grid-area: tertiary;
+        }
+    }
+
+    grid-template-areas:
+        "primary"
+        "secondary"
+        "tertiary";
+
+    @media screen and (min-width: 1024px) {
+        grid-template-columns: 2fr 1fr;
+
+        grid-template-areas:
+            "primary secondary"
+            "primary tertiary";
+    
+        >  .backdrop:nth-of-type(2),
+        >  .backdrop:nth-of-type(3) {
+            aspect-ratio: unset;
+        }
+    }
+}
+
+.african-border-block {
+    --height: 40px;
+
+    position: relative;
+
+    &::before, 
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: var(--height);
+        inset-inline-start: 0;
+        background-image: url(../images/pattern-01.svg);
+        background-image: url(../images/pattern-01.svg), none;
+        background-repeat: repeat;
+    }
+
+    &::before {
+        inset-block-start: 0;
+    }
+
+    &::after {
+        inset-block-start: 100%;
+        margin-block-start: calc(var(--height) * -1);
+        transform: rotate(180deg);
     }
 }
