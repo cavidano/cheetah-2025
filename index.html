@@ -125,32 +125,47 @@ title: Home
 
 <section class="container wide margin-y-5">
 
-    <div class="display-flex gap-2 align-items-baseline justify-content-between">
+    <div class="flex-row gap-3 justify-content-between align-items-baseline">
 
         <h2 class="h3 font-weight-normal">
             Latest News
         </h2>
 
-        <a href="#1">
+        <a class="link" href="#1">
             All News
         </a>
 
     </div>
 
-    <div class="grid grid--column-3 gap-3">
+    <div class="grid grid--column-3--md gap-3">
 
         <a href="#1" class="article-preview">
-            <img class="margin-bottom-2" src="./images/news-01.jpg" alt="Placeholder">
+            <div class="position-relative margin-bottom-2">
+                <span class="display-block position-bottom-left theme-primary font-size-sm padding-y-1 padding-x-2">
+                    August 8, 2023
+                </span>
+                <img src="./images/news-01.jpg" alt="Placeholder" />
+            </div>
             <h2 class="h6">Title of First Article</h2>
         </a>
 
         <a href="#1" class="article-preview">
-            <img class="margin-bottom-2" src="./images/news-02.jpg" alt="Placeholder">
+            <div class="position-relative margin-bottom-2">
+                <span class="display-block position-bottom-left theme-primary font-size-sm padding-y-1 padding-x-2">
+                    August 8, 2023
+                </span>
+                <img src="./images/news-02.jpg" alt="Placeholder" />
+            </div>
             <h2 class="h6">Title of First Article</h2>
         </a>
 
         <a href="#1" class="article-preview">
-            <img class="margin-bottom-2" src="./images/news-03.jpg" alt="Placeholder">
+            <div class="position-relative margin-bottom-2">
+                <span class="display-block position-bottom-left theme-primary font-size-sm padding-y-1 padding-x-2">
+                    August 8, 2023
+                </span>
+                <img src="./images/news-03.jpg" alt="Placeholder" />
+            </div>
             <h2 class="h6">Title of First Article</h2>
         </a>
 
@@ -160,14 +175,14 @@ title: Home
 
 <section class="container wide margin-y-5">
 
-    <div class="display-flex gap-2 align-items-baseline justify-content-between">
+    <div class="flex-row gap-3 justify-content-between align-items-baseline">
 
         <h2 class="h3 font-weight-normal">
             Videos
         </h2>
 
-        <a href="#1">
-            All News
+        <a class="link" href="#1">
+            More Videos
         </a>
 
     </div>
@@ -327,44 +342,46 @@ title: Home
 
 <section class="theme-secondary">
 
-<div class="backdrop backdrop--stack--lg" id="introduction">
+    <div class="backdrop backdrop--stack--lg" id="introduction">
 
-    <div class="backdrop__image">
-        <picture>
-            <source media="(max-width: 768px)" srcset="./images/cheetah-range-sm.svg">
-            <img src="images/cheetah-range-lg.svg" alt="Description of image">
-        </picture>
-    </div>
+        <div class="backdrop__image gradient-veneer-left--lg">
+            <picture>
+                <source media="(max-width: 768px)" srcset="./images/cheetah-range-sm.svg">
+                <img src="images/cheetah-range-lg.svg" alt="Description of image">
+            </picture>
+        </div>
 
-    <div class="backdrop__cover">
+        <div class="backdrop__cover">
 
-        <div class="container wide margin-y-5">
+            <div class="container wide margin-y-5">
 
-            <div class="narrow">
+                <div class="narrow">
 
-                <div class="text-shadow">
+                    <div class="text-shadow">
+                    
+                        <h3 class="text-color-primary">
+                            Shrinking habitat
+                        </h3>
+
+                        <p>
+                            In the last 100 years, the world has lost 90% of the wild cheetah population. Today, one-third of wild cheetahs live in southern Africa. CCF is working across Africa to save the species throughout its range.
+                        </p>
+
+                    </div> 
                 
-                    <h3 class="text-color-primary">
-                        Shrinking habitat
-                    </h3>
+                    <a class="button 👉 theme-primary font-size-md" href="#1">
+                        Read the Report
+                    </a>
+                    
+                </div>
 
-                    <p>
-                        In the last 100 years, the world has lost 90% of the wild cheetah population. Today, one-third of wild cheetahs live in southern Africa. CCF is working across Africa to save the species throughout its range.
-                    </p>
-
-                </div> 
-            
-                <a class="button 👉 theme-primary font-size-md" href="#1">
-                    Read the Report
-                </a>
-                
             </div>
 
         </div>
 
     </div>
 
-</div>
+</section>
 
 <section class="backdrop backdrop--stack--lg theme-dark" id="sign-up">
 

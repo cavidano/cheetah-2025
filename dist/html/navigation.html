@@ -7,6 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>Navigation • Natura11y</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
         
         <!-- Natura11y Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">
@@ -15,7 +19,9 @@
 
     <body>
 
-        <main class="overflow-hidden height-100vh">
+        <main>
+
+
 
             <section>
 
@@ -24,6 +30,127 @@
                         Navigation
                     </h2>
                 </header>
+
+                <div class="margin-x-auto wide">
+                
+                    <div class="global-nav box-shadow-2">
+
+                        <div class="global-nav__logo">
+
+                            <a
+                                href="{{ site.url }}/"
+                                title="Home"
+                                data-logo="brand">
+                                <img src="./images/cheetah-conservation-fund-logo.svg" alt="Placeholder" />
+                            </a>
+
+                        </div>
+
+                        <nav class="global-nav__menu" id="main-menu" aria-label="Main Menu">
+
+                            <ul>
+                                <li>
+                                    <button data-toggle="dropdown">
+                                        About Us
+                                    </button>
+                                    <ul class="nav__dropdown box-shadow-1--lg">
+                                        <li>
+                                            <a href="{{ site.url }}/about-us/what-we-do/conservation.html">
+                                                Conservation
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">
+                                                Malesuada
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">
+                                                Viverra
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button data-toggle="dropdown">
+                                        Get Involved
+                                    </button>
+                                    
+                                    <ul class="nav__dropdown box-shadow-1--lg">
+                                        <li>
+                                            <a href="#1">
+                                                Ways to Give
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">
+                                                CCF Events
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">
+                                                Volunteer
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">
+                                                Visit CCF
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">
+                                                Corporate Giving
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#1">
+                                        Learn
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#1">
+                                        News
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#1">
+                                        Shop
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#1">
+                                        <img src="./images/ccf-kids-logo.svg" alt="" />
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </nav>
+
+                        <div class="global-nav__toggle">
+
+                            <button class="mobile-menu-toggle button button--icon-only" aria-label="Menu" data-toggle="collapse" data-target-toggle="#main-menu">
+                                <span class="icon icon-menu"></span>
+                            </button>
+
+                        </div>
+
+                        <div class="global-nav__actions">
+
+                            <a class="button theme-primary" href="#1">
+                                Donate
+                            </a>
+
+                            <button class="button button--icon-only" aria-label="Language">
+                                <span class="icon icon-search"></span>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
                 <figure class="container narrow margin-x-auto margin-bottom-4 z-index-2500">
 
