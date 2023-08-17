@@ -54,8 +54,8 @@ module.exports = merge(common, {
             filename: '[name].css',
         }),
         new CssMinimizerPlugin(),
-        new IgnorePlugin({
-            resourceRegExp: /\.(jpg|png|svg)$/
-        }),
+        // new IgnorePlugin({
+        //     resourceRegExp: /\.(jpg|png|svg)$/
+        // }),
     ]
 });

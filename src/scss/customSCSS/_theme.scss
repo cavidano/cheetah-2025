@@ -6,6 +6,10 @@ In this file:
 
 */
 
+@use 'sass:map';
+@use '../navigation';
+@use '../collapse';
+
 //////////////////////////////////////////////
 // A. Custom Properties
 //////////////////////////////////////////////
@@ -73,6 +77,7 @@ In this file:
     // Form
 
     --form-field-border-color: var(--border-color);
+    --form-field-border-radius: 0;
 
     // Lightbox Icons
 
@@ -207,5 +212,207 @@ In this file:
     }
 }
 
+
+/*
+
+// Global Navigation
+
+*/
+
 .global-nav {
+    display: grid;
+
+    ul {
+        @extend %list-style-nav;
+    }
+
+    > [class*="__logo"],
+    > [class*="__mobile-bar"] {
+        display: flex;
+    }
+
+    > [class*="__logo"] {
+        grid-area: logo;
+
+        justify-content: center;
+
+        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+    }
+
+    > [class*="__mobile-bar"] {
+        @extend .button-group;
+
+        grid-area: mobile-bar;
+
+        align-items: center;
+        gap:var(--primary-nav-padding-x);
+
+        font-size: var(--font-size-lg);
+        
+        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+
+        border-top: var(--border-width) var(--border-style) var(--border-color);
+
+        .link-kids {
+            margin-inline-start: auto;
+        }
+    }
+
+    > [class*="__menu"] {
+        @extend .collapse;
+    }
+
+    > [class*="__search"] {
+        @extend .collapse;
+        grid-area: search;
+
+        border-top: var(--border-width) var(--border-style) var(--border-color);
+        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+    }
+
+    [class*="__menu__secondary"] {
+        gap: var(--primary-nav-padding-x);
+
+        align-items: stretch;
+
+        padding-block: var(--primary-nav-padding-y);
+        padding-inline: var(--primary-nav-padding-x);
+
+        > ul {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .form-entry {
+            font-family: var(--button-font-family);
+            min-width: 180px;
+        }
+
+        .link-kids {
+           display: none;
+        }
+    }
+
+    grid-template-areas:
+        "logo"
+        "mobile-bar"
+        "menu"
+        "search";
+
+    @media screen and (max-width: 1024px) {
+
+        > [class*="__menu"] {
+            border-top: var(--border-width) var(--border-style) var(--border-color);
+        }
+
+        [class*="__menu__primary"] {
+
+            > ul {
+                display: grid;
+
+                > li {
+                    border-top: var(--border-width) var(--border-style) var(--border-color);
+                }
+
+                > li > a,
+                > li > button {
+                    display: flex;
+                    width: 100%;
+                    padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+                }
+
+                > li > button {
+                    justify-content: space-between;
+                }
+
+                > li > [class*="__dropdown"] {
+                    padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+                }
+            }
+        }
+
+        .desktop-button-donate,
+        .desktop-button-search {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+
+        > [class*="__mobile-bar"] {
+            display: none;
+        }
+
+        > [class*="__menu"] {
+            display: grid;
+            grid-template-rows: auto 1fr;
+        }
+
+        [class*="__menu__primary"],
+        [class*="__menu__secondary"] {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+        
+        [class*="__menu__primary"] {
+            display: flex;
+
+            > ul {
+                height: 100%;
+            }
+
+            > ul {
+                display: flex;
+                align-items: stretch;
+
+                > li {
+                    display: flex;
+
+                    margin-inline-start: var(--nav-gap);
+                    margin-inline-end: var(--nav-gap);
+                    margin-bottom: 0 !important;
+                }
+
+                > li > .nav__dropdown {
+                    position: absolute;
+
+                    min-width: 200px;
+                    padding: var(--nav-gap);
+                    margin-inline-start: calc(var(--nav-gap) * -1);
+                    margin-inline-end: calc(var(--nav-gap) * -1);
+                }
+
+                > li > a {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                }
+            }
+
+        }
+
+        .desktop-button-donate {
+            display: flex;
+            align-items: stretch;
+
+
+
+
+            a {
+            display: flex;
+            align-items: center;
+            height: 100%;
+
+
+            padding-block: unset;
+            
+            }
+        }
+
+        grid-template-columns: auto 1fr;
+
+        grid-template-areas:
+            "logo menu"
+            "search search";
+    }
 }
