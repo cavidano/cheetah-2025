@@ -16,7 +16,7 @@ let scrollPosition = 0;
 let rootElement = document.querySelector('html');
 let lastFocusedElement;
 
-export const handleOverlayOpen = (element) => {
+export const handleOverlayOpen = (element = rootElement) => {
 
     lastFocusedElement = document.activeElement;
 

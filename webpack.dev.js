@@ -24,6 +24,7 @@ const devPages = {
     'CustomLayouts': 'custom-layouts',
     'Footer': 'footer',
     'Form': 'form',
+    'GlobalNav': 'global-nav',
     'Grid': 'grid',
     'Lightbox': 'lightbox',
     'Modal': 'modal',
@@ -36,7 +37,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Navigation}.html`;
+const devPage = `${devPages.GlobalNav}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

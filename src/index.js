@@ -18,6 +18,7 @@ import Modal from './js/modal';
 import Navigation from './js/navigation';
 import Table from './js/table';
 import Tab from './js/tab';
+import OverlayController from './js/menus';
 
 //////////////////////////////////////////////
 // C. Class Instantiation
@@ -60,5 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const tab = new Tab();
   tab.init();
+
+  const overlayController = new OverlayController();
 
 });
