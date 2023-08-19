@@ -9,6 +9,7 @@ export default class Collapse {
   // Private methods
   
   #handleCollapseClose(button, target) {
+    console.log('handleCollapseClose', button, target);
     button.setAttribute('aria-expanded', false);
     target.classList.remove('shown');
   }
@@ -63,11 +64,40 @@ export default class Collapse {
 
   init() {
 
+     window.addEventListener('click', (event) => {
+
+      event.stopPropagation();
+      
+      this.#collapseButtonList.forEach((collapseButton) => {
+          const closeTargetID = collapseButton.getAttribute('data-target-toggle').replace(/#/, '');
+          const closeTarget = document.getElementById(closeTargetID);
+          const closeTargetButton = document.querySelector(`[data-target-toggle="#${closeTargetID}"]`);
+
+          const clickedInsideButton = collapseButton.contains(event.target);
+          const clickedInsideTarget = closeTarget.contains(event.target);
+
+          // Check if target has 'data-close-outside' attribute
+          const hasCloseOutsideAttr = closeTarget.hasAttribute('data-close-outside');
+
+          console.log(
+            'target = ', closeTarget,
+            'hasCloseOutsideAttr = ', hasCloseOutsideAttr, 
+            'clickedInsideButton = ', clickedInsideButton, 
+            'clickedInsideTarget = ', clickedInsideTarget);
+          
+
+          if (hasCloseOutsideAttr && !clickedInsideButton && !clickedInsideTarget && closeTarget.classList.contains('shown')) {
+            this.#handleCollapseClose(closeTargetButton, closeTarget);
+          }
+      });
+      });
+
     this.#collapseButtonList.forEach((collapseButton) => {
 
       collapseButton.setAttribute('aria-expanded', false);
 
       collapseButton.addEventListener('click', (event) => {
+        event.stopPropagation();
       
         this.#toggleCollapse(event, collapseButton);
 
