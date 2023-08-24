@@ -259,46 +259,52 @@ In this file:
 
 .global-header {
     display: grid;
+    position: relative;
 
-    
+    z-index: 10000;
+
+    ul {
+        @extend %list-style-nav;
+    }
+
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
-        "logo logo logo logo"
-        "toggle-menu toggle-search kids donate"
-        "menu menu menu menu"
-        "search search search search";
+        "logo logo"
+        "toggles actions"
+        "menu menu"
+        "search search";
 
     > * {
+        // outline: var(--border-width) var(--border-style) blue;
         display: flex;
         align-items: center;
         justify-content: center;
-        // padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
-
-        outline: var(--border-width) var(--border-style) blue;
-
     }
-}
-
-.global-header__toggle-menu {
-    grid-area: toggle-menu;
-}
-
-.global-header__toggle-search {
-    grid-area: toggle-search;
 }
 
 .global-header__logo {
     grid-area: logo;
+    padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+}
+
+.global-header__toggles {
+    justify-content: flex-start;
+    gap: var(--primary-nav-padding-x);
+    grid-area: toggles;
+    padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
 }
 
 .global-header__actions {
-    grid-area: donate;
-}
-
-.global-header__donate {
-    grid-area: donate;
+    justify-content: flex-end;
+    gap: var(--primary-nav-padding-x);
+    grid-area: actions;
+    padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
 }
 
 .global-header__menu {
+flex-direction: column;
+align-items: unset;
+    // padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
     grid-area: menu;
 }
 
@@ -306,39 +312,77 @@ In this file:
     grid-area: search;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (max-width: 768px) {
+    .global-header__logo {
+        border-bottom: var(--border-width) var(--border-style) var(--border-color);
+    }
+}
+
+@media screen and (max-width: 1024px) {
+
+    [class*="__menu__primary"] {
+
+    background-color: aqua;
+
+        > ul {
+            display: grid;
+
+            > li {
+                border-top: var(--border-width) var(--border-style) var(--border-color);
+            }
+
+            > li > a,
+            > li > button {
+                display: flex;
+                width: 100%;
+                padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+            }
+
+            > li > button {
+                justify-content: space-between;
+            }
+
+            > li > [class*="__dropdown"] {
+                padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+    .global-header__menu {
+        border-top: var(--border-width) var(--border-style) var(--border-color);
+    }
+
+}
+
+@media screen and (min-width: 768px) {
 
     .global-header {
+        grid-template-columns: 1fr 1fr 1fr;
     
         grid-template-areas:
-            "toggle-menu toggle-search logo kids donate"
-            "menu menu menu menu menu"
-            "search search search search search";
+            "toggles logo actions"
+            "menu menu menu"
+            "search search search";
     }
 }
 
 @media screen and (min-width: 1024px) {
 
     .global-header {
-    background-color: aquamarine;
-    gap: 0;
-    
         grid-template-columns: auto 1fr auto auto;
-
-  grid-auto-flow: row;
         grid-auto-columns: minmax(10px, auto);
 
-        align-items: stretch;
-
-        
         grid-template-areas:
-            "logo . kids kids toggle-search"
-            "logo menu menu menu menu"
-            "search search search search search";
+            "logo actions toggles"
+            "logo menu menu"
+            "search search search";
     }
 
-    .global-header__toggle-menu,
-    .global-header__donate {
+    .mobile-menu-toggle,
+    .link-donate {
         display: none;
     }
 
