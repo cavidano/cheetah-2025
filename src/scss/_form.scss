@@ -251,7 +251,7 @@ In this file:
     }
 
     .form-entry__field__label {
-        font-weight: var(--body-font-weight-bold);
+        font-weight: var(--font-weight-bold);
 
         padding-inline: var(--form-field-padding-x);
     }
@@ -300,10 +300,7 @@ In this file:
         &::after {
             position: absolute;
             content: "";
-            inset-block-start: 0;
-            inset-inline-end: 0;
-            inset-block-end: 0;
-            inset-inline-start: 0;
+            inset: 0;
 
             border-radius: inherit;
 
@@ -330,7 +327,7 @@ In this file:
             flex-shrink: 0;
         }
 
-        > .button {
+        > .button:not([class*='--icon-only']) {
             --button-padding-y: 0;
             --button-border-radius: 0;
 
@@ -340,7 +337,11 @@ In this file:
         }
 
         > .icon {
-            margin-inline-start: var(--form-field-padding-x);
+            margin-inline: calc(var(--form-field-padding-x) * 0.5);
+        }
+
+        > .icon + input {
+            padding-inline-start: unset;
         }
 
         > .button-group {
@@ -603,6 +604,14 @@ In this file:
     }
 
     // Shared Focus and Checked States
+    
+    .form-entry__option__check {
+        --focus-border-radius: calc( var(--form-field-border-radius) * 0.5);
+    }
+    
+    .form-entry__option__radio {
+        --focus-border-radius: 100%;
+    }
 
     [class*="form-entry__option__"] > label > input {
 
@@ -610,10 +619,20 @@ In this file:
             text-decoration: underline;
 
             &::before {
-                opacity: 0.75;
+                opacity: 1;
             }
+
         }
 
+        &:focus-visible ~ .option__label {
+        
+            &::before {
+                outline: var(--focus-outline-size) solid var(--link-color);
+                border-radius: var(--focus-border-radius);
+            }
+        
+        }
+        
         &:checked ~ .option__label {
             &::before {
                 opacity: 1;

@@ -4,16 +4,11 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Font Weight Utilities
-// D. Font Size Utilities
-// E. Headings
-// F. Banner Headline Utility
-// G. Body Selectors
-// H. Text Align Utilities
-// I. Text Transform Utilities
-// J. Text Decoration Utilities
-// K. Word Wrap Utilities
-// L. Truncate Text Utility
+// C. Base Selectors
+// D. Font Size and Font Weight Utilities
+// E. Heading Sizes and Utilities
+// F. Text Utilities
+// G. Blockquote Utility
 
 */
 
@@ -40,13 +35,15 @@ In this file:
 
     --header-font-family: var(--body-font-family);
     
-    --body-font-weight-normal: 400;
-    --body-font-weight-medium: 600;
-    --body-font-weight-bold: 700;
+    --font-weight-normal: 400;
+    --font-weight-medium: 600;
+    --font-weight-bold: 700;
+
+    --header-font-weight: var(--font-weight-bold);
 
     // Base Font Size and Type Scale
 
-    --base-font-size: 0.9rem; // Smallest Font Size
+    --base-font-size: 1rem; // Smallest Font Size
 
     --type-scale: 1.2; // Minor Third
 
@@ -70,19 +67,25 @@ In this file:
 
     --banner-headline-font-size: calc(var(--h1-font-size) * var(--type-scale));
 
-    --banner-headline-font-weight: var(--body-font-weight-normal);
+    --banner-headline-font-weight: var(--font-weight-normal);
 
     // Line Heights
 
     --body-line-height: 1.5;
 
-    --header-line-height: 1.125;
+    --header-line-height: 1.175;
 
     // Margin
 
     --paragraph-margin-bottom: 1.25em;
     
     --header-margin-bottom: 0.25em;
+
+    // Blockquote
+
+    --blockquote-border-width: var(--border-width);
+    --blockquote-border-color: currentColor;
+    --blockquot-font-size: 1.25em; 
 }
 
 //////////////////////////////////////////////
@@ -96,7 +99,7 @@ In this file:
 
         font-size: var(--font-size-rg);
         
-        font-weight: var(--body-font-weight-normal);
+        font-weight: var(--font-weight-normal);
         
         line-height: var(--body-line-height);
     }
@@ -104,7 +107,7 @@ In this file:
     p, 
     p ~ ul:not([class]),
     p ~ ol:not([class]) {
-        &:not(:last-child){
+        &:not(:last-child) {
             margin-block-end: var(--paragraph-margin-bottom);
         }
     }
@@ -157,7 +160,19 @@ In this file:
     }
 
     blockquote {
-        margin-block-end: var(--paragraph-margin-bottom);
+        &:not(:last-child){
+            margin-block-end: var(--paragraph-margin-bottom);
+        }
+
+        footer {
+            font-size: 0.875em;
+            font-style: normal;
+            margin-block-start: 0.5em;
+        }
+
+        cite {
+            font-style: italic;
+        }
     }
 
     :is(
@@ -169,13 +184,32 @@ In this file:
         h6, .h6 
     ) {
         font-family: var(--header-font-family);
-        font-weight: var(--body-font-weight-bold);
+        font-weight: var(--header-font-weight);
+        
         line-height: var(--header-line-height);
 
         &:not(.accordion__button):not(.alert__title):not(:last-child){
             margin-block-end: var(--header-margin-bottom);
         }
     }
+
+    sub, 
+    sup {
+        font-size: 75%;
+
+        line-height: inherit;
+        
+        margin-inline-start: 0.125em;
+    }
+
+    sub {
+        vertical-align: sub;
+    }
+
+    sup {
+        vertical-align: super;
+    }
+
 } // end @layer
 
 //////////////////////////////////////////////
@@ -225,9 +259,9 @@ In this file:
     // Font Weight
 
     $font-weights: (
-        normal: var(--body-font-weight-normal),
-        medium: var(--body-font-weight-medium),
-        bold: var(--body-font-weight-bold),
+        normal: var(--font-weight-normal),
+        medium: var(--font-weight-medium),
+        bold: var(--font-weight-bold),
     );
 
     @each $key, $value in $font-weights {
@@ -298,6 +332,25 @@ $headers: (
         font-size: var(--banner-headline-font-size);
 
         line-height: var(--header-line-height);
+    }
+
+    .blockquote {
+        --border-width: var(--blockquote-border-width);
+        --border-color: var(--blockquote-border-color);
+    
+        font-size: var(--blockquot-font-size);
+
+        padding-inline-start: 1.25em;
+
+        border-inline-start: 
+            var(--border-width)
+            var(--border-style)
+            var(--border-color);
+
+        p {
+            margin-block-end: 0.5em;
+        }
+
     }
 
 } // end @layer
@@ -373,6 +426,33 @@ $headers: (
             }
 
         }
+    }
+
+} // end @layer
+
+//////////////////////////////////////////////
+// G. Blockquote Utility
+//////////////////////////////////////////////
+
+@layer utility {
+
+    .blockquote {
+        --border-width: var(--blockquote-border-width);
+        --border-color: var(--blockquote-border-color);
+    
+        font-size: var(--blockquot-font-size);
+
+        padding-inline-start: 1.25em;
+
+        border-inline-start: 
+            var(--border-width)
+            var(--border-style)
+            var(--border-color);
+
+        p {
+            margin-block-end: 0.5em;
+        }
+
     }
 
 } // end @layer

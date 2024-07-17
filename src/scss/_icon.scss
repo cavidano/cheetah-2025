@@ -13,7 +13,7 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-  --icon-size: 1.25em;
+  --icon-size: 1.3333em;
   
   --icon-font-family: 'natura11y-icons';
 }
@@ -36,6 +36,8 @@ In this file:
     position: relative;
 
     pointer-events: none;
+
+    // background-color: red;
   }
 
   span.icon {
@@ -87,7 +89,7 @@ In this file:
 
   .icon-loading {
     &.icon--rotate {
-      animation: rotate360 0.5s linear infinite;
+      animation: rotate360 0.25s linear infinite;
     }
   }
 

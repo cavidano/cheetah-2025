@@ -3,7 +3,6 @@ import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 export default class Modal {
 
   // Private properties
-
   #modalList = document.querySelectorAll('.modal');
   #modalButtonList = document.querySelectorAll('[data-modal-open]');
   #outsideClickHandlers = new Map();
@@ -23,10 +22,14 @@ export default class Modal {
     }
   }
 
+  #handleModalClose = (modalTarget) => {
+    handleOverlayClose(modalTarget);
+    this.#removeOutsideClickHandler(modalTarget);
+  }
+
   // Public methods
 
   openModal(modalTarget) {
-
     if (!modalTarget) {
       console.warn('Modal target not found.');
       return;
@@ -48,18 +51,13 @@ export default class Modal {
     const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
     
     const handleCloseOutside = (event) => {
-      let modalContentClick = modalContent.contains(event.target);
-      if (!modalContentClick) {
-        handleOverlayClose(modalTarget);
-        this.#removeOutsideClickHandler(modalTarget);
+      if (!modalContent.contains(event.target)) {
+        this.#handleModalClose(modalTarget);
       }
     }
 
     modalCloseList.forEach((modalClose) => {
-      modalClose.addEventListener('click', () => {
-        handleOverlayClose(modalTarget);
-        this.#removeOutsideClickHandler(modalTarget);
-      });
+      modalClose.addEventListener('click', () => this.#handleModalClose(modalTarget));
       modalClose.setAttribute('aria-label', 'Close Modal Window');
     });
 
@@ -69,7 +67,6 @@ export default class Modal {
   }
 
   init() {
-
     this.#modalList.forEach((modal) => {
       const modalContainer = modal.querySelector('.modal__content');
       modalContainer.setAttribute('role', 'dialog');
@@ -85,6 +82,5 @@ export default class Modal {
         event.stopPropagation();
       });
     });
-    
   }
 }

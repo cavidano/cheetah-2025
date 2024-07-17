@@ -20,14 +20,14 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --spacer-base: 1rem;
+    --spacer-base: 1rem; // 16px
 
-    --spacer-1: calc(var(--spacer-base) * 0.5);
-    --spacer-2: calc(var(--spacer-base) * 1);
-    --spacer-3: calc(var(--spacer-base) * 1.5);
-    --spacer-4: calc(var(--spacer-base) * 2.5);
-    --spacer-5: calc(var(--spacer-base) * 4);
-    --spacer-6: calc(var(--spacer-base) * 6.5);
+    --spacer-1: calc(var(--spacer-base) * 0.5);     // 8px
+    --spacer-2: calc(var(--spacer-base) * 1);       // 16px
+    --spacer-3: calc(var(--spacer-base) * 1.5);     // 24px
+    --spacer-4: calc(var(--spacer-base) * 2.5);     // 40px
+    --spacer-5: calc(var(--spacer-base) * 4);       // 64px
+    --spacer-6: calc(var(--spacer-base) * 6.5);     // 104px
 }
 
 $spacers: (

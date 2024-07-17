@@ -29,7 +29,7 @@ In this file:
     a[data-logo="brand"] {
         display: inline-block;
 
-        &:focus {
+        &:focus-visible {
             opacity: 0.85;
         }
 
@@ -47,16 +47,45 @@ In this file:
 
 @layer utility {
 
-    .expanded-link {
+    // Link with Icon
+
+    .link {
+        font-weight: var(--button-font-weight);
+        
+        &:not([class*="text-color-"]) {
+            color: var(--link-color);
+        }
+    }
+
+    // Has Icon Modifiers
+
+    [class*="link--has-icon"] {
+        --icon-size: 1em;
+
+        display: inline-flex;
+        align-items: center;
+
+        gap: 0.5em;
+
+        &:hover,
+        &:focus {
+            [class*="__text"] {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    // Link Expanded  
+
+    .link-expanded {
         &::before {
             position: absolute;
             content: "";
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            
+            inset: 0;
             
             z-index: 1;
+
             pointer-events: auto;
         }
     }

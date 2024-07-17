@@ -28,16 +28,15 @@ In this file:
 
 %hover-focus {
 
-    &:hover,
-    &:focus {
-        &:not(
-            [aria-disabled="true"],
-            [class*="icon"],
-            [class*="nav--has-icons"] > li > *,
-            p > a
-        ) {
-            text-decoration: underline;
-        }
+    &:is(:hover, :focus):not(
+        p > a,
+        [aria-disabled="true"],
+        [class*="icon"],
+        [class*="backdrop"],
+        [class*="no-hover-focus"],
+        [class*="nav--has-icons"] > li > *
+    ) {
+        text-decoration: underline;
     }
 
     &:not([class*="button--icon-over-text"]):focus-visible {
@@ -106,7 +105,7 @@ In this file:
 
     .focusable-only {
 
-        &:not(:focus) {
+        &:not(:focus) { 
             @extend .screen-reader-only;
         }
 
@@ -123,7 +122,52 @@ In this file:
         
         box-shadow: 0 0 0.25rem currentColor;
         
-        z-index: 12000;
+        z-index: 25000;
+    }
+
+    // Skip Links Utility
+
+    .skip-links {
+
+        a {
+            @extend.focusable-only;
+
+            position: fixed;
+
+            inset-block-start: 0;
+            inset-inline-start: 0;
+
+            color: var(--link-color);
+
+            font-weight: var(--font-weight-bold);
+            margin: var(--spacer-2);
+
+            border-radius: var(--button-border-radius);
+            overflow: hidden;
+
+            &:is(::before, ::after) {
+                content: "";
+                inset: 0;
+            }
+            
+            &::before {
+                position: absolute;
+                z-index: -1;
+
+                background-color: var(--background-color);
+            }
+
+            &::after {
+                position: fixed;
+                z-index: -2;
+
+                background-color: rgba(0, 0, 0, 0.5);
+                
+                pointer-events: none;
+            }
+        
+        }
+        
     }
 
 } // end @layer

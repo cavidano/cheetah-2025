@@ -14,7 +14,7 @@ In this file:
 ////////////////////////////////////////
 
 @use 'sass:map';
-@use './breakpoint';
+@use './breakpoint' as breakpoint;
 
 ////////////////////////////////////////
 // B. Variables
@@ -43,10 +43,7 @@ In this file:
     &::after {
         position: absolute;
         content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;   
+        inset: 0;
 
         border-radius: inherit;
 
@@ -121,12 +118,9 @@ In this file:
         &::after {        
             position: absolute;
             content: "";
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+            inset: 0;
 
-            background-image: linear-gradient( var(--gradient-direction), hsla(0, 0%, 100%, 0) var(--gradient-veneer-start), var(--gradient-color) );
+            background-image: linear-gradient( var(--gradient-direction), hsla(0, 0%, 100%, 0) var(--gradient-veneer-start), var(--gradient-color));
             background-clip: border-box;
 
             opacity: var(--gradient-veneer-opacity);

@@ -145,6 +145,7 @@ $theme-colors: (
             td > a, 
             .td-content > a,
             p > a:not([class*="text-color"]),
+            .skip-link > a,
             .text-color-link 
         ) {
             color: var(--link-color);

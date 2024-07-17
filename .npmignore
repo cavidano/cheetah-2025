@@ -1,6 +1,7 @@
 #.npmignore
 
 #Folders
+_site
 node_modules
 dist/html
 .vscode

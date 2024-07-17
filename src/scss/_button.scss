@@ -19,13 +19,13 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --button-padding-x: 1em;
+    --button-padding-x: 1.5em;
 
     --button-padding-y: 0.75em;
 
     --button-font-family: var(--body-font-family);
 
-    --button-font-weight: var(--body-font-weight-bold);
+    --button-font-weight: var(--font-weight-bold);
     
     --button-text-transform: initial;
     
@@ -84,7 +84,7 @@ In this file:
         display: inline-block;
         
         vertical-align: middle;
-        
+
         line-height: normal;
         
         text-align: center;
@@ -145,16 +145,12 @@ In this file:
         justify-content: center;
         align-items: center;
 
+        gap: 0.5em;
+
         &:hover,
         &:focus {
-            .button__text {
+            [class*="__text"] {
                 text-decoration: underline;
-            }
-        }
-
-        &:not([class*="--disperse"]) {
-            .button__text {
-                margin-inline: 0.5em;
             }
         }
     }
@@ -169,7 +165,6 @@ In this file:
     .button--icon-only {
         display: inline-flex;
         flex-shrink: 0;
-
         align-items: center;
         justify-content: center;
 
@@ -179,8 +174,6 @@ In this file:
         aspect-ratio: 1;
 
         [class*="icon-"] {
-            --icon-size: 1.25em;
-
             display: flex;
         }
     }
@@ -246,7 +239,7 @@ In this file:
 
     }
 
-    // Button Icon Label Modifier
+    // Button Icon Over Text Modifier
 
     .button--icon-over-text {
         --font-size-sm: 0.75rem;
@@ -261,17 +254,19 @@ In this file:
 
         width: var(--button-icon-over-text-width);
 
-        span.icon {
+        [class*="__icon"] {
             display: flex;
+
             align-items: center;
+            
             justify-content: center;
 
             margin-inline: auto;
 
+            aspect-ratio: 1;
+
             width: var(--button-icon-only-size);
             height: var(--button-icon-only-size);
-
-            aspect-ratio: 1;
 
             border-radius: var(--button-icon-over-text-border-radius);
 
@@ -283,7 +278,7 @@ In this file:
 
             font-size: var(--button-icon-over-text-font-size);
 
-            font-weight: var(--body-font-weight-bold);
+            font-weight: var(--font-weight-bold);
         }
 
         &:focus-visible {
@@ -294,6 +289,15 @@ In this file:
                 outline-offset: var(--focus-outline-offset);
             }
         }
+
+        &:hover,
+        &:focus {
+            [class*="__text"] {
+                text-decoration: underline;
+            }
+        }
+
+        
     }
 
     // Button Group

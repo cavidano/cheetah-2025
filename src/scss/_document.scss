@@ -105,12 +105,11 @@ In this file:
     html {
         @extend .theme-canvas !optional;
 
-
         font-size: 1rem;
         line-height: 1.125;
 
         text-size-adjust: 100%;
-        
+
         scroll-behavior: var(--html-scroll-behavior);
     }
 

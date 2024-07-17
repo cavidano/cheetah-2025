@@ -1,22 +1,21 @@
 export default class AlertDismissable {
 
   // Private properties
-  
+
   #alertDismissableList = document.querySelectorAll('.alert--dismissable');
 
   #closeButtonHTML = `
-    <button class="button button--icon-only">
-        <span class="icon icon-close" aria-label="Close" aria-hidden="true">
+    <button class="button button--icon-only" aria-label="Close alert" aria-describedby="alert-description">
+        <span class="icon icon-close" aria-hidden="true"></span>
     </button>
   `;
 
   // Private methods
-
+  
   #handleAlertClose = (alertDismissable) => {
     return (event) => {
-
       event.preventDefault();
-    
+      
       alertDismissable.classList.add('dismissed');
 
       const dismissed = document.querySelector('.dismissed');
@@ -28,18 +27,17 @@ export default class AlertDismissable {
   }
 
   // Public methods
-
   init() {
-    
     this.#alertDismissableList.forEach((alertDismissable) => {
-          
-        alertDismissable.insertAdjacentHTML('afterbegin', this.#closeButtonHTML);
+      alertDismissable.insertAdjacentHTML('afterbegin', this.#closeButtonHTML);
 
-        const alertCloseButton = alertDismissable.querySelector('button');
+      // Add aria-live attribute for accessibility
+      alertDismissable.setAttribute('role', 'alert');
+      alertDismissable.setAttribute('aria-live', 'assertive');
+      alertDismissable.setAttribute('aria-atomic', 'true');
 
-        alertCloseButton.addEventListener('click', this.#handleAlertClose(alertDismissable));
-
+      const alertCloseButton = alertDismissable.querySelector('button');
+      alertCloseButton.addEventListener('click', this.#handleAlertClose(alertDismissable));
     });
-    
   }
 }

@@ -1,3 +1,4 @@
+
 /*
 
 In this file:
@@ -25,7 +26,14 @@ In this file:
     
     --border-style: solid;
 
-    --border-radius: 0.25em;
+    --border-radius-base: 1rem; // 16px
+
+    --border-radius-0: 0;
+    --border-radius-1: calc(var(--border-radius-base) * 0.25);  // 4px
+    --border-radius-2: calc(var(--border-radius-base) * 0.5);   // 8px
+    --border-radius-3: calc(var(--border-radius-base) * 1);     // 16px
+
+    --border-radius-pill: 9999px; // An exaggerated large number for pill shape
 }
 
 //////////////////////////////////////////////
@@ -68,7 +76,7 @@ In this file:
                 border-inline-start-width: var(--border-width);
                 border-inline-start-style: var(--border-style);
             }
-            
+
         }
     }
 
@@ -107,38 +115,63 @@ In this file:
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
-            .border-radius#{$mod} {
-                border-radius: var(--border-radius);
+            // Iterate over each border-radius size
+            @for $i from 0 through 3 {
+
+                .border-radius-#{$i}#{$mod} {
+                    border-radius: var(--border-radius-#{$i});
+                }
+
+                // Side specific
+
+                .border-radius-top-#{$i}#{$mod} {
+                    border-start-start-radius: var(--border-radius-#{$i});
+                    border-start-end-radius: var(--border-radius-#{$i});
+                }
+
+                .border-radius-right-#{$i}#{$mod} {
+                    border-start-end-radius: var(--border-radius-#{$i});
+                    border-end-end-radius: var(--border-radius-#{$i});
+                }
+
+                .border-radius-bottom-#{$i}#{$mod} {
+                    border-end-end-radius: var(--border-radius-#{$i});
+                    border-end-start-radius: var(--border-radius-#{$i});
+                }
+
+                .border-radius-left-#{$i}#{$mod} {
+                    border-start-start-radius: var(--border-radius-#{$i});
+                    border-end-start-radius: var(--border-radius-#{$i});
+                }
+
+                // Corner specific
+
+                .border-radius-top-left-#{$i}#{$mod} {
+                    border-start-start-radius: var(--border-radius-#{$i});
+                }
+
+                .border-radius-top-right-#{$i}#{$mod} {
+                    border-start-end-radius: var(--border-radius-#{$i});
+                }
+
+                .border-radius-bottom-right-#{$i}#{$mod} {
+                    border-end-end-radius: var(--border-radius-#{$i});
+                }
+                
+                .border-radius-bottom-left-#{$i}#{$mod} {
+                    border-end-start-radius: var(--border-radius-#{$i});
+                }
             }
 
-            .border-radius-top#{$mod} {
-                border-top-left-radius: var(--border-radius);
-                border-top-right-radius: var(--border-radius);
-            }
-
-            .border-radius-right#{$mod} {
-                border-top-right-radius: var(--border-radius);
-                border-bottom-right-radius: var(--border-radius);
-            }
-
-            .border-radius-bottom#{$mod} {
-                border-bottom-right-radius: var(--border-radius);
-                border-bottom-left-radius: var(--border-radius);
-            }
-
-            .border-radius-left#{$mod} {
-                border-top-left-radius: var(--border-radius);
-                border-bottom-left-radius: var(--border-radius);
-            }
-
+            // Special case for pill
             .border-radius-pill#{$mod} {
-                border-radius: 40rem;
+                border-radius: var(--border-radius-pill);
             }
 
+            // Special case for circle
             .border-radius-circle#{$mod} {
                 border-radius: 100%;
             }
-
         }
     }
 

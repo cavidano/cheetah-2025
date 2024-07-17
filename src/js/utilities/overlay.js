@@ -13,11 +13,10 @@ import { focusTrap } from './focus';
 //////////////////////////////////////////////
 
 let scrollPosition = 0;
-let rootElement = document.querySelector('html');
+let rootElement = document.querySelector(':root');
 let lastFocusedElement;
 
-export const handleOverlayOpen = (element = rootElement) => {
-
+export const handleOverlayOpen = (element) => {
     lastFocusedElement = document.activeElement;
 
     scrollPosition = window.scrollY;
@@ -28,13 +27,11 @@ export const handleOverlayOpen = (element = rootElement) => {
 
     if(element && element.getAttribute('aria-hidden') === 'true') {
         element.setAttribute('aria-hidden', false);
+        focusTrap(element);
     }
-
-    focusTrap(element);
 }
 
 export const handleOverlayClose = (element) => {
-
     rootElement.removeAttribute('style');
 
     rootElement.classList.remove('has-overlay');
@@ -43,13 +40,13 @@ export const handleOverlayClose = (element) => {
         rootElement.removeAttribute('class');
     }
 
+    window.scrollTo({ top: scrollPosition, behavior: 'instant' });
+
     if(element && element.getAttribute('aria-hidden') === 'false') {
         element.setAttribute('aria-hidden', true);
     }
 
-    window.scrollTo({ top: scrollPosition, behavior: 'instant' });
-    
-    if(lastFocusedElement) {
+    if (element && lastFocusedElement) {
         lastFocusedElement.focus();
     }
 }

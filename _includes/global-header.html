@@ -1,72 +1,67 @@
-<header class="theme-canvas box-shadow-1 z-index-2500" id="global-header">
+<div class="skip-links">
 
-    <div>
+    <a href="#main">
+        Jump to main content
+    </a>
 
-        <a class="focusable-only" href="#skip-header-target">
-            Jump to main content
-        </a>
-        <a class="focusable-only" href="#global-footer">
-            Jump to webite footer
-        </a>
+    <a href="#global-footer">
+        Jump to website footer
+    </a>
 
-    </div>
+</div>
 
-    <div class="margin-x-auto wide">
+<div class="margin-x-auto wide z-index-2000">
+    
+    <header class="global-header">
 
-        <div class="global-nav">
+        <div class="global-header__logo">
+            <a
+                href="#1"
+                title="Home"
+                data-logo="brand">
+                <img src="./images/cheetah-conservation-fund-logo.svg" alt="Placeholder" />
+            </a>
+        </div>
 
-            <div class="global-nav__logo">
+        <div class="global-header__secondary">
+        
+            <button
+                class="button button--icon-only mobile-menu-toggle"
+                aria-label="Menu"
+                data-toggle="collapse"
+                aria-controls="#main-menu">
+                    <span class="icon icon-menu"></span>
+            </button>
 
-                <a
-                    href="#1"
-                    title="Home"
-                    data-logo="brand">
-                    <img src="./images/cheetah-conservation-fund-logo.svg" alt="Placeholder" />
-                </a>
+            <a href="#" class="button-kids">
+                <img src="./images/ccf-kids-logo.svg" alt="Placeholder" />
+            </a>
 
-            </div>
+            <a href="#" class="button button-donate">
+                Donate
+            </a>
 
-            <div class="global-nav__mobile-bar">
-            
-                <button
-                    class="mobile-menu-toggle button button--icon-only"
-                    data-toggle="collapse"
-                    data-target-toggle="#global-menu"
-                    data-target-close="#search">
-                        <span class="icon icon-menu"></span>
-                </button>
+            <div class="grid global-header__search-language">
+        
+                <div class="global-header__search">
+                    <div class="form-entry" aria-label="Search">
+                        <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <input type="text" name="global-search" />
+                                <button class="button">
+                                    Search
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-                <button
-                    class="mobile-menu-toggle button button--icon-only"
-                    data-toggle="collapse"
-                    data-target-toggle="#search"
-                    data-target-close="#global-menu">
-                        <span class="icon icon-search"></span>
-                </button>
-            
-                <a class="link-kids" href="#1">
-                    <img src="./images/ccf-kids-logo.svg" alt="" />
-                </a>
-
-                <a class="button theme-primary" href="#1">
-                    Donate
-                </a>
-
-            </div>
-
-            <div class="global-nav__menu" id="global-menu" aria-label="Main Menu">
-
-                <div class="global-nav__menu__secondary">
-
-                    <a class="link-kids" href="#1">
-                        <img src="./images/ccf-kids-logo.svg" alt="" />
-                    </a>
-                
-                    <div class="form-entry font-size-sm">
+                <div class="global-header__language">
+                    <div class="form-entry">
 
                         <label class="form-entry__field">
 
-                            <span class="screen-reader-only">
+                            <span class="form-entry__field__label screen-reader-only">
                                 Form Entry Label
                             </span>
 
@@ -75,7 +70,7 @@
                                     id="select-example"
                                     name="selectExample"
                                     aria-describedby="help-select-example">
-                                        <option value="">English</option>
+                                        <option value="">Language</option>
                                         <option value="Option One">Option One</option>
                                         <option value="Option Two">Option Two</option>
                                         <option value="Option Three">Option Three</option>
@@ -87,151 +82,230 @@
                         </label>
 
                     </div>
-
-                    <div class="desktop-button-search font-size-md">
-                        <button class="button button--icon-only"                                
-                            class="mobile-menu-toggle button button--icon-only"
-                            data-toggle="collapse"
-                            data-target-toggle="#search"
-                            data-target-close="#global-menu">
-                            <span class="icon icon-search" aria-hidden="true"></span>
-                        </button>
-                    </div>
-
                 </div>
-
-                <nav class="global-nav__menu__primary">                            
-                    <ul>
-                        <li>
-                            <button data-toggle="dropdown">
-                                About Us
-                            </button>
-                            <ul class="nav__dropdown box-shadow-1--lg">
-                                <li>
-                                    <a href="#1">
-                                        Conservation
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#1">
-                                        Malesuada
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#1">
-                                        Viverra
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <button data-toggle="dropdown">
-                                Get Involved
-                            </button>
-                            
-                            <ul class="nav__dropdown box-shadow-1--lg">
-                                <li>
-                                    <a href="#1">
-                                        Ways to Give
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#1">
-                                        CCF Events
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#1">
-                                        Volunteer
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#1">
-                                        Visit CCF
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#1">
-                                        Corporate Giving
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#1">
-                                Learn
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#1">
-                                News
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#1">
-                                Shop
-                            </a>
-                        </li>
-                        <li class="desktop-button-donate">                                        
-                            <a class="button theme-primary" href="#1">
-                                Donate
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
 
             </div>
 
-            <form 
-                class="global-nav__search"
-                id="search"
-                role="search"
-                data-focus-first
-                data-close-outside>
+        </div>
+        
+        <div class="global-header__primary" id="main-menu">
 
-                <div class="form-entry" aria-label="Search">
-                    <div class="form-entry__field">
-                        <span class="form-entry__field__input">
-                        <span class="icon icon-search"></span>
-                            <input type="text" name="global-search">
-                            <button class="button font-size-sm">
-                                Search
-                            </button>
-                        </span>
+            <div class="grid global-header__search-language">
+            
+                <div class="global-header__search">
+                    <div class="form-entry" aria-label="Search">
+                        <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <input type="text" name="global-search" />
+                                <button class="button">
+                                    Search
+                                </button>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-            </form>
+                <div class="global-header__language">
+                    <div class="form-entry">
+
+                        <label class="form-entry__field">
+
+                            <span class="form-entry__field__label screen-reader-only">
+                                Form Entry Label
+                            </span>
+
+                            <span class="form-entry__field__select">
+                                <select
+                                    id="select-example"
+                                    name="selectExample"
+                                    aria-describedby="help-select-example"
+                                >
+                                    <option value="">Language</option>
+                                    <option value="Option One">Option One</option>
+                                    <option value="Option Two">Option Two</option>
+                                    <option value="Option Three">Option Three</option>
+                                    <option value="Option Four">Option Four</option>
+                                    <option value="Option Five">Option Five</option>
+                                </select>
+                            </span>
+
+                        </label>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <nav class="global-header__menu">
+            
+                <ul>
+                    <li>
+                        <button
+                            data-toggle="dropdown"
+                            aria-controls="menu-about-us"
+                            data-trigger="hover"
+                        >
+                            About Us
+                        </button>
+                        <div 
+                            class="mega-menu--lg box-shadow-1--lg container padding-y-4"
+                            id="menu-about-us">
+
+                            <div class="grid grid--column-2 grid--column-4--lg gap-4 font-size-md">
+
+                                <nav>
+                                    <p>
+                                        <strong>Orci Sagittis</strong>
+                                    </p>
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="#1">Diam Maecenas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Maecenas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Accumsan</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Diam Maecenas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Maecenas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Accumsan</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <nav>
+                                    <p>
+                                        <strong>Mi Bibendum</strong>
+                                    </p>
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="#1">Arcu Vitae</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Congue</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Egestas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Arcu Vitae</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Congue</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Egestas</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                
+                                <nav>
+                                    <p>
+                                        <strong>Orci Sagittis</strong>
+                                    </p>
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="#1">Diam Maecenas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Maecenas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Accumsan</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Diam Maecenas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Maecenas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Accumsan</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                                <nav>
+                                    <p>
+                                        <strong>Mi Bibendum</strong>
+                                    </p>
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="#1">Arcu Vitae</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Congue</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Egestas</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Arcu Vitae</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Congue</a>
+                                        </li>
+                                        <li>
+                                            <a href="#1">Egestas</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+                    <li>
+                        <button
+                            data-toggle="dropdown"
+                            aria-controls="menu-get-involved"
+                            data-trigger="hover"
+                        >
+                            Get Involved
+                        </button>
+                        <ul
+                            class="nav__dropdown box-shadow-1--lg"
+                            id="menu-get-involved"
+                        >
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#1" id="my-button">Learn</a>
+                    </li>
+                    <li>
+                        <a href="#1">News</a>
+                    </li>
+                    <li>
+                        <a href="#1" id="my-button">Shop</a>
+                    </li>
+                </ul>
+
+                <a href="#" class="button button-donate">
+                    Donate
+                </a>
+
+            </nav>
 
         </div>
-    
-    </div>
+        
+    </header>
 
-	{% if page.title != 'Home' %}
+</div>
 
-    <div class="border-top padding-y-2">
-
-        <div class="container wide">
-
-            <ul class="nav-breadcrumb font-size-sm">
-                <li>
-                    <a href="#1">
-                        <span class="icon icon-home" aria-hidden="true"></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#1">
-                        Pretium
-                    </a>
-                </li>
-                <li class="text-color-secondary">
-                    Suscipit Tellus
-                </li>
-            </ul>
-
-        </div>
-    </div>
-
-    {% endif %}
-
-</header>
+<main>

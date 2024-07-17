@@ -19,7 +19,7 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --article-sidebar-width: 280px;
+    --article-sidebar-width: 300px;
 }
 
 //////////////////////////////////////////////
@@ -67,7 +67,7 @@ In this file:
             grid-template-areas:
                 "header header"
                 "sidebar body"
-                "related related";
+                ". related";
         }
 
         :is(
@@ -76,7 +76,7 @@ In this file:
         ) .article__header .backdrop__cover > * {
             justify-self: stretch;
 
-            margin-inline-start: var(--article-sidebar-width);
+            padding-inline-start: var(--article-sidebar-width);
         }
     }
 
@@ -90,7 +90,8 @@ In this file:
                 "sidebar body related";
 
             .article__header .backdrop__cover > * {
-                margin-inline-end: var(--article-sidebar-width);
+                padding-inline-end: var(--article-sidebar-width);
+                max-width: 100%;
             }
         }
     }
