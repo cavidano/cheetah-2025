@@ -15,7 +15,7 @@ export default class Navigation {
     dropdownMenu.classList.add('shown');
 
     if (dropdownMenu.className.includes('mega-menu')) {
-      handleOverlayOpen();
+      // handleOverlayOpen();
     }
   }
 

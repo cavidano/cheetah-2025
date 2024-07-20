@@ -14,15 +14,18 @@ In this file:
 
 :root {
 
+    --serif: 'Georgia', serif;
+    --sans-serif: 'Roboto', sans-serif;
+
     // Body Font Stack
 
-    --body-font-family: 'Georgia', serif;
+    --body-font-family: var(--serif);
 
     --body-font-weight-normal: 400;
     --body-font-weight-medium: 500;
     --body-font-weight-bold: 700;
 
-    --header-font-family: 'Roboto', sans-serif;
+    --header-font-family: var(--sans-serif);
     
     --base-font-size: 0.875rem; // 16px
 
@@ -30,7 +33,11 @@ In this file:
 
     // --body-line-height: 1.55;
 
-    --nav-font-family: var(--header-font-family);
+    --nav-font-family: var(--sans-serif);
+
+    --form-font-family: var(--sans-serif);
+
+    --nav-font-family:  var(--sans-serif);
 
     // Containers
 

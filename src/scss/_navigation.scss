@@ -41,6 +41,10 @@ In this file:
     --primary-nav-padding-x: var(--container-padding-x);
     
     --primary-nav-padding-y: var(--spacer-2);
+
+    // Font
+
+    --nav-font-family: var(--body-font-family);
 }
 
 ////////////////////////////////////////
@@ -55,6 +59,8 @@ In this file:
     > li:has([class*="nav__dropdown"]) {
         position: relative;
     }
+
+    font-family: var(--nav-font-family);
 
     [aria-current],
     [aria-selected="true"] {

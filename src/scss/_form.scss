@@ -31,7 +31,7 @@ In this file:
     
     --form-field-border-color: currentColor;
 
-    // Icons
+    // Icon
 
     --icon-required: "\f14a";
     
@@ -44,6 +44,10 @@ In this file:
     --icon-radio-checked: "\f137";
     
     --icon-disabled: "\f115";
+
+    // Font
+
+    --form-font-family: var(--body-font-family);
 }
 
 //////////////////////////////////////////////
@@ -203,6 +207,8 @@ In this file:
     // Form Entry Block
 
     .form-entry {
+
+    font-family: var(--form-font-family);
 
         :is(
             select,
