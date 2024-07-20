@@ -28,6 +28,10 @@ In this file:
             "logo"
             "secondary"
             "primary";
+
+            // > * {
+            //     outline: 1px solid red;
+            // }
     }
 
     .global-header__logo {
@@ -180,6 +184,7 @@ In this file:
                 "logo primary";
 
             grid-template-columns: 1fr auto;
+            grid-template-rows: 1fr auto;
         }
 
         .global-header__primary {
@@ -188,12 +193,12 @@ In this file:
             align-items: end;
         }
 
-        .global-header__search-language {
+        .global-header__secondary {
             padding: unset;
         }
 
-        .global-header__secondary {
-            padding-inline: unset;
+        .global-header__search-language {
+            padding: unset;
         }
 
         .global-header__search-language {
