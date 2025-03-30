@@ -1,86 +1,96 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
+import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Modal {
 
-  // Private properties
-  #modalList = document.querySelectorAll('.modal');
-  #modalButtonList = document.querySelectorAll('[data-modal-open]');
-  #outsideClickHandlers = new Map();
+	// Private properties
 
-  // Private methods
+	#outsideClickHandlers = new Map();
+	#escapeKeyHandler = this.#handleEscapeKey.bind(this);
 
+	// Private methods
+	
   #addOutsideClickHandler(modal, handler) {
-    window.addEventListener('click', handler);
-    this.#outsideClickHandlers.set(modal, handler);
-  }
+		const handleDelayedOutsideClick = (event) => {
+			const modalContent = modal.querySelector('.modal__content');
+			if (!modalContent.contains(event.target)) {
+				handler(event);
+			}
+		};
 
-  #removeOutsideClickHandler(modal) {
-    const handler = this.#outsideClickHandlers.get(modal);
-    if (handler) {
-      window.removeEventListener('click', handler);
-      this.#outsideClickHandlers.delete(modal);
-    }
-  }
+		window.addEventListener('pointerdown', handleDelayedOutsideClick);
+		this.#outsideClickHandlers.set(modal, handleDelayedOutsideClick);
+	}
 
-  #handleModalClose = (modalTarget) => {
-    handleOverlayClose(modalTarget);
-    this.#removeOutsideClickHandler(modalTarget);
-  }
+	#removeOutsideClickHandler(modal) {
+		const handler = this.#outsideClickHandlers.get(modal);
+		if (handler) {
+			window.removeEventListener('pointerdown', handler);
+			this.#outsideClickHandlers.delete(modal);
+		}
+	}
 
-  // Public methods
+	#handleEscapeKey(event) {
+		if (event.code === 'Escape') {
+			const openModals = document.querySelectorAll('.modal.shown');
+			openModals.forEach((modal) => this.#handleModalClose(modal));
+		}
+	}
 
-  openModal(modalTarget) {
-    if (!modalTarget) {
-      console.warn('Modal target not found.');
-      return;
-    }
+	#handleModalClose(modalTarget) {
+		modalTarget.classList.remove('shown');
+		
+		handleOverlayClose(modalTarget);
+		this.#removeOutsideClickHandler(modalTarget);
 
-    handleOverlayOpen(modalTarget);
-    
-    const modalContent = modalTarget.querySelector('.modal__content');
-    
-    if (!modalContent) {
-      console.warn('Modal content not found.');
-      return;
-    }
+		window.removeEventListener('keydown', this.#escapeKeyHandler);
+	}
 
-    if (modalTarget.classList.contains('modal--scroll-all')) {
-      modalTarget.scrollTop = 0;
-    }
+	// Public methods
 
-    const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
-    
-    const handleCloseOutside = (event) => {
-      if (!modalContent.contains(event.target)) {
-        this.#handleModalClose(modalTarget);
-      }
-    }
+	openModal(modalTarget) {
 
-    modalCloseList.forEach((modalClose) => {
-      modalClose.addEventListener('click', () => this.#handleModalClose(modalTarget));
-      modalClose.setAttribute('aria-label', 'Close Modal Window');
-    });
+		if (!modalTarget) {
+			console.warn('Modal target not found.');
+			return;
+		}
 
-    if (modalTarget.dataset.modalCloseOutside === 'true') {
-      this.#addOutsideClickHandler(modalTarget, handleCloseOutside);
-    }
-  }
+		modalTarget.classList.add('shown');
+		modalTarget.focus();
 
-  init() {
-    this.#modalList.forEach((modal) => {
-      const modalContainer = modal.querySelector('.modal__content');
-      modalContainer.setAttribute('role', 'dialog');
-      modalContainer.setAttribute('aria-modal', true);
-      modal.setAttribute('aria-hidden', true);
-    });
+		const modalContent = modalTarget.querySelector('.modal__content');
 
-    this.#modalButtonList.forEach((modalButton) => {
-      modalButton.addEventListener('click', (event) => {
-        const modalTargetID = event.target.getAttribute('data-modal-open').replace(/#/, '');
-        const modalTarget = document.getElementById(modalTargetID)
-        this.openModal(modalTarget);
-        event.stopPropagation();
-      });
-    });
-  }
+		if (!modalContent) {
+			console.warn('Modal content not found.');
+			return;
+		}
+
+		handleOverlayOpen(modalContent);
+
+		if (modalTarget.classList.contains('modal--scroll-all')) {
+			modalTarget.scrollTop = 0;
+		}
+
+		const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
+
+		modalCloseList.forEach((modalClose) => {
+			modalClose.addEventListener('click', () => this.#handleModalClose(modalTarget));
+			modalClose.setAttribute('aria-label', 'Close Modal Window');
+		});
+
+		if (modalTarget.dataset.modalCloseOutside === 'true') {
+			const handleCloseOutside = () => this.#handleModalClose(modalTarget);
+			this.#addOutsideClickHandler(modalTarget, handleCloseOutside);
+		}
+
+		window.addEventListener('keydown', this.#escapeKeyHandler);
+	}
+
+	init() {
+		delegateEvent(document, 'click', '[data-modal="open"]', (event) => {
+			const modalTargetID = event.target.getAttribute('aria-controls')?.replace(/^#/, '');
+			const modalTarget = document.getElementById(modalTargetID);
+			this.openModal(modalTarget);
+		});
+	}
 }

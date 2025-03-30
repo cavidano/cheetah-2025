@@ -2,7 +2,7 @@
 // A. SCSS
 //////////////////////////////////////////////
 
-import './scss/natura11y.scss';
+import './scss/index.scss';
 
 //////////////////////////////////////////////
 // B. JS
@@ -10,7 +10,7 @@ import './scss/natura11y.scss';
 
 import Accordion from './js/accordion';
 import AlertDismissable from './js/alert';
-import Button from './js/button';
+import Backdrop from './js/backdrop';
 import Collapse from './js/collapse';
 import FormInput, { FormSubmission, FormFileUpload } from './js/form';
 import Lightbox from './js/lightbox';
@@ -18,6 +18,7 @@ import Modal from './js/modal';
 import Navigation from './js/navigation';
 import Table from './js/table';
 import Tab from './js/tab';
+import Track from './js/track';
 
 //////////////////////////////////////////////
 // C. Class Instantiation
@@ -31,8 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const alertDismissable = new AlertDismissable();
   alertDismissable.init();
 
-  const button = new Button();
-  button.init();
+  const backdrop = new Backdrop();
+  backdrop.init();
 
   const collapse = new Collapse();
   collapse.init();
@@ -60,5 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const tab = new Tab();
   tab.init();
+
+  const track = new Track();
+  track.init();
 
 });

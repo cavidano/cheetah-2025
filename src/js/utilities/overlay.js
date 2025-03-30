@@ -25,8 +25,7 @@ export const handleOverlayOpen = (element) => {
 
     rootElement.classList.add('has-overlay');
 
-    if(element && element.getAttribute('aria-hidden') === 'true') {
-        element.setAttribute('aria-hidden', false);
+    if(element) {
         focusTrap(element);
     }
 }

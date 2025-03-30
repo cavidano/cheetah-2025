@@ -18,7 +18,6 @@ In this file:
 // B. Required Partials
 //////////////////////////////////////////////
 
-@use './accent';
 @use './assistive';
 @use './border';
 @use './button';
@@ -42,7 +41,8 @@ In this file:
 @use './container';
 @use './display';
 @use './flex';
-@use './form'; 
+@use './form';
+@use './gradient';
 @use './grid'; 
 @use './lightbox';
 @use './modal';
@@ -55,6 +55,7 @@ In this file:
 @use './tab';
 @use './table';
 @use './typography';
+@use './track';
 @use './z-index';
 
 //////////////////////////////////////////////

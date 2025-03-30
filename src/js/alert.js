@@ -1,9 +1,8 @@
+import { delegateEvent } from './utilities/eventDelegation';
+
 export default class AlertDismissable {
 
   // Private properties
-
-  #alertDismissableList = document.querySelectorAll('.alert--dismissable');
-
   #closeButtonHTML = `
     <button class="button button--icon-only" aria-label="Close alert" aria-describedby="alert-description">
         <span class="icon icon-close" aria-hidden="true"></span>
@@ -11,33 +10,34 @@ export default class AlertDismissable {
   `;
 
   // Private methods
-  
-  #handleAlertClose = (alertDismissable) => {
-    return (event) => {
-      event.preventDefault();
-      
+  #handleAlertClose = (event) => {
+    event.preventDefault();
+    const alertDismissable = event.target.closest('.alert--dismissable');
+    if (alertDismissable) {
       alertDismissable.classList.add('dismissed');
-
-      const dismissed = document.querySelector('.dismissed');
-
-      dismissed.addEventListener('animationend', () => {
+      alertDismissable.addEventListener('animationend', () => {
         alertDismissable.remove();
       });
     }
-  }
+  };
+
+  #initializeAlert = (alertDismissable) => {
+    alertDismissable.insertAdjacentHTML('afterbegin', this.#closeButtonHTML);
+
+    // Add aria-live attribute for accessibility
+    alertDismissable.setAttribute('role', 'alert');
+    alertDismissable.setAttribute('aria-live', 'assertive');
+    alertDismissable.setAttribute('aria-atomic', 'true');
+  };
 
   // Public methods
-  init() {
-    this.#alertDismissableList.forEach((alertDismissable) => {
-      alertDismissable.insertAdjacentHTML('afterbegin', this.#closeButtonHTML);
-
-      // Add aria-live attribute for accessibility
-      alertDismissable.setAttribute('role', 'alert');
-      alertDismissable.setAttribute('aria-live', 'assertive');
-      alertDismissable.setAttribute('aria-atomic', 'true');
-
-      const alertCloseButton = alertDismissable.querySelector('button');
-      alertCloseButton.addEventListener('click', this.#handleAlertClose(alertDismissable));
+  init = () => {
+    // Initialize existing alerts
+    document.querySelectorAll('.alert--dismissable').forEach((alertDismissable) => {
+      this.#initializeAlert(alertDismissable);
     });
-  }
+
+    // Delegate event for dynamically added alerts
+    delegateEvent(document, 'click', '.alert--dismissable .button--icon-only', this.#handleAlertClose);
+  };
 }

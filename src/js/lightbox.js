@@ -1,10 +1,10 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { focusTrap, getFocusableElements } from './utilities/focus';
+import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Lightbox {
 
   // Private properties
-  
   #lightboxTargetList = document.querySelectorAll('[data-lightbox]');
 
   #lightboxHTML = `
@@ -66,6 +66,8 @@ export default class Lightbox {
 
     this.lightbox = this.#createLightbox();
 
+    this.lightbox.setAttribute('aria-hidden', false);
+
     this.currentLB = index;
 
     this.#updateLightbox(index);
@@ -77,10 +79,20 @@ export default class Lightbox {
 
     if (e.target !== e.currentTarget && e.type === 'click') return;
 
+    // Cleanup listeners before removing the lightbox
+    const lightboxPrevious = this.lightbox.querySelector('[data-lightbox-previous]');
+    const lightboxNext = this.lightbox.querySelector('[data-lightbox-next]');
+    const lightboxClose = this.lightbox.querySelector('[data-lightbox-close]');
+
+    lightboxPrevious.removeEventListener('click', this.#handleLightboxUpdateClick);
+    lightboxNext.removeEventListener('click', this.#handleLightboxUpdateClick);
+    lightboxClose.removeEventListener('click', this.#handleLightboxClose);
+
     handleOverlayClose(this.lightbox);
 
     this.lightbox.parentElement.removeChild(this.lightbox);
 
+    // Remove keyup event listener
     window.removeEventListener('keyup', this.#handleLightboxUpdateKey);
   };
 
@@ -169,19 +181,11 @@ export default class Lightbox {
 
     switch (lbType) {
       case 'image':
-        // Call image update function
-        lightboxElementTarget = this.#updateLightboxImage(
-          lightboxElement,
-          lbSrc
-        );
+        lightboxElementTarget = this.#updateLightboxImage(lightboxElement, lbSrc);
         break;
 
       case 'video':
-        // Call video update function
-        lightboxElementTarget = this.#updateLightboxVideo(
-          lightboxElement,
-          lbSrc
-        );
+        lightboxElementTarget = this.#updateLightboxVideo(lightboxElement, lbSrc);
         break;
 
       default:
@@ -198,7 +202,7 @@ export default class Lightbox {
     focusTrap(this.lightbox);
   }
 
-  #updateLightboxImage(lightboxElement, lbSrc) {
+  #updateLightboxImage = (lightboxElement, lbSrc) => {
     if (lightboxElement.hasAttribute('style')) {
       lightboxElement.removeAttribute('style');
     }
@@ -217,52 +221,74 @@ export default class Lightbox {
     return lightboxElementTarget;
   }
 
-  #updateLightboxVideo(lightboxElement, lbSrc) {
-    // Check if the string contains 'youtube' (case-insensitive)
+  #updateLightboxVideo = (lightboxElement, lbSrc) => {
     const hasYouTube = /youtube/i.test(lbSrc);
-
-    // Check if the string contains 'vimeo' (case-insensitive)
     const hasVimeo = /vimeo/i.test(lbSrc);
 
     let lightboxElementTarget;
 
     if (hasYouTube || hasVimeo) {
-      // If the video is from YouTube or Vimeo, use an iframe
       lightboxElement.innerHTML = this.#lightboxVideoIframeHTML;
       lightboxElementTarget = lightboxElement.querySelector('iframe');
       lightboxElementTarget.src = lbSrc;
     } else {
-      // If the video is not from YouTube or Vimeo, use a video element
       lightboxElement.innerHTML = this.#lightboxVideoHTML;
 
       const loader = this.#createLoader();
       lightboxElement.appendChild(loader);
       
       lightboxElementTarget = lightboxElement.querySelector('source');
-      
       const video = lightboxElement.querySelector('video');
 
       video.addEventListener('loadedmetadata', () => {
-        // The intrinsic width and height of the video
         let intrinsicWidth = video.videoWidth;
         let intrinsicHeight = video.videoHeight;
-
-        // The aspect ratio of the video
         lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
         lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
       });
 
       this.#handleMediaLoading(lightboxElementTarget, loader);
-
       lightboxElementTarget.src = lbSrc;
     }
 
     return lightboxElementTarget;
   }
 
-  #createLightbox() {
-    const lightbox = document.createElement('div');
+  #createLoader = () => {
+    const loader = document.createElement('div');
+    loader.className = 'lightbox__media__loader';
+    loader.innerHTML = this.#lighboxLoaderHTML;
+    return loader;
+  }
 
+  #handleMediaLoading = (media, loader) => {
+    const mediaLoadEvent = media.nodeName === 'SOURCE' ? 'loadeddata' : 'load';
+
+    media.closest(media.nodeName === 'SOURCE' ? 'video' : 'img')
+      .addEventListener(mediaLoadEvent, () => {
+        if (loader && loader.parentNode) {
+          loader.parentNode.removeChild(loader);
+        }
+
+        if (this.#lightboxes[this.currentLB].lbCaption !== null) {
+          this.#handleCaptionDisplay(true);
+        }
+      });
+
+    media.onerror = () => {
+      const loaderIcon = loader.querySelector('.lightbox__media__loader');
+      const errorMessage = loader.querySelector('.lightbox__media__error');
+
+      media.style.display = 'none';
+      this.#handleCaptionDisplay(false);
+
+      loaderIcon.style.display = 'none';
+      errorMessage.style.display = 'block';
+    };
+  }
+
+  #createLightbox = () => {
+    const lightbox = document.createElement('div');
     lightbox.classList.add('lightbox');
     lightbox.setAttribute('aria-hidden', true);
     lightbox.setAttribute('aria-live', 'polite');
@@ -281,9 +307,7 @@ export default class Lightbox {
       lightboxNext.style.display = 'none';
     }
 
-    lightbox.addEventListener('click', this.#handleLightboxClose);
     lightboxClose.addEventListener('click', this.#handleLightboxClose);
-
     lightboxPrevious.addEventListener('click', this.#handleLightboxUpdateClick);
     lightboxNext.addEventListener('click', this.#handleLightboxUpdateClick);
 
@@ -292,12 +316,7 @@ export default class Lightbox {
     return lightbox;
   }
 
-  #setLightboxProperties(lightboxButton) {
-    if (!lightboxButton) {
-      console.error("No lightbox button provided");
-      return;
-    }
-
+  #setLightboxProperties = (lightboxButton) => {
     let defaultSrc = null;
     let defaultAlt = '';
 
@@ -315,90 +334,47 @@ export default class Lightbox {
     const lbAlt = lightboxButton.getAttribute('data-lightbox-alt') || defaultAlt;
 
     if (lbSrc === null) {
-      console.error("No source provided for lightbox");
-      return;
+      console.error('No source provided for lightbox');
+      return null;
     }
 
-    return {
-      lbType: lbType,
-      lbSrc: lbSrc,
-      lbCaption: lbCaption,
-      lbAlt: lbAlt,
-    };
+    return { lbType, lbSrc, lbCaption, lbAlt };
   }
 
-  #configureLightboxElements() {
+  #configureLightboxElements = () => {
     this.#lightboxTargetList.forEach((lightboxTarget) => {
       this.#lightboxes.push(this.#setLightboxProperties(lightboxTarget));
     });
   }
 
-  #createLoader = () => {
-    const loader = document.createElement('div');
+  #initEventListeners = () => {
+    delegateEvent(document, 'click', '[data-lightbox]', (e) => {
+      const lightboxButton = e.target.closest('[data-lightbox]');
+      const index = Array.from(this.#lightboxTargetList).indexOf(lightboxButton);
+      if (index !== -1) this.#handleLightboxOpen(index)(e);
+    });
+  }
 
-    loader.className = 'lightbox__media__loader';
-    loader.innerHTML = this.#lighboxLoaderHTML;
-    return loader;
-  };
-
-  #handleMediaLoading = (media, loader) => {
-    const mediaLoadEvent = media.nodeName === 'SOURCE' ? 'loadeddata' : 'load';
-
-    media
-      .closest(media.nodeName === 'SOURCE' ? 'video' : 'img')
-      .addEventListener(mediaLoadEvent, () => {
-        if (loader && loader.parentNode) {
-          loader.parentNode.removeChild(loader);
-        }
-
-        // Ensure the caption is visible when the media is loaded correctly, only if lbCaption is present
-        if (this.#lightboxes[this.currentLB].lbCaption !== null) {
-          this.#handleCaptionDisplay(true);
-        }
-      });
-
-    media.onerror = () => {
-      const loaderIcon = loader.querySelector('.lightbox__media__loader');
-      const errorMessage = loader.querySelector('.lightbox__media__error');
-
-      // Hide the media on error
-      media.style.display = 'none';
-      this.#handleCaptionDisplay(false);
-
-      loaderIcon.style.display = 'none';
-      errorMessage.style.display = 'block';
-    };
-  };
-
-  #initLazyLoading() {
+  #initLazyLoading = () => {
     const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
+      threshold: 0.25,
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const lazyImage = entry.target;
-
-          // Check if lazy image has a valid source
           const src = lazyImage.dataset.lightboxSrc || lazyImage.src;
           if (!src) return;
 
           observer.unobserve(lazyImage);
-
-          // Create and load hidden large image
           const hiddenLargeImage = new Image();
-
           hiddenLargeImage.onload = () => {
             document.body.appendChild(hiddenLargeImage);
           };
-
           hiddenLargeImage.onerror = () => {
             console.error(`Failed to load image: ${src}`);
           };
-
           hiddenLargeImage.src = src;
           hiddenLargeImage.style.display = 'none';
 
@@ -407,33 +383,24 @@ export default class Lightbox {
       });
     }, options);
 
-    // Filter out video elements before observing
     const imageLightboxList = Array.from(this.#lightboxTargetList).filter(
       (lb) => lb.getAttribute('data-lightbox') === 'image'
     );
 
     imageLightboxList.forEach((imageLightbox, index) => {
       const lazyImage = imageLightbox.querySelector('img');
-
       if (!lazyImage) return;
 
       lazyImage.dataset.index = index;
-
       observer.observe(lazyImage);
-    });
-  }
-
-  #initEventListeners() {
-    this.#lightboxTargetList.forEach((lbButton, index) => {
-      lbButton.addEventListener('click', this.#handleLightboxOpen(index));
     });
   }
 
   // Public methods
 
-  init() {
+  init = () => {
     this.#configureLightboxElements();
     this.#initEventListeners();
     this.#initLazyLoading();
-  }
+  };
 }

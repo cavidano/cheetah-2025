@@ -1,271 +1,173 @@
+import { delegateEvent } from './utilities/eventDelegation';
+
 //////////////////////////////////////////////
-// A. Form Input 
+// A. Shared Methods
+//////////////////////////////////////////////
+
+const isEmpty = (value) => !value?.trim();
+
+const setFieldValidity = (field, isValid, invalidClasses = ['is-invalid']) => {
+  const entryRoot = field.closest('.form-entry');
+  entryRoot.classList.toggle(invalidClasses[0], !isValid);
+  field.setAttribute('aria-invalid', !isValid);
+};
+
+//////////////////////////////////////////////
+// B. Form Input 
 //////////////////////////////////////////////
 
 export default class FormInput {
 
-  // Private properties
-  
   #formEntryList = document.querySelectorAll('.form-entry');
   #invalidClasses = ['is-invalid'];
   #formSubmitAttempted = false;
 
   // Private methods
 
-  #isEmpty(value = null) {
-    return value === '';
-  }
-
-  #setInvalid(field) {
-    let entryRoot = field.closest('.form-entry');
-    entryRoot.classList.add(...this.#invalidClasses);
-    field.setAttribute('aria-invalid', 'true');
-  }
-
-  #setValid(field) {
-    let entryRoot = field.closest('.form-entry');
-    entryRoot.classList.remove(...this.#invalidClasses);
-    field.removeAttribute('aria-invalid');
-  }
-
   #checkIfEmpty(field) {
-    if (this.#isEmpty(field.value)) {
-      this.#setInvalid(field);
-      return true;
-    } else {
-      this.#setValid(field);
-      return false;
-    }
-  }
-
-  #handleFocusIn(activeTarget) {
-    return (event) => {
-      event.target.closest(activeTarget).classList.add('active');
-    };
-  }
-
-  #handleFocusOut(activeTarget) {
-    return (event) => {
-      event.target.closest(activeTarget).classList.remove('active');
-    };
+    const isFieldEmpty = isEmpty(field.value);
+    setFieldValidity(field, !isFieldEmpty, this.#invalidClasses);
+    return isFieldEmpty;
   }
 
   #handleInputChange(formEntryInput, isRequired) {
+    // Check if empty or not if submission has already been attempted
     if (this.#formSubmitAttempted && isRequired) {
       this.#checkIfEmpty(formEntryInput);
     }
 
-    if (formEntryInput.value !== '') {
-      formEntryInput.closest('.form-entry').classList.add('has-value');
-    } else {
-      formEntryInput.closest('.form-entry').classList.remove('has-value');
-    }
+    // Toggle 'has-value' class based on input content
+    formEntryInput.closest('.form-entry').classList.toggle('has-value', formEntryInput.value !== '');
   }
 
-  #handleFormInputs(formEntry) {
-    const inputSelectors = ['email', 'input', 'select', 'tel', 'textarea'];
-    const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
-
-    let isRequired = formEntry.hasAttribute('data-required');
-
-    formEntryInputList.forEach((formEntryInput) =>
-      this.#processFormEntryInput(formEntryInput, isRequired)
-    );
+  // Attach input event listener to dynamically validate while typing
+  #addDynamicValidation(formEntryInput) {
+    formEntryInput.addEventListener('input', () => {
+      this.#checkIfEmpty(formEntryInput); // Remove error if the field becomes valid
+    });
   }
 
   #processFormEntryInput(formEntryInput, isRequired) {
-    const isInputText = formEntryInput
-      .closest('.form-entry')
-      .querySelector('.form-entry__field__input');
-    const inputTag = formEntryInput.tagName;
-
-    let activeTarget = '.form-entry';
-
-    if (inputTag === 'INPUT') {
-      const inputType = formEntryInput.getAttribute('type');
-
-      if (inputType === 'radio' || inputType === 'checkbox') {
-        if (formEntryInput.disabled) {
-          formEntryInput.closest('label').classList.add('disabled');
-        }
-      }
-    }
-
-    formEntryInput.addEventListener('focusin', this.#handleFocusIn(activeTarget));
-    formEntryInput.addEventListener('focusout', this.#handleFocusOut(activeTarget));
+    const isInputText = formEntryInput.closest('.form-entry').querySelector('.form-entry__field__input');
 
     if (isRequired) {
       formEntryInput.setAttribute('required', 'true');
       formEntryInput.setAttribute('aria-required', 'true');
     }
 
-    formEntryInput.addEventListener('change', () =>
-      this.#handleInputChange(formEntryInput, isRequired)
-    );
+    // Add dynamic validation on input event (removes error class when user types)
+    this.#addDynamicValidation(formEntryInput);
 
+    // Handle input change on 'change' event
+    formEntryInput.addEventListener('change', () => this.#handleInputChange(formEntryInput, isRequired));
+
+    // Handle click events on input text spans
     if (isInputText) {
-      isInputText.addEventListener('click', this.handleClickOnInputText);
+      isInputText.addEventListener('click', this.#handleClickOnInputText);
     }
   }
 
-  handleClickOnInputText(event) {
-    let clickTarget = event.target.tagName;
-    let clickInput = event.target
-      .closest('.form-entry__field__input')
-      .querySelector('input');
-
-    if (clickTarget === 'SPAN') {
-      clickInput.focus();
-    }
-
-    if (clickTarget === 'BUTTON') {
-      return;
-    }
+  #handleClickOnInputText(event) {
+    const clickInput = event.target.closest('.form-entry__field__input').querySelector('input');
+    if (event.target.tagName === 'SPAN') clickInput.focus();
   }
 
   // Public methods
 
   init() {
-    this.#formEntryList.forEach((formEntry) =>
-      this.#handleFormInputs(formEntry)
-    );
+    this.#formEntryList.forEach((formEntry) => {
+      const isRequired = formEntry.hasAttribute('data-required');
+      const formEntryInputList = formEntry.querySelectorAll('input, select, textarea');
+      
+      // Process each form entry input
+      formEntryInputList.forEach((formEntryInput) => this.#processFormEntryInput(formEntryInput, isRequired));
+
+      // Scoped Event Delegation for focusin and focusout (within each formEntry)
+      delegateEvent(formEntry, 'focusin', 'input, select, textarea', (event) => {
+        this.#toggleFocusClass(event, true);
+      });
+
+      delegateEvent(formEntry, 'focusout', 'input, select, textarea', (event) => {
+        this.#toggleFocusClass(event, false);
+      });
+    });
+  }
+
+  #toggleFocusClass(event, isFocused = true) {
+    event.target.closest('.form-entry').classList.toggle('is-focused', isFocused);
   }
 }
 
 //////////////////////////////////////////////
-// B. FormSubmission 
+// C. Form Submission 
 //////////////////////////////////////////////
 
 export class FormSubmission {
-
-  // Private properties
   #formList = document.querySelectorAll('form[novalidate]');
   #invalidClasses = ['is-invalid'];
   #formSubmitAttempted = false;
 
-  // Private methods
+  #processFormErrors(formErrorsList, errorsArray) {
+    formErrorsList.forEach((formError) => {
+      const formEntry = formError.closest('.form-entry');
+      const formEntryLabel = formEntry.querySelector('.form-entry__field__label');
+      const errorMessage = formEntry.getAttribute('data-error-message') || 'This field is required';
+      const helpText = formEntry.querySelector('.form-entry__help')?.innerHTML || '';
 
-  #isEmpty(value = null) {
-    return value === '';
-  }
+      errorsArray.push([errorMessage, helpText]);
 
-  #setInvalid(field) {
-    let entryRoot = field.closest('.form-entry');
-    entryRoot.classList.add(...this.#invalidClasses);
-    field.setAttribute('aria-invalid', 'true');
-  }
-
-  #setValid(field) {
-    let entryRoot = field.closest('.form-entry');
-    entryRoot.classList.remove(...this.#invalidClasses);
-    field.removeAttribute('aria-invalid');
-  }
-
-  #checkIfEmpty(field) {
-    if (this.#isEmpty(field.value)) {
-      this.#setInvalid(field);
-      return true;
-    } else {
-      this.#setValid(field);
-      return false;
-    }
+      if (!formEntry.querySelector('.form-entry__feedback')) {
+        formEntryLabel.insertAdjacentHTML('afterend', this.#createErrorMessage(errorMessage, helpText));
+      }
+    });
   }
 
   #createErrorMessage(desc, inst) {
-    if (desc === null) {
-      desc = 'This field is Required';
-    }
     return `
-      <small class="form-entry__feedback">
+      <small class="form-entry__feedback" role="alert">
         <span class="icon icon-warn" aria-hidden="true"></span>
         <span class="message">
-          <strong>${desc}</strong> ${inst !== undefined ? inst : ''}
+          <strong>${desc}</strong> ${inst || ''}
         </span>
       </small>
     `;
   }
 
-  #processFormErrors(formErrorsList, errorsArray) {
-    formErrorsList.forEach((formError) => {
-      let formErrorEntry = formError.closest('.form-entry');
-      let formErrorEntryLabel = formErrorEntry.querySelector('.form-entry__field__label');
-
-      formErrorEntry.classList.add('is-invalid');
-      formError.setAttribute('aria-describedby', 'error-message');
-
-      const formEntryFeedback = formErrorEntry.querySelector('.form-entry__feedback');
-      const formEntryHelp = formErrorEntry.querySelector('.form-entry__help');
-
-      let entryHelpText;
-
-      if (formEntryHelp) {
-        entryHelpText = formEntryHelp.innerHTML.toString();
-      }
-
-      let errorMessage = formErrorEntry.getAttribute('data-error-message');
-      let errorFeedback = [errorMessage, entryHelpText];
-
-      errorsArray.push(errorFeedback);
-
-      if (formEntryFeedback === null) {
-        formErrorEntryLabel.insertAdjacentHTML(
-          'afterend',
-          this.#createErrorMessage(errorMessage, entryHelpText)
-        );
-      }
-    });
+  #scrollToFirstError(form) {
+    const firstError = form.querySelector('.is-invalid, [data-alert]');
+    if (firstError) {
+      window.scrollTo({ top: firstError.offsetTop - 16, behavior: 'smooth' });
+    }
   }
 
-  #scrollToFirstError(form) {
-    let firstError = form.querySelector('[class*="alert"], [class*="invalid"]');
-
-    if (firstError) {
-      if (firstError.hasAttribute('data-alert')) {
-        firstError.style.display = 'block';
-      }
-      let myScroll = firstError.offsetTop - 16;
-
-      window.scrollTo({
-        top: myScroll,
-        behavior: 'smooth',
-      });
-    }
+  #checkIfEmpty(field) {
+    const isFieldEmpty = isEmpty(field.value);
+    setFieldValidity(field, !isFieldEmpty, this.#invalidClasses);
+    return isFieldEmpty;
   }
 
   #handleFormSubmission(form) {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-
       this.#formSubmitAttempted = true;
+      const errorsArray = [];
 
-      let errorsArray = [];
-
-      // Collect form input fields
-      let inputFields = form.querySelectorAll('input, select, textarea');
-      
-      // Bind #checkIfEmpty method to each field's input event
+      const inputFields = form.querySelectorAll('input, select, textarea');
       inputFields.forEach((field) => {
-        field.addEventListener('input', () => this.#checkIfEmpty(field));
+        if (field.hasAttribute('required')) {
+          this.#checkIfEmpty(field);
+        }
       });
 
-      // Perform validation checks
-      inputFields.forEach((field) => {
-        this.#checkIfEmpty(field);
-      });
-
-      let formErrorsList = form.querySelectorAll(':invalid');
-
+      const formErrorsList = form.querySelectorAll(':invalid');
       this.#processFormErrors(formErrorsList, errorsArray);
 
       if (errorsArray.length > 0) {
         event.preventDefault();
+        this.#scrollToFirstError(form);
       }
-
-      this.#scrollToFirstError(form);
     });
   }
-
-  // Public methods
 
   init() {
     this.#formList.forEach((form) => this.#handleFormSubmission(form));
@@ -273,58 +175,48 @@ export class FormSubmission {
 }
 
 //////////////////////////////////////////////
-// C. Form File Upload
+// D. Form File Upload
 //////////////////////////////////////////////
 
 export class FormFileUpload {
-
-  // Private properties
   #fileUploadList = document.querySelectorAll('.file-upload');
 
-  // Private methods
-
   #handleFileChange(fileUpload) {
-    return function (event) {
+    return (event) => {
       const [file] = event.target.files;
+      if (!file) return;
       const { name: fileName, size } = file;
-      const fileSize = (size / 1000).toFixed(2);
-
-      const dataHTML = `
-        <span class="file-upload__data">
-          <span class="file-name">${fileName}</span>
-          <span class="file-size">${fileSize} kb</span>
-        </span>
-      `;
+      const fileSize = size >= 1e6 ? `${(size / 1e6).toFixed(2)} MB` : `${(size / 1e3).toFixed(2)} KB`;
 
       const fileUploadData = fileUpload.querySelector('.file-upload__data');
+      if (fileUploadData) fileUploadData.remove();
 
-      if (fileUploadData) {
-        fileUploadData.remove();
-      }
-
-      fileUpload.insertAdjacentHTML('beforeend', dataHTML);
+      fileUpload.insertAdjacentHTML('beforeend', `
+        <span class="file-upload__data">
+          <span class="file-name">${fileName}</span>
+          <span class="file-size">${fileSize}</span>
+        </span>
+      `);
     };
   }
 
   dragOver(event) {
-    event.target.closest('.form-entry').classList.add('active');
+    event.preventDefault();
+    event.target.closest('.form-entry').classList.add('is-focused');
   }
 
   dragOff(event) {
-    event.target.closest('.form-entry').classList.remove('active');
+    event.target.closest('.form-entry').classList.remove('is-focused');
   }
 
   dropped(event) {
-    event.target.closest('.form-entry').classList.remove('active');
+    event.preventDefault();
+    event.target.closest('.form-entry').classList.remove('is-focused');
   }
 
   #handleFileUpload(fileUpload) {
     const fileUploadInput = fileUpload.querySelector('input[type="file"]');
-
-    fileUploadInput.addEventListener(
-      'change',
-      this.#handleFileChange(fileUpload)
-    );
+    fileUploadInput.addEventListener('change', this.#handleFileChange(fileUpload));
 
     fileUpload.addEventListener('dragenter', this.dragOver.bind(this));
     fileUpload.addEventListener('dragleave', this.dragOff.bind(this));
@@ -332,11 +224,7 @@ export class FormFileUpload {
     fileUpload.addEventListener('drop', this.dropped.bind(this));
   }
 
-  // Public methods
-
   init() {
-    this.#fileUploadList.forEach((fileUpload) =>
-      this.#handleFileUpload(fileUpload)
-    );
+    this.#fileUploadList.forEach((fileUpload) => this.#handleFileUpload(fileUpload));
   }
 }

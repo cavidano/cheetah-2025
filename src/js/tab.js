@@ -1,34 +1,24 @@
+import { delegateEvent } from './utilities/eventDelegation';
+import { handleArrowKeyNavigation } from './utilities/keyboardNavigation';
+
 export default class Tab {
 
   // Private properties
-  
+
   #tabsList = document.querySelectorAll('.tabs');
 
   // Private methods
-
-  #directionalFocus(event, index, tabsButtonList, dir) {
-    event.preventDefault();
-
-    let targetFocus = index + dir;
-
-    if (dir === -1 && targetFocus < 0) {
-      tabsButtonList[tabsButtonList.length - 1].focus();
-    } else if (dir === 1 && targetFocus >= tabsButtonList.length) {
-      tabsButtonList[0].focus();
-    } else {
-      tabsButtonList[targetFocus].focus();
-    }
-  }
 
   #deactivateTabs(tabsButtonList, tabsPanelList) {
     tabsButtonList.forEach((tab) => {
       tab.setAttribute('aria-selected', 'false');
       tab.setAttribute('tabindex', '-1');
+      tab.classList.remove('is-active');
     });
-
+    
     tabsPanelList.forEach((panel) => {
       panel.classList.remove('shown');
-      panel.setAttribute('hidden', '');
+      panel.setAttribute('aria-hidden', 'true'); // Ensure it's hidden from screen readers
     });
   }
 
@@ -37,53 +27,58 @@ export default class Tab {
 
     tab.setAttribute('aria-selected', 'true');
     tab.setAttribute('tabindex', '0');
-    tab.focus();
+    tab.classList.add('is-active');
 
-    let controls = tab.getAttribute('aria-controls');
-    let currentTabPanel = document.getElementById(controls);
+    const controls = tab.getAttribute('aria-controls');
+    const currentTabPanel = document.getElementById(controls);
 
-    currentTabPanel.classList.add('shown');
-    currentTabPanel.removeAttribute('hidden');
+    currentTabPanel.classList.add('shown'); // Use 'shown' to make the panel visible
+    currentTabPanel.setAttribute('aria-hidden', 'false'); // Make it visible to screen readers
   }
 
   // Public methods
 
   init() {
+
     this.#tabsList.forEach((tab) => {
       const tabsButtonList = tab.querySelectorAll('[role="tab"]');
       const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
 
-      tabsButtonList.forEach((tabsButton, index) => {
-        tabsButton.setAttribute('tabindex', index === 0 ? '0' : '-1');
-
-        tabsButton.addEventListener('click', (event) => {
-          this.#activateTab(event.target, tabsButtonList, tabsPanelList);
-        });
-
-        tabsButton.addEventListener('keydown', (event) => {
-          switch (event.code) {
-            case 'Home':
-              event.preventDefault();
-              tabsButtonList[0].focus();
-              break;
-            case 'End':
-              event.preventDefault();
-              tabsButtonList[tabsButtonList.length - 1].focus();
-              break;
-            case 'ArrowLeft':
-              this.#directionalFocus(event, index, tabsButtonList, -1);
-              break;
-            case 'ArrowRight':
-              this.#directionalFocus(event, index, tabsButtonList, 1);
-              break;
-            default:
-            // do nothing
-          }
-        });
+      delegateEvent(tab, 'click', '[role="tab"]', (event) => {
+        const clickedTab = event.target.closest('[role="tab"]');
+        this.#activateTab(clickedTab, tabsButtonList, tabsPanelList);
       });
 
-      // Initialize the first tab as active
+      delegateEvent(tab, 'keydown', '[role="tab"]', (event) => {
+        if (!['Enter', 'Space', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) {
+          return;
+        }
+
+        const focusedTab = event.target.closest('[role="tab"]');
+        const index = Array.from(tabsButtonList).indexOf(focusedTab);
+
+        switch (event.code) {
+          case 'Enter':
+          case 'Space':
+            event.preventDefault();
+            this.#activateTab(focusedTab, tabsButtonList, tabsPanelList);
+            break;
+          case 'ArrowLeft':
+          case 'ArrowRight':
+          case 'Home':
+          case 'End':
+            handleArrowKeyNavigation(event, index, tabsButtonList, (targetIndex) => {
+              tabsButtonList[targetIndex].focus();
+            });
+            break;
+          default:
+            break;
+        }
+      });
+
       this.#activateTab(tabsButtonList[0], tabsButtonList, tabsPanelList);
     });
+
   }
+
 }
