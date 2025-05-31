@@ -15,7 +15,6 @@ In this file:
 //////////////////////////////////////////////
 
 @use 'sass:map';
-@use './accent';
 @use './breakpoint';
 
 //////////////////////////////////////////////
@@ -51,8 +50,8 @@ In this file:
         caption-side: bottom;
 
         caption {
-            border-top-width: var(--border-width);
-            border-top-style: var(--border-style);
+            border-block-start-width: var(--border-width);
+            border-block-start-style: var(--border-style);
 
             padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
             
@@ -73,8 +72,8 @@ In this file:
         }
 
         td {
-            border-top-width: var(--border-width);
-            border-top-style: var(--border-style);
+            border-block-start-width: var(--border-width);
+            border-block-start-style: var(--border-style);
         }
 
         thead {
@@ -84,7 +83,7 @@ In this file:
             }
 
             tr {
-                border-top-style: unset;
+                border-block-start-style: unset;
             }
         }
     }
@@ -93,8 +92,7 @@ In this file:
 
     .table--striped {
         tbody tr:nth-of-type(odd) td {
-            @extend %subtle-fill-psuedo;
-            --subtle-fill-opacity: 0.05;
+            background-color: var(--subtle-fill-1);
         }
     }
 
@@ -241,7 +239,8 @@ In this file:
 
             display: none;
             
-            mask-image: linear-gradient(to left, rgba(0, 0, 0, 1.0), transparent);
+            mask-image: linear-gradient(to left, hsl(0, 0%, 0%), transparent);
+            
             pointer-events: none;
             
             z-index: 600;

@@ -21,7 +21,7 @@
 }
 
 [class*="gradient-veneer"] { 
-    --gradient-veneer-opacity: 0.75;
+    --gradient-mask-opacity: 0.75;
 }
 
 .bebas { 
@@ -102,7 +102,7 @@
     position: relative;
 }
 
-.banner .backdrop__image::before,
+.banner .backdrop__media::before,
 .cats-3-up::before {
     content: '';
 
@@ -121,7 +121,7 @@
     z-index: 15000;
 }
 
-.banner .backdrop__image::before {
+.banner .backdrop__media::before {
     clip-path: polygon(
         5% 42%,
         40% 25%,
@@ -181,7 +181,7 @@
     );
 }
 
-.banner .backdrop__image img {
+.banner .backdrop__media img {
     clip-path: polygon(
         2% 6%,
         99% 0,

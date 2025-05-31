@@ -18,7 +18,7 @@
 #banner.backdrop {
     --banner-headline-font-size: 8rem;
     --backdrop-fixed-height: 600px;
-    --gradient-veneer-opacity: 0.875;
+    --gradient-mask-opacity: 0.875;
 
     .banner-headline {
         color: var(--primary-dark);

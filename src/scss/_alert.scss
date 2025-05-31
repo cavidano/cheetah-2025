@@ -2,20 +2,13 @@
 
 In this file:
 
-// A. Modules
-// B. Variables
-// C. Component
+// A. Variables
+// B. Component
 
 */
 
-////////////////////////////////////////
-// A. Modules
-////////////////////////////////////////
-
-@use './accent';
-
 //////////////////////////////////////////////
-// B. Variables
+// A. Variables
 //////////////////////////////////////////////
 
 :root {
@@ -25,7 +18,7 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// C. Component
+// B. Component
 //////////////////////////////////////////////
 
 @layer component {
@@ -40,8 +33,7 @@ In this file:
             [class*="--inverse"],
             [class*="background-"]
         ) {
-            @extend %subtle-fill-psuedo;
-            --subtle-fill-opacity: 0.1;
+            background-color: var(--subtle-fill-2);
         }    
 
         &[class*="border"] {

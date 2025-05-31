@@ -55,11 +55,19 @@ In this file:
         &:not([class*="text-color-"]) {
             color: var(--link-color);
         }
+
+        &:not(:has([class*="icon"])) {
+            &:hover,
+            &:focus {
+                text-decoration: underline;
+            }
+        }
+
     }
 
-    // Has Icon Modifiers
+    // :has() Selectors
 
-    [class*="link--has-icon"] {
+    .link:has([class*="icon"]) {
         --icon-size: 1em;
 
         display: inline-flex;
@@ -69,7 +77,7 @@ In this file:
 
         &:hover,
         &:focus {
-            [class*="__text"] {
+            [class*="text"] {
                 text-decoration: underline;
             }
         }

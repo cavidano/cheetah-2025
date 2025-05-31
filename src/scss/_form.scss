@@ -15,8 +15,8 @@ In this file:
 //////////////////////////////////////////////
 
 @use 'sass:map';
-@use './accent';
 @use './icon';
+@use './navigation';
 
 //////////////////////////////////////////////
 // B. Variables
@@ -27,11 +27,13 @@ In this file:
 
     --form-field-padding-y: var(--button-padding-y);
 
+    --form-field-target-size: var(--button-target-size);
+
     --form-field-border-radius: 0.25em;
     
     --form-field-border-color: currentColor;
 
-    // Icon
+    // Icons
 
     --icon-required: "\f14a";
     
@@ -44,10 +46,6 @@ In this file:
     --icon-radio-checked: "\f137";
     
     --icon-disabled: "\f115";
-
-    // Font
-
-    --form-font-family: var(--body-font-family);
 }
 
 //////////////////////////////////////////////
@@ -72,6 +70,7 @@ In this file:
         
         font-family: inherit;
         font-size: inherit;
+
         line-height: normal;
     }
 
@@ -208,8 +207,6 @@ In this file:
 
     .form-entry {
 
-    font-family: var(--form-font-family);
-
         :is(
             select,
             textarea,
@@ -301,6 +298,8 @@ In this file:
             outline: none;
 
             padding: var(--form-field-padding-y) var(--form-field-padding-x);
+
+            min-height: var(--form-field-target-size);
         }
 
         &::after {
@@ -313,13 +312,10 @@ In this file:
             pointer-events: none;
             
             box-shadow: inset 0 0 0 var(--border-width) var(--form-field-border-color);
-            
-            transition: box-shadow 200ms;
         }
     }
 
     .form-entry__field__input {
-
         display: flex;
         align-items: center;
 
@@ -327,19 +323,25 @@ In this file:
 
         input {
             flex-grow: 1;
+            border-radius: 0 !important;
         }
 
         button {
+            --button-padding-y: 0;
+            --button-border-radius: 0;
+            --button-target-size: calc(var(--form-field-target-size) - 0.75rem);
+            
             flex-shrink: 0;
+
+            margin: 0.375rem;
+
+            border-radius: inherit;
+
+            font-size: 85%;
         }
 
         > .button:not([class*='--icon-only']) {
-            --button-padding-y: 0;
-            --button-border-radius: 0;
-
             align-self: stretch;
-            
-            height: unset;
         }
 
         > .icon {
@@ -349,19 +351,6 @@ In this file:
         > .icon + input {
             padding-inline-start: unset;
         }
-
-        > .button-group {
-            margin: var(--gap-size);
-        }
-    }
-
-    // Active Fields
-
-    .active {
-        .form-entry__field__select::after,
-        .form-entry__field__input::after {
-            box-shadow: inset 0 0 0 calc( var(--border-width) * 3) currentColor;
-        }
     }
 
     // Floating Label Modifier
@@ -369,18 +358,17 @@ In this file:
     .form-entry__field--float {
         position: relative;
 
-        line-height: 1.125;
-
         .form-entry__field__label {
             position: absolute;
-            inset-block-start: 0;
-            inset-inline-start: 0;
-            inset-inline-end: 0;
-            inset-block-end: 0;
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            min-height: var(--form-field-target-size);
 
             z-index: 1000;
-
-            padding-block: var(--form-field-padding-y);
 
             pointer-events: none;
 
@@ -390,6 +378,8 @@ In this file:
                 display: none;
 
                 --icon-size: 0.625em;
+
+                margin-inline-start: 0.5em;
 
                 vertical-align: baseline;
 
@@ -403,19 +393,10 @@ In this file:
             opacity: 0;
         }
 
-        .active &, 
+        .is-focused &, 
         .has-value & {
 
             [class*="form-entry__field__"] {
-
-                :is(
-                    select, 
-                    input,
-                    textarea
-                ) {
-                    padding-block-start: calc( var(--form-field-padding-y) * 1.5);
-                    padding-block-end: calc( var(--form-field-padding-y) * 0.5);
-                }
 
                 select {
                     opacity: initial;
@@ -427,16 +408,18 @@ In this file:
             }
 
             .form-entry__field__label {
-
-                inset-block-end: calc(var(--form-field-padding-y) * 0.5);
                 inset-inline-end: unset;
+                inset-block-start: 0;
                 inset-block-end: unset;
+                transform: translateY(-50%);
 
-                padding: unset;
-
-                margin-block: 0.375em;
+                margin-inline-start: -0.5em;
                 
-                margin-inline: var(--form-field-padding-x);
+                min-height: 1em;
+
+                padding: 0 0.5em;
+                
+                margin-inline: calc(var(--form-field-padding-x) - 0.5em);
 
                 font-size: 0.75em;
             }
@@ -612,11 +595,11 @@ In this file:
     // Shared Focus and Checked States
     
     .form-entry__option__check {
-        --focus-border-radius: calc( var(--form-field-border-radius) * 0.5);
+        --_focus-border-radius: calc( var(--form-field-border-radius) * 0.5);
     }
     
     .form-entry__option__radio {
-        --focus-border-radius: 100%;
+        --_focus-border-radius: 100%;
     }
 
     [class*="form-entry__option__"] > label > input {
@@ -633,8 +616,12 @@ In this file:
         &:focus-visible ~ .option__label {
         
             &::before {
-                outline: var(--focus-outline-size) solid var(--link-color);
-                border-radius: var(--focus-border-radius);
+                outline:
+                    var(--focus-outline-width)
+                    var(--focus-outline-style)
+                    var(--focus-outline-color, var(--link-color, currentColor));
+
+                border-radius: var(--_focus-border-radius);
             }
         
         }
@@ -737,10 +724,7 @@ In this file:
 
     .file-upload__input {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset: 0;
 
         width: 100%;
 
@@ -767,11 +751,11 @@ In this file:
         pointer-events: none;
 
         font-size: var(--font-size-sm);
+        
+        background-color: var(--subtle-fill-1);
 
-        @extend %subtle-fill-psuedo;
-
-        .active & {
-            --subtle-fill-opacity: 0.125;
+        .is-focused & {
+            background-color: var(--subtle-fill-2);
         }
     }
 

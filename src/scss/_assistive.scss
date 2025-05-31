@@ -13,64 +13,106 @@ In this file:
 ////////////////////////////////////////
 
 :root {
-    --focus-outline-size: calc(var(--border-width) * 2);
-
-    --focus-outline-color: currentColor;
+    // Focus Outline
     
+    --focus-outline-width: calc(var(--border-width) * 2);
+
     --focus-outline-style: solid;
 
-    --focus-outline-distance: calc(var(--border-width) * 4);
+    --focus-outline-offset: calc(var(--focus-outline-width) * -1);
+
+    /*
+    
+    Custom Focus Outline Color:
+    Uncomment the following line to set a custom focus outline color to all focusable elements.
+    This will override the default link color, which cannot be changed via the :root selector.
+    
+    */
+
+    // --focus-outline-color: currentColor;
 }
 
 //////////////////////////////////////////////
-// B. Hover Focus
+// B. Placeholder
 //////////////////////////////////////////////
 
-%hover-focus {
-
-    &:is(:hover, :focus):not(
-        p > a,
-        [aria-disabled="true"],
-        [class*="icon"],
-        [class*="backdrop"],
-        [class*="no-hover-focus"],
-        [class*="nav--has-icons"] > li > *
-    ) {
-        text-decoration: underline;
-    }
-
-    &:not([class*="button--icon-over-text"]):focus-visible {
-        outline: var(--focus-outline-size) var(--focus-outline-style) var(--focus-outline-color);
-        outline-offset: var(--focus-outline-distance);
-    }
-
-    &[class*="backdrop"]:focus-visible {
-          position: relative;
-          z-index: 1;
-
-        > * {
-            z-index: -1;
-        }
-    }
+%focus-visible {
+    outline: 
+        var(--focus-outline-width)
+        var(--focus-outline-style) 
+        var(--focus-outline-color, var(--link-color, currentColor));
+        
+    outline-offset: var(--focus-outline-offset);
 }
+
+//////////////////////////////////////////////
+// C. Focus Styles
+//////////////////////////////////////////////
 
 @layer base {
 
-    :is(a, button) {
-        --focus-outline-distance: calc(var(--focus-outline-size) * -1);
+    // Links, Buttons, and Generic Focusable Elements
 
-        @extend %hover-focus;
+    :is(a, button) {
+
+        &:focus-visible {
+            @extend %focus-visible;
+        }
+
+        &:is(
+            [class*="backdrop"], 
+            [class*="card"]
+        ):focus-visible {
+            position: relative;
+            z-index: 1;
+
+            > * {
+                z-index: -1;
+            }
+        }
         
         &.button {
-            --focus-outline-distance: calc(var(--focus-outline-size) * -2);
+            --focus-outline-offset: calc(var(--focus-outline-width) * -2);
         }
         
-        &.button--outline,
-        &.lightbox-thumbnail,
-        &[class*="backdrop"] {
-            --focus-outline-distance: calc(var(--focus-outline-size) * -3);
+        &[data-page-index] {
+            --focus-outline-offset: calc(var(--focus-outline-width) * 2);
+        }
+        
+        &:is(
+            .button--outline,
+            .lightbox-thumbnail,
+            [class*="backdrop"],
+            .tabs-nav--pill > li > :is(a, button)
+        ) {
+            --focus-outline-offset: calc(var(--focus-outline-width) * -3);
         }
 
+    }
+
+    // Focusable Panels (e.g. Modal, Collapse)
+
+    [tabindex="-1"]:focus-visible {
+        @extend %focus-visible;
+        --focus-outline-offset: calc(var(--focus-outline-width) * -2);
+    }
+
+    // Form Elements
+
+    .is-focused {
+        .form-entry__field__select,
+        .form-entry__field__input {
+            @extend %focus-visible;
+            --focus-outline-offset: calc(var(--focus-outline-width) * 2);
+        }
+    }
+
+    .button--icon-over-text:focus-visible {
+        outline: unset !important;
+
+        > [class*="icon"] {
+            @extend %focus-visible;
+        }
     }
 
 } // end @layer
@@ -97,6 +139,9 @@ In this file:
         height: 1px;
         
         clip: rect(0, 0, 0, 0);
+
+        padding: 0;
+        margin: -1px;
         
         white-space: nowrap;
     }
@@ -145,7 +190,8 @@ In this file:
             border-radius: var(--button-border-radius);
             overflow: hidden;
 
-            &:is(::before, ::after) {
+            &::before,
+            &::after {
                 content: "";
                 inset: 0;
             }
@@ -159,15 +205,14 @@ In this file:
 
             &::after {
                 position: fixed;
+
                 z-index: -2;
 
-                background-color: rgba(0, 0, 0, 0.5);
+                background-color: rgba(0, 0, 0, 0.5) !important;
                 
                 pointer-events: none;
             }
-        
         }
-        
     }
 
 } // end @layer

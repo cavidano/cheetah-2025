@@ -26,6 +26,8 @@ In this file:
     
     --border-style: solid;
 
+    // Border Radius
+
     --border-radius-base: 1rem; // 16px
 
     --border-radius-0: 0;
@@ -77,6 +79,20 @@ In this file:
                 border-inline-start-style: var(--border-style);
             }
 
+            .border-y#{$mod} {
+                border-block-start-width: var(--border-width);
+                border-block-start-style: var(--border-style);
+                border-block-end-width: var(--border-width);
+                border-block-end-style: var(--border-style);
+            }
+
+            .border-x#{$mod} {
+                border-inline-start-width: var(--border-width);
+                border-inline-start-style: var(--border-style);
+                border-inline-end-width: var(--border-width);
+                border-inline-end-style: var(--border-style);
+            }
+
         }
     }
 
@@ -88,7 +104,7 @@ In this file:
             border-color: map.get( $color-map, "swatch");
         }
 
-        .border-top-color-#{$name} {
+        .border-block-start-color-#{$name} {
             border-block-start-color: map.get($color-map, "swatch");
         }
 
@@ -96,7 +112,7 @@ In this file:
             border-inline-end-color: map.get($color-map, "swatch");
         }
 
-        .border-bottom-color-#{$name} {
+        .border-block-end-color-#{$name} {
             border-block-end-color: map.get($color-map, "swatch");
         }
 

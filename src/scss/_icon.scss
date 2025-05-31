@@ -13,7 +13,7 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-  --icon-size: 1.3333em;
+  --icon-size: 1.25em;
   
   --icon-font-family: 'natura11y-icons';
 }
@@ -36,8 +36,6 @@ In this file:
     position: relative;
 
     pointer-events: none;
-
-    // background-color: red;
   }
 
   span.icon {
@@ -52,7 +50,7 @@ In this file:
   }
 
   svg.icon {
-    --icon-size: 50px;
+    --icon-size: 48px;
 
     display: block;
     
@@ -65,6 +63,7 @@ In this file:
   .natura11y-icons-sprite {
     width: 0;
     height: 0;
+    
     display: none;
   }
 

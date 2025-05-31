@@ -257,7 +257,7 @@ In this file:
     }
 
     &:focus-within {
-      outline: var(--focus-outline-size) var(--focus-outline-style) var(--focus-outline-color);
+      outline: var(--focus-outline-width) var(--focus-outline-style) var(--focus-outline-color);
     }
 
   }

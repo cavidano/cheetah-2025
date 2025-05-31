@@ -27,7 +27,7 @@ In this file:
     --primary: #440381;
     --secondary: #ffcc66;
     --dark: #1f163f;
-    --light: #f7f5f0; 
+    --light: #f2edeb;
     --canvas: white;
 
     // Primary Correlated Colors
@@ -69,6 +69,11 @@ In this file:
     --canvas-link: #0066cc;
     --canvas-confirm: #008237;
     --canvas-warn: #e4193c;
+
+    // Subtle Fill Colors
+
+    --subtle-fill-1: color-mix(in srgb, currentColor 5%, transparent);
+    --subtle-fill-2: color-mix(in srgb, currentColor 10%, transparent);
 }
 
 $theme-colors: (
@@ -127,7 +132,7 @@ $theme-colors: (
 
     html:not([class*="theme-"]),
     [class*="theme-"],
-    .backdrop__image__credit {
+    .backdrop__media__credit {
 
         background-color: var(--background-color);
 
@@ -135,10 +140,8 @@ $theme-colors: (
         
         border-color: var(--border-color);
 
-        * {
-            &:not([class*="theme-"]):not([class*="border"]):not(select):not(footer) {
-                border-color: var(--border-color, inherit);
-            }
+        *:not(:is([class*="theme-"], [class*="border"], select, footer)) {
+            border-color: var(--border-color, inherit);
         }
 
         :is(
@@ -146,7 +149,7 @@ $theme-colors: (
             .td-content > a,
             p > a:not([class*="text-color"]),
             .skip-link > a,
-            .text-color-link 
+            .text-color-link
         ) {
             color: var(--link-color);
         }
@@ -190,8 +193,8 @@ $theme-colors: (
             color: var(--background-color);
         }
 
-        [class*="gradient-veneer"] {
-            --gradient-color: var(--background-color);
+        :is(.active, .has-value) .form-entry__field--float .form-entry__field__label {
+            background-color: var(--background-color);
         }
     }
 
@@ -239,6 +242,23 @@ $theme-colors: (
             --link-color: var(--dark-link);
             --confirm-color: var(--dark-confirm);
             --warn-color: var(--dark-warn);
+        }
+    }
+
+    // Subtle Fill Utilities
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .subtle-fill-1#{$mod}{
+                background-color: var(--subtle-fill-1);
+            }
+
+            .subtle-fill-2#{$mod}{
+                background-color: var(--subtle-fill-2);
+            }
+
         }
     }
 

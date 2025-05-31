@@ -21,6 +21,8 @@ In this file:
 
 :root {
     --backdrop-fixed-height: 400px;
+    --backdrop-media-control-inset: 0 0 auto auto;
+    --backdrop-media-credit-inset: auto 0 0 auto;
 }
 
 //////////////////////////////////////////////
@@ -43,39 +45,48 @@ In this file:
         }
     }
 
-    .backdrop__image {
+    .backdrop__media {
         position: relative;
 
-        img {
+        img, video {
             min-width: 100%;
             min-height: 100%;
         }
+
+        video {
+            width: 100%;
+        }
     }
 
-    .backdrop__image__credit {
+    .backdrop__media__control,
+    .backdrop__media__credit {
         position: absolute;
-        inset-block-end: 0;
-        inset-inline-end: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        // outline: 2px solid red;
+    }
+
+    .backdrop__media__control {
+        inset: var(--backdrop-media-control-inset);
+        z-index: 600;
+        gap: 0.5rem;
+    }
+
+    .backdrop__media__credit {
+        inset: var(--backdrop-media-credit-inset);
 
         font-size: var(--font-size-sm);
         
         padding: 0.25rem 0.75rem;
-
-        width: auto;
         
         z-index: 500;
     }
 
     .backdrop__cover {
         inset: 0;
-
-        display: grid;
-
-        align-content: center;
-
-        > * {
-            width: 100%;
-        }
     }
 
     // Backdrop Stack Modifiers
@@ -104,17 +115,14 @@ In this file:
             min-height: var(--backdrop-fixed-height);
         }
 
-        .backdrop__image {
+        .backdrop__media {
             position: absolute !important;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
+            inset: 0;
 
             display: flex;
             overflow: hidden;
 
-            img {
+            img, video {
                 object-fit: cover;
                 object-position: 50% 50%;
             }

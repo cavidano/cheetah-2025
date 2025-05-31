@@ -20,12 +20,42 @@ In this file:
 
 @use 'sass:map';
 @use './breakpoint';
-@use './accent';
 @use './spacing';
 @use './collapse';
 @use './button';
 @use './link';
 @use './typography';
+
+////////////////////////////////////////
+// C. Placeholder
+////////////////////////////////////////
+
+%caret {
+    --_caret-size: 0.25em;
+    --_caret-margin: 0.375em;
+
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    
+    &::before {
+        border-top: var(--_caret-size) solid;
+        border-right: var(--_caret-size) solid transparent;
+        border-bottom: 0;
+        border-left: var(--_caret-size) solid transparent;
+
+        position: relative;
+        content: "";
+        
+        display: inline-flex;
+        
+        margin-inline-start: var(--_caret-margin);
+        
+        color: inherit;
+        
+        pointer-events: none;
+    }
+}
 
 ////////////////////////////////////////
 // B. Variables
@@ -34,17 +64,13 @@ In this file:
 :root {
     --nav-gap: 0.875em;
 
-    --nav-divider-padding-x: var(--spacer-3);
+    --nav-divider-padding-x: var(--container-padding-x);
 
     --nav-divider-padding-y: 0.625em;
 
     --primary-nav-padding-x: var(--container-padding-x);
     
     --primary-nav-padding-y: var(--spacer-2);
-
-    // Font
-
-    --nav-font-family: var(--body-font-family);
 }
 
 ////////////////////////////////////////
@@ -60,18 +86,25 @@ In this file:
         position: relative;
     }
 
-    font-family: var(--nav-font-family);
+    > li > :is(
+        a, 
+        button
+    ):not(
+        [class*="button"], 
+        :has([class*="icon"])
+    ) {
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
 
-    [aria-current],
-    [aria-selected="true"] {
+    :is([aria-current], [aria-selected="true"]) {
         font-weight: var(--font-weight-bold);
     }
 
-    &:not([class*="nav--has-icons"]) {
-        [aria-selected="true"],
-        [aria-current] {
-            text-decoration-line: underline;
-        }
+    &:not([class*="nav--has-icons"]) :is([aria-selected="true"], [aria-current]) {
+        text-decoration-line: underline;
     }
 }
 
@@ -93,11 +126,6 @@ In this file:
         flex-direction: column;
 
         gap: var(--nav-gap);
-
-        > li > .button {
-            min-height: 100%;
-
-        }
 
         > li > .nav__dropdown {
             inset-inline-start: 0;
@@ -231,11 +259,15 @@ In this file:
 
     [class*="nav--has-icons"] {
 
+        &:not([class*="nav--divider"]) {
+            > li > :is(a, button) {
+                width: fit-content;
+            }
+        }
+
         > li > :is(a, button) {
             display: flex;
             align-items: center;
-
-            width: fit-content;
 
             gap:0.375em;
 
@@ -296,8 +328,9 @@ In this file:
     }
 
     [data-toggle="dropdown"][class*="-icon"] ~ ul {
+        --_dropdown-pointer-size: 0.75rem;
+
         position: relative;
-        --dropdown-pointer-size: 0.75rem;
 
         margin-top: 50px;
         overflow: visible;
@@ -306,14 +339,14 @@ In this file:
             position: absolute;
             content: "";
             top: 0;
-            inset-inline-start: calc(var(--nav-gap) + var(--dropdown-pointer-size) + 4px);
+            inset-inline-start: calc(var(--nav-gap) + var(--_dropdown-pointer-size) + 4px);
             
             transform: translateX(-50%) rotate(45deg);
 
-            width:  var(--dropdown-pointer-size);
-            height:  var(--dropdown-pointer-size);
+            width:  var(--_dropdown-pointer-size);
+            height:  var(--_dropdown-pointer-size);
             
-            margin-top: calc( var(--dropdown-pointer-size) * -0.5 - var(--border-width) );
+            margin-top: calc( var(--_dropdown-pointer-size) * -0.5 - var(--border-width) );
 
             background-color: inherit;
 
@@ -326,7 +359,7 @@ In this file:
     }
 
     .nav__dropdown {
-        --dropdown-z-index: 1200;
+        --_dropdown-z-index: 1200;
 
         position: static;
 
@@ -334,7 +367,7 @@ In this file:
 
         width: 100%;
 
-        z-index: var(--dropdown-z-index);
+        z-index: var(--_dropdown-z-index);
 
         font-size: var(--font-size-md);
 
@@ -360,25 +393,39 @@ In this file:
         
         display: grid;
 
-        align-items: center;
+        align-items: stretch;
 
         z-index: 10000;
 
         ul {
             @extend %list-style-nav;
+            width: 100%;
         }
 
         li:has([class*="nav__dropdown"]) {
             position: relative;
         }
 
-        > [class*="__logo"] {
-            grid-area: logo;
-
+        [class*="__logo"],
+        [class*="__menu"],
+        [class*="__toggle"],
+        [class*="__search"],
+        [class*="__actions"] {
             display: flex;
+            align-items: center;
         }
 
-        > [class*="__menu"] {
+        [class*="__toggle"],
+        [class*="__actions"],
+        [class*="__search"] {
+            font-size: var(--font-size-md);
+        }
+
+        [class*="__logo"] {
+            grid-area: logo;
+        }
+
+        [class*="__menu"] {
             grid-area: menu;
 
             @extend .collapse;
@@ -388,40 +435,32 @@ In this file:
             border-block-start-color: inherit;
         }
 
-        > [class*="__toggle"],
-        > [class*="__actions"],
-        > [class*="__search"] {
-            font-size: var(--font-size-md);
-        }
-
-        > [class*="__toggle"] {
+        [class*="__toggle"] {
             grid-area: toggle;
             
-            display: flex;
-            gap: var(--primary-nav-padding-x);
-
             justify-content: center;
+
+            gap: var(--primary-nav-padding-x);
         }
 
-        > [class*="__search"] {
+        [class*="__search"] {
             grid-area: search;
+
+            display: flex;
+            align-items: center;
 
             .form-entry:not([class*="active"]) .form-entry__field__input::after {
                 display: none;
             }
 
             .form-entry__field {
-                // height: var(--button-icon-only-size) !important;
                 border-radius: var(--button-border-radius);
             }
         }
 
         > [class*="__actions"] {
             grid-area: button;
-
-            @extend .button-group;
         }
-        
     }
 
     [class*="primary-nav--inline--"] {
@@ -454,23 +493,31 @@ In this file:
             var(--_template-area-row-3-m)
         ;
 
-        > [class*="__menu"] {
+        [class*="__menu"] {
             align-self: stretch; 
             justify-content: end;
         }
 
-        > [class*="__logo"] a {
-            margin-inline : var(--nav-gap);
+        [class*="__logo"] a {
+            margin-inline-start : var(--primary-nav-padding-x);
+        } 
+       
+        :is(
+            [class*="__actions"], 
+            [class*="__toggle"]
+        ) {
+            margin-inline-end: var(--primary-nav-padding-x);
+        } 
+
+        :is(
+            [class*="__logo"] a,
+            [class*="__action"],
+            [class*="__toggle"]
+        ) {
+            margin-block: var(--primary-nav-padding-y);
         }
 
-        > [class*="__logo"] a,
-        > [class*="__actions"],
-        > [class*="__toggle"] {
-            margin-block: var(--nav-gap);
-            margin-inline-end: var(--nav-gap);
-        }
-
-        > [class*="__search"] {
+        [class*="__search"] {
             @extend .collapse;
 
             padding: var(--nav-gap);
@@ -489,10 +536,28 @@ In this file:
         --_template-area-row-1-d: "logo search button";
         --_template-area-row-2-d: "menu menu menu";
 
+        column-gap: var(--primary-nav-padding-x);
+
         &:has([class*="__search"]):not(:has([class*="__actions"])) {
             --_template-area-row-2-m: "toggle search search";
             --_template-area-row-1-d: "logo logo search";
         }
+
+        [class*="__logo"] a,
+        [class*="__toggle"] {
+            margin-inline-start : var(--primary-nav-padding-x);
+        } 
+
+        > :is([class*="__search"], [class*="__actions"]):last-child {
+            margin-inline-end : var(--primary-nav-padding-x);
+        }
+
+        [class*="__logo"] a,
+        [class*="__toggle"],
+        [class*="__search"],
+        [class*="__actions"] {
+            margin-block : var(--primary-nav-padding-y);
+        } 
         
         &:has([class*="__actions"]):not(:has([class*="__search"])) {
             --_template-area-row-2-m: "toggle . button";
@@ -513,26 +578,16 @@ In this file:
             var(--_template-area-row-3-m)
         ;
 
-        > [class*="__logo"] {
+        [class*="__logo"] {
             justify-content: center;
             border-block-end-width: var(--border-width);
             border-block-end-style: var(--border-style);
             border-block-end-color: inherit;         
         }
-
-        :is(
-            [class*="__logo"] a, 
-            [class*="__actions"],
-            [class*="__toggle"],
-            [class*="__search"]
-        ) {
-            margin-inline: var(--nav-gap);
-            margin-block: var(--nav-gap);
-        }
     }
 
     .primary-nav__menu {
-
+    
         > ul > li:not(:last-child) {
             border-block-end-width: var(--border-width);
             border-block-end-style: var(--border-style);
@@ -562,8 +617,12 @@ In this file:
     }
 
     .primary-nav__search {
+        .form-entry {
+            width: 100%;
+        }
+
         .form-entry__field {
-            border-width: var(--border-width);
+            border: var(--border-width);
             border-style: var(--border-style);
         }
     }
@@ -576,7 +635,6 @@ In this file:
             .primary-nav--below#{$mod} {
 
                 [class*="__logo"] {
-                    display: flex;
                     justify-content: flex-start;
                 }
 
@@ -584,12 +642,18 @@ In this file:
                     display: none;
                 }
 
-                > [class*="__menu"],
-                > [class*="__search"] {
-                    display: block !important;
+                :is(
+                    [class*="__menu"],
+                    [class*="__search"]
+                ) {
+                    display: flex !important;
                 }
 
-                > [class*="__menu"] > ul > li {
+                [class*="__search"] {
+                    padding: unset;
+                }
+
+                [class*="__menu"] > ul > li {
                     border-block-end: unset;
                 }
 
@@ -599,15 +663,15 @@ In this file:
                 grid-template-columns: 1fr auto auto;
                 grid-template-areas: var(--_template-area-row-1-d);
 
-                > :is(
+                :is(
                     [class*="__menu"],
                     [class*="__search"]
                 ) {
-                    margin-inline-end: var(--nav-gap);
                     border-block-start-style: none !important;
+                    margin-inline-end: var(--primary-nav-padding-x);
                 }
-
-                > [class*="__menu"] {
+                
+                [class*="__menu"] {
                     justify-content: flex-end;
                     align-items: center;
 
@@ -731,14 +795,15 @@ In this file:
         text-align: start;
 
         z-index: 1000;
+        
+        display: block;
 
-        display: none;
-
-        &.shown {
-            display: block;
+        &:not(.shown) {
+            display: none;
         }
 
-        &::before, &::after {
+        &::before, 
+        &::after {
             content: "";
             position: absolute;
             inset: 0;
@@ -748,8 +813,10 @@ In this file:
             inset-inline-start: 50%;
             transform: translateX(-50%);
 
-            width: 100vw;
-            height: 100vh;
+            width: 100dvw;
+            height: 100dvh;
+
+            position: fixed;
             
             z-index: -2;
             

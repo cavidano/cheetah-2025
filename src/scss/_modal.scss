@@ -35,23 +35,20 @@ In this file:
   .modal, 
   .modal::before {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
   }
 
   .modal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    --_display: grid;
+    
+    display: var(--_display);
     align-content: center;
 
     z-index: var(--modal-z-index);
     
     padding: var(--modal-padding);
 
-    &[class*="theme-"]{
+    &[class*="theme-"] {
       background-color: transparent !important;
     }
     
@@ -61,13 +58,15 @@ In this file:
         background-color: var(--modal-overlay-color);
         
         opacity: var(--modal-overlay-opacity);
+
+        pointer-events: none;
     }
 
     &:focus {
       outline: none;
     }
 
-    &[aria-hidden="true"] {
+    &:not(.shown) {
       display: none;
     }
 
@@ -81,14 +80,16 @@ In this file:
     display: flex;
     flex-direction: column;
     
-    max-height: calc(100vh - (var(--modal-padding) * 2));
     width: 100%;
+
+    max-height: calc(100vh - (var(--modal-padding) * 2));
 
     z-index: auto;
     
     background-color: inherit;
     
     margin-inline: auto;
+
   }
 
   .modal__content__head,
@@ -130,15 +131,14 @@ In this file:
   // Modal Scroll All Modifier
 
   .modal--scroll-all {
+    --_display: block;
+    
     overflow-y: scroll;
-
-    &[aria-hidden="false"] {
-      display: block;
-    }
     
     .modal__content {
       margin-block: auto;
     }
+
   }
 
 } // end @layer
