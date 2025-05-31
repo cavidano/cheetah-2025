@@ -8,6 +8,7 @@ In this file:
 
 */
 
+
 //////////////////////////////////////////////
 // A. Modules
 //////////////////////////////////////////////
@@ -66,5 +67,35 @@ $breakpoints: map.merge((null : 0), $breakpoints);
   }
   @else {
     @content;
+  }
+}
+
+//////////////////////////////////////////////
+// F. Single Custom Property for Breakpoints
+//////////////////////////////////////////////
+
+@each $breakpoint, $value in $breakpoints {
+  :root {
+    --bp-#{$breakpoint}: #{$value};
+  }
+}
+
+:root {
+  --current-bp: 'sm'; // fallback for small screens
+
+  @include breakpoint-up('md') {
+    --current-bp: 'md';
+  }
+
+  @include breakpoint-up('lg') {
+    --current-bp: 'lg';
+  }
+
+  @include breakpoint-up('xl') {
+    --current-bp: 'xl';
+  }
+
+  @include breakpoint-up('xxl') {
+    --current-bp: 'xxl';
   }
 }

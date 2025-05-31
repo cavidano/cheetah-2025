@@ -1,6 +1,8 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { delegateEvent } from './utilities/eventDelegation';
 
+import { getCurrentBreakpoint } from './utilities/getCurrentBreakpoint';
+
 export default class Navigation {
   
   // Private properties
@@ -15,8 +17,10 @@ export default class Navigation {
 
     dropdownButton.setAttribute('aria-expanded', 'true');
     dropdownMenu.classList.add('shown');
+    
+    const { isDesktop } = getCurrentBreakpoint();
 
-    if (dropdownMenu.classList.contains('mega-menu')) {
+    if ([...dropdownMenu.classList].some(cls => cls.startsWith('mega-menu')) && isDesktop) {
       handleOverlayOpen();
     }
   }
@@ -27,7 +31,9 @@ export default class Navigation {
     dropdownMenu.classList.remove('shown');
     dropdownButton.setAttribute('aria-expanded', 'false');
 
-    if (dropdownMenu.classList.contains('mega-menu')) {
+    const { isDesktop } = getCurrentBreakpoint();
+    
+    if ([...dropdownMenu.classList].some(cls => cls.startsWith('mega-menu')) && isDesktop) {
       handleOverlayClose();
     }
   }
