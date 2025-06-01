@@ -793,8 +793,6 @@ In this file:
         inset-inline: 0;
         
         text-align: start;
-
-        // z-index: 1000;
         
         display: block;
 
@@ -807,27 +805,35 @@ In this file:
             content: "";
             position: absolute;
             inset: 0;
+
+            display: none;
         }
 
         &::before {
             inset-inline-start: 50%;
             transform: translateX(-50%);
 
+            position: absolute;
+
             width: 100dvw;
             height: 100dvh;
 
-            position: absolute;
-            
+            max-width: var(--body-max-width);
+
             z-index: -2;
             
             pointer-events: none;
 
-            background-color: hsla(0, 0%, 0%, 0.5);
+            background-color: hsla(0, 0%, 0%, 0.75);
+
+            display: none;
         }
 
         &::after {
             background-color: var(--background-color);
             z-index: -1;
+
+            pointer-events: none;
         }
     }
 
@@ -837,6 +843,10 @@ In this file:
 
             .mega-menu#{$mod} {
                 position: absolute;
+                &::before,
+                &::after {
+                    display: block;
+                }
             }
 
         }
