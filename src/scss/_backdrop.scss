@@ -87,6 +87,15 @@ In this file:
 
     .backdrop__cover {
         inset: 0;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        > * {
+           width: 100%;
+        }
+        
     }
 
     // Backdrop Stack Modifiers

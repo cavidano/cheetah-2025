@@ -1,0 +1,34 @@
+<figure class="margin-y-5">
+
+  <div class="backdrop backdrop--stack--lg theme-dark">
+
+    <div class="backdrop__media gradient-mask-bottom">
+      <img class="opacity-60--lg fade-on-scroll" src="{{ include.img_src }}" alt="{{ include.img_alt }}">
+    </div>
+
+    <div class="backdrop__cover justify-content-end">
+      <div class="container narrow margin-y-5">
+        <div class="text-shadow margin-bottom-3">
+          <p class="h3 text-color-primary margin-bottom-3">
+            {{ include.heading }}
+          </p>
+          <p>{{ include.body_text }}</p>
+        </div>
+
+        {% if include.button_href and include.button_text %}
+          <a class="button font-size-md theme-primary" href="{{ include.button_href }}">
+            {{ include.button_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+
+  {% if include.figcaption %}
+    <figcaption class="container narrow">
+      <p>{{ include.figcaption }}</p>
+    </figcaption>
+  {% endif %}
+
+</figure>

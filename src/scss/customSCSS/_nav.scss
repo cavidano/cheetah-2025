@@ -254,8 +254,14 @@ In this file:
 
             .nav__dropdown {
                 position: absolute;
+                inset-inline-start: 0;
 
-                padding: var(--spacer-2);
+                min-width: 200px;
+
+                padding: var(--nav-gap);
+                
+                margin-inline-start: calc(var(--nav-gap) * -1);
+                margin-inline-end: calc(var(--nav-gap) * -1);
             }
         }
 

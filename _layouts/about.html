@@ -1,0 +1,111 @@
+---
+layout: global
+---
+
+<main id="skip-header-target">
+
+    <article>
+
+        <header class="backdrop backdrop--fixed theme-dark" id="banner">
+
+            <div class="backdrop__media gradient-mask-bottom">
+                <img class="opacity-80" src="{{ page.heroImage }}" alt="Placeholder">
+            </div>
+
+            <div class="backdrop__cover justify-content-end">
+
+                <div class="container text-align-right">
+
+                    <h1 class="banner-headline gradient-mask-bottom opacity-50 text-shadow--lg">
+                        <em>{{ page.parent }}</em>	
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <div class="grid-sidebar--left">
+
+            <div class="grid-sidebar__minor-start align-content-start theme-dark padding-2">
+
+                <div class="position-sticky-top margin-y-4">
+
+                    <nav>
+
+                        <ul class="nav nav--divider">
+                            <li>
+                                <a class="text-color-primary" href="#section-1" aria-current="page">
+                                    Conservation
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-2">
+                                    Education
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-3">
+                                    Research
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#section-3">
+                                    International Cheetah Day
+                                </a>
+                            </li>
+                        </ul>
+
+                    </nav>
+
+                    <div class="give font-size-md margin-y-2">
+                    
+                        <div class="backdrop">
+
+                            <div class="backdrop__media gradient-mask-bottom">
+                                <img class="opacity-30" src="https://cheetah.org/wp-content/uploads/2019/07/cheetah-conservation-fund-donate-sidebar.jpg" alt="Placeholder">
+                            </div>
+
+                            <div class="backdrop__cover">
+
+                                <div class="container wide text-align-center margin-y-2">
+
+                                    <h5>
+                                        Don't let the cheetah <br/> run out of time
+                                    </h5>
+                                    
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="grid narrow grid--column-2--md gap-border">
+                            <a class="button theme-primary" href="#">
+                                Donate
+                            </a>
+                            <a class="button theme-primary" href="#">
+                                Sponsor
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="grid-sidebar__major">
+
+               {{ content }}
+
+               {% include _components/related-reading.html %}
+
+            </div>
+
+        </div>
+
+    </article>
+
+</main>

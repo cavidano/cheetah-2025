@@ -85,6 +85,7 @@ In this file:
 
     --blockquote-border-width: var(--border-width);
     --blockquote-border-color: currentColor;
+    --blockquote-font-family: var(--body-font-family);
     --blockquot-font-size: 1.25em; 
 }
 
@@ -439,6 +440,8 @@ $headers: (
     .blockquote {
         --border-width: var(--blockquote-border-width);
         --border-color: var(--blockquote-border-color);
+
+        font-family: var(--blockquote-font-family);
     
         font-size: var(--blockquot-font-size);
 

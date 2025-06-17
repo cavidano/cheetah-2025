@@ -71,6 +71,8 @@ In this file:
     --primary-nav-padding-x: var(--container-padding-x);
     
     --primary-nav-padding-y: var(--spacer-2);
+
+    --nav-font-family: var(--font-family-sans-serif);
 }
 
 ////////////////////////////////////////
@@ -81,6 +83,8 @@ In this file:
     list-style: none;
 
     line-height: normal;
+
+    font-family: var(--nav-font-family);
 
     > li:has([class*="nav__dropdown"]) {
         position: relative;
@@ -384,6 +388,8 @@ In this file:
         > li:not(:last-child) {
             margin-bottom: var(--nav-gap);
         }
+
+        padding: var(--nav-gap);
     }
 
     // Primary Nav Components
