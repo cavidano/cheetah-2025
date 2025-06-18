@@ -2,110 +2,106 @@
 layout: global
 ---
 
-<main id="skip-header-target">
+<article>
 
-    <article>
+    <header class="backdrop backdrop--fixed theme-dark" id="banner">
 
-        <header class="backdrop backdrop--fixed theme-dark" id="banner">
+        <div class="backdrop__media gradient-mask-bottom">
+            <img class="opacity-80" src="{{ page.heroImage }}" alt="Placeholder">
+        </div>
 
-            <div class="backdrop__media gradient-mask-bottom">
-                <img class="opacity-80" src="{{ page.heroImage }}" alt="Placeholder">
-            </div>
+        <div class="backdrop__cover justify-content-end">
 
-            <div class="backdrop__cover justify-content-end">
+            <div class="container text-align-right">
 
-                <div class="container text-align-right">
-
-                    <h1 class="banner-headline gradient-mask-bottom opacity-50 text-shadow--lg">
-                        <em>{{ page.parent }}</em>	
-                    </h1>
-
-                </div>
+                <h1 class="banner-headline gradient-mask-bottom opacity-50 text-shadow--lg">
+                    <em>{{ page.parent }}</em>	
+                </h1>
 
             </div>
 
-        </header>
+        </div>
 
-        <div class="grid-sidebar--left">
+    </header>
 
-            <div class="grid-sidebar__minor-start align-content-start theme-dark padding-2">
+    <div class="grid-sidebar--left">
 
-                <div class="position-sticky-top margin-y-4">
+        <div class="grid-sidebar__minor-start align-content-start theme-dark padding-2">
 
-                    <nav>
+            <div class="position-sticky-top margin-y-4">
 
-                        <ul class="nav nav--divider">
-                            <li>
-                                <a class="text-color-primary" href="#section-1" aria-current="page">
-                                    Conservation
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#section-2">
-                                    Education
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#section-3">
-                                    Research
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#section-3">
-                                    International Cheetah Day
-                                </a>
-                            </li>
-                        </ul>
+                <nav>
 
-                    </nav>
+                    <ul class="nav nav--divider">
+                        <li>
+                            <a class="text-color-primary" href="#section-1" aria-current="page">
+                                Conservation
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#section-2">
+                                Education
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#section-3">
+                                Research
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#section-3">
+                                International Cheetah Day
+                            </a>
+                        </li>
+                    </ul>
 
-                    <div class="give font-size-md margin-y-2">
-                    
-                        <div class="backdrop">
+                </nav>
 
-                            <div class="backdrop__media gradient-mask-bottom">
-                                <img class="opacity-30" src="https://cheetah.org/wp-content/uploads/2019/07/cheetah-conservation-fund-donate-sidebar.jpg" alt="Placeholder">
-                            </div>
+                <div class="give font-size-md margin-y-2">
+                
+                    <div class="backdrop">
 
-                            <div class="backdrop__cover">
+                        <div class="backdrop__media gradient-mask-bottom">
+                            <img class="opacity-30" src="https://cheetah.org/wp-content/uploads/2019/07/cheetah-conservation-fund-donate-sidebar.jpg" alt="Placeholder">
+                        </div>
 
-                                <div class="container wide text-align-center margin-y-2">
+                        <div class="backdrop__cover">
 
-                                    <h5>
-                                        Don't let the cheetah <br/> run out of time
-                                    </h5>
-                                    
-                                </div>
+                            <div class="container wide text-align-center margin-y-2">
 
+                                <h5>
+                                    Don't let the cheetah <br/> run out of time
+                                </h5>
+                                
                             </div>
 
                         </div>
 
-                        <div class="grid narrow grid--column-2--md gap-border">
-                            <a class="button theme-primary" href="#">
-                                Donate
-                            </a>
-                            <a class="button theme-primary" href="#">
-                                Sponsor
-                            </a>
-                        </div>
+                    </div>
 
+                    <div class="grid narrow grid--column-2--md gap-border">
+                        <a class="button theme-primary" href="#">
+                            Donate
+                        </a>
+                        <a class="button theme-primary" href="#">
+                            Sponsor
+                        </a>
                     </div>
 
                 </div>
 
             </div>
 
-            <div class="grid-sidebar__major">
+        </div>
 
-               {{ content }}
+        <div class="grid-sidebar__major">
 
-               {% include _components/related-reading.html %}
+            {{ content }}
 
-            </div>
+            {% include _components/related-reading.html %}
 
         </div>
 
-    </article>
+    </div>
 
-</main>
+</article>

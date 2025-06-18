@@ -11,9 +11,10 @@ In this file:
 // A. Modules
 ////////////////////////////////////////
 
-@use '../navigation';
-@use '../collapse';
+@use '../breakpoint';
 @use '../button';
+@use '../collapse';
+@use '../navigation';
 
 ////////////////////////////////////////
 // B. Components
@@ -28,10 +29,6 @@ In this file:
             "logo"
             "secondary"
             "primary";
-
-            // > * {
-            //     outline: 1px solid red;
-            // }
     }
 
     .global-header__logo {
@@ -52,7 +49,7 @@ In this file:
     .global-header__menu {
         font-size: 1.375rem;
         
-        @media (max-width: 1280px) {
+        @include breakpoint.breakpoint-down('xl') {
 
             > ul > li > :is(a, button) {
                 display: flex;
@@ -79,7 +76,7 @@ In this file:
         
         align-items: center;
 
-        @media screen and (max-width: 768px) {
+        @include breakpoint.breakpoint-down('md') {
             padding: var(--spacer-2);
 
             border-block: var(--border-width) var(--border-style) var(--border-color);
@@ -142,7 +139,8 @@ In this file:
         }
     }
 
-    @media (min-width: 768px) {
+
+    @include breakpoint.breakpoint-up('md') {
 
         .global-header {
             grid-template-areas:
@@ -176,7 +174,7 @@ In this file:
         }
     }
 
-    @media (min-width: 1280px) {
+    @include breakpoint.breakpoint-up('xl') {
 
         .global-header {
             grid-template-areas:

@@ -6,11 +6,15 @@
 
 	<body class="theme-canvas">
 
-		{% include global-header.html %}
-	
-		{{ content }}
+		<main id="skip-header-target">
 
-		{% include global-footer.html %}
+			{% include global-header.html %}
+		
+			{{ content }}
+
+			{% include global-footer.html %}
+
+		</main>
 
 	</body>
 
