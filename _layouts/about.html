@@ -4,7 +4,7 @@ layout: global
 
 <article>
 
-    <header class="backdrop backdrop--fixed theme-dark" id="banner">
+    <header class="backdrop theme-dark" id="banner">
 
         <div class="backdrop__media gradient-mask-bottom">
             <img class="opacity-80" src="{{ page.heroImage }}" alt="Placeholder">
@@ -26,11 +26,24 @@ layout: global
 
     <div class="grid-sidebar--left">
 
-        <div class="grid-sidebar__minor-start align-content-start theme-dark padding-2">
+        <div class="grid-sidebar__minor-start align-content-start theme-light theme-dark--xl padding-2--xl">
 
-            <div class="position-sticky-top margin-y-4">
+            <button
+                class="button width-100 theme-primary display-none--xl"
+                data-toggle="collapse"
+                aria-controls="target-id"
+                aria-expanded="false"
+            >
+                    Navigation
+            </button>
 
-                <nav>
+            <div class="position-sticky-top margin-y-4--xl">
+
+                <nav
+                    class="collapse display-block--xl"
+                    id="target-id"
+                    aria-hidden="true"
+                >
 
                     <ul class="nav nav--divider">
                         <li>
@@ -57,7 +70,7 @@ layout: global
 
                 </nav>
 
-                <div class="give font-size-md margin-y-2">
+                <div class="give font-size-md margin-y-2 display-none display-block--xl">
                 
                     <div class="backdrop">
 

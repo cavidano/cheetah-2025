@@ -102,18 +102,33 @@ In this file:
     --blockquote-border-width: 0.25rem;
 }
 
-/*
+//////////////////////////////////////////////
+// B. Font Utilities
+//////////////////////////////////////////////
 
-// Banner
+.serif {
+    font-family: var(--serif);
+}
 
-*/
+.sans-serif {
+    font-family: var(--sans-serif);
+}
+
+//////////////////////////////////////////////
+// B. About Banner
+//////////////////////////////////////////////
 
 #banner.backdrop {
-    --banner-headline-font-size: 8rem;
-    --backdrop-fixed-height: 600px;
+    --banner-headline-font-size: 10cqw;
+
+    container-type: inline-size;
 
     .banner-headline {
         color: var(--primary-dark);
+
+        line-height: 0.875;
+        leading-trim: both;
+        text-edge: cap alphabetic;
     }
 }
 
@@ -127,10 +142,6 @@ In this file:
     :root {
         --type-scale: 1.1375;
         --spacer-base: 0.675rem;
-    }
-
-    #introduction.backdrop {
-        --backdrop-fixed-height: 450px;
     }
 }
 
@@ -271,14 +282,21 @@ In this file:
     }
     
 
-.sans-serif {
-    font-family: var(--sans-serif);
-}
-
 .african-hr {
     border-top: none;
     height: 20px;
     background-image: url(../images/african-hr.svg);
     background-image: url(../images/african-hr.svg), none;
     background-repeat: repeat;
+}
+
+:root {
+  --gradient-start: var(--primary);
+  --gradient-end: var(--secondary);
+}
+
+.gradient-text {
+  background: linear-gradient(180deg, var(--gradient-start), var(--gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

@@ -205,7 +205,7 @@ $rows: math.div($columns, 2);
         }
     }
 
-    @include breakpoint.breakpoint-up(lg) {
+    @include breakpoint.breakpoint-up(xl) {
     
         .grid-sidebar--left,
         .grid-sidebar--right {
