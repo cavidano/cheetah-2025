@@ -297,7 +297,9 @@
                         <button
                             data-toggle="dropdown"
                             aria-controls="menu-learn"
-                            data-trigger="hover"
+                            {% if page.url contains '/learn' %}
+                            aria-current="page"
+                            {% endif %}
                         >
                             Learn
                         </button>
@@ -306,7 +308,7 @@
                             id="menu-learn"
                         >
                             <li>
-                                <a href="#1">
+                                <a href="{{ site.url }}/learn/resource-library">
                                     Resource Library
                                 </a>
                             </li>

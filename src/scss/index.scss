@@ -32,7 +32,7 @@ In this file:
 // C. Optional Partials
 //////////////////////////////////////////////
 
-@use './accordion';
+// @use './accordion';
 @use './alert';
 @use './article';
 @use './aspect-ratio';
@@ -62,6 +62,7 @@ In this file:
 // C. Custom Partials
 //////////////////////////////////////////////
 
+@use './customSCSS/accordion';
 @use './customSCSS/color';
 @use './customSCSS/theme';
 @use './customSCSS/nav';
