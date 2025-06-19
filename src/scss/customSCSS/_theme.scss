@@ -77,10 +77,6 @@ In this file:
     --spacer-4: calc(var(--spacer-base) * 2);
     --spacer-5: calc(var(--spacer-base) * 4);
 
-    // Grid
-
-    // --grid-sidebar-width: 18rem;
-
     // Form
 
     --form-field-border-color: var(--border-color);
@@ -225,24 +221,12 @@ In this file:
     }
 }
 
-
 .african-hr {
     border-top: none;
     height: 20px;
     background-image: url(../images/african-hr.svg);
     background-image: url(../images/african-hr.svg), none;
     background-repeat: repeat;
-}
-
-:root {
-  --gradient-start: var(--primary);
-  --gradient-end: var(--secondary);
-}
-
-.gradient-text {
-  background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .image-link {

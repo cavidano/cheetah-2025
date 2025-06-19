@@ -14,9 +14,9 @@ In this file:
     --_padding-x: 1em;
     --_padding-y: 0.5em;
 
-    font-family: var(--sans-serif);
-
     list-style: none;
+
+    font-family: var(--sans-serif);
 
     > li {
         overflow: hidden;
@@ -64,4 +64,3 @@ In this file:
         min-height: var(--button-icon-only-size);
     }
 }
-    
