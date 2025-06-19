@@ -71,16 +71,30 @@ In this file:
 
     .link {
 
-        &:not([class*="text-color-"]) {
+        &:not([class*="text-color-"], [class*="--styled"]) {
             color: var(--link-color);
         }
 
-        &:not(:has([class*="icon"])) {
+        &:not(:has([class*="icon"], [class*="--styled"])) {
             &:hover,
             &:focus {
                 text-decoration: underline;
             }
         }
+
+    }
+
+    .link--styled {
+        font-weight: var(--font-weight-bold);
+        font-family: var(--sans-serif);
+        
+        color: currentColor;
+
+        text-decoration-line: underline;
+        text-decoration-color: var(--primary-dark);
+        text-decoration-thickness: calc( var(--border-width) * 2);
+        text-underline-offset: 0.25em;
+        text-decoration-style: wavy; /* solid | double | dotted | dashed | wavy */
 
     }
 
