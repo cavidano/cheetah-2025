@@ -29,6 +29,7 @@ const devPages = {
     'Grid': 'grid',
     'Lightbox': 'lightbox',
     'Modal': 'modal',
+    'Map' : 'map',
     'Navigation': 'navigation',
     'Spacer': 'spacer',
     'Tab': 'tab',
@@ -38,7 +39,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Accordion}.html`;
+const devPage = `${devPages.Map}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

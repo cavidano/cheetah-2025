@@ -1,0 +1,159 @@
+<div
+    id="map"
+    class="margin-y-5"
+    style="width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden;"
+></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+
+    // ===== Marker Data =====
+
+    const headquarters = [
+        {
+            name: "Namibia Headquarters",
+            address: "Otjiwarongo, Namibia",
+            lat: -20.4630,
+            lng: 16.6474,
+            type: "headquarters"
+        },
+        {
+            name: "Somaliland Office",
+            address: "Hargeisa, Somaliland",
+            lat: 9.5632,
+            lng: 44.0672,
+            type: "headquarters"
+        }
+    ];
+
+    const affiliates = [
+        {
+            name: "Australia Affiliate",
+            address: "Australia",
+            lat: -25.2744,
+            lng: 133.7751,
+            type: "affiliate"
+        },
+        {
+            name: "Canada Affiliate",
+            address: "Canada",
+            lat: 56.1304,
+            lng: -106.3468,
+            type: "affiliate"
+        },
+        {
+            name: "France Affiliate",
+            address: "Paris, France",
+            lat: 48.8566,
+            lng: 2.3522,
+            type: "affiliate"
+        },
+        {
+            name: "Italy Affiliate",
+            address: "Milan, Italy",
+            lat: 45.4642,
+            lng: 9.19,
+            type: "affiliate"
+        },
+        {
+            name: "Netherlands Affiliate",
+            address: "The Hague, Netherlands",
+            lat: 52.0705,
+            lng: 4.3007,
+            type: "affiliate"
+        },
+        {
+            name: "United Kingdom Affiliate",
+            address: "United Kingdom",
+            lat: 51.509865,
+            lng: -0.118092,
+            type: "affiliate"
+        },
+        {
+            name: "United States Affiliate",
+            address: "Alexandria, VA, USA",
+            lat: 38.8048,
+            lng: -77.0469,
+            type: "affiliate"
+        }
+    ];
+
+    // ===== Icon Definitions =====
+
+    const ICON_URLS = {
+        headquarters: '{{ site.baseurl }}/images/map-flag-hq.svg',
+        affiliate: '{{ site.baseurl }}/images/map-flag-affiliate.svg'
+    };
+
+    const getIcon = type => L.icon({
+        iconUrl: ICON_URLS[type] ?? ICON_URLS.affiliate,
+        iconSize: [40, 56],
+        iconAnchor: [20, 56],
+        popupAnchor: [0, -56],
+        shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+        shadowSize: [50, 64],         // Try different values as needed for your design
+        shadowAnchor: [16, 62]        // Usually near the tip or base of your icon
+    });
+
+    // ===== Map Initialization =====
+
+    const map = L.map('map', {
+        attributionControl: false,
+        scrollWheelZoom: false
+    }).setView([10, 10], 2);
+
+    L.tileLayer(
+        'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', {
+        maxZoom: 16
+    }
+    ).addTo(map);
+
+    // ===== Add Markers Utility =====
+
+    const createPopup = ({ name, address, type }) => `
+    <div>
+        <strong>${name}</strong><br>
+        <span>${address}</span><br>
+        <small>${type === "headquarters" ? "Headquarters" : "Affiliate"}</small>
+    </div>
+    `;
+
+    const addMarkers = (locations, iconType) =>
+    locations.map(loc =>
+        L.marker([loc.lat, loc.lng], { icon: getIcon(iconType) })
+        .addTo(map)
+        .bindPopup(createPopup(loc))
+    );
+
+    // ===== Add Markers =====
+
+    const hqMarkers = addMarkers(headquarters, 'headquarters');
+    const affiliateMarkers = addMarkers(affiliates, 'affiliate');
+
+    // ===== Responsive Fit-to-Bounds =====
+
+    const fitMapToMarkers = () => {
+        const allMarkers = [...hqMarkers, ...affiliateMarkers];
+        if (!allMarkers.length) return;
+
+        const width = document.getElementById('map').offsetWidth;
+
+        const breakpoints = [
+            { min: 1400, pad: 80 },
+            { min: 1000, pad: 60 },
+            { min: 600, pad: 30 },
+            { min: 400, pad: 10 },
+            { min: 0, pad: 0 }
+        ];
+        
+        const pad = breakpoints.find(b => width > b.min).pad;
+
+        const group = L.featureGroup(allMarkers);
+        
+        map.fitBounds(group.getBounds(), { padding: [pad, pad] });
+    };
+
+    fitMapToMarkers();
+    window.addEventListener('resize', fitMapToMarkers);
+
+</script>
