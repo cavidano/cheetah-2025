@@ -1,7 +1,7 @@
 <figure class="{{ include.classes | default: 'medium margin-x-auto margin-y-5' }}">
   <img class="width-100" src="{{ include.src }}" alt="{{ include.alt | default: '' }}">
   {% if include.caption %}
-    <figcaption>
+    <figcaption class="container">
       <p>{{ include.caption }}</p>
     </figcaption>
   {% endif %}

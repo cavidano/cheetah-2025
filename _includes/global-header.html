@@ -145,26 +145,27 @@
                         <button
                             data-toggle="dropdown"
                             aria-controls="menu-about-us"
-                             {% if page.url contains '/about-us' %} aria-current="page" {% endif %}
+                            {% if page.url contains '/about-us' %}
+                            aria-current="page"
+                            {% endif %}
                         >
-                        About Us
-                            
+                            About Us
                         </button>
                         
                         <nav 
                             class="mega-menu--xl theme-light theme-secondary--xl box-shadow-2--xl"
                             id="menu-about-us">
 
-                            <div class="grid grid--column-3--xl gap-4">
+                            <div class="grid grid--column-4--xl gap-4">
 
-                                <div class="grid__colspan-2--xl padding-y-4">
+                                <div class="grid__colspan-3--xl padding-y-4">
 
                                     <div class="container">
 
                                         <div class="grid grid--divider grid--column-3--xl gap-5">
 
-                                            <p class="h3 font-weight-normal gradient-text display-none display-block--xl">
-                                              <em>A global movement to keep cheetahs in the wild</em>  
+                                            <p class="h3 text-color-primary font-weight-normal display-none display-block--xl">
+                                              <em>CCF is Changing the World to Save the Cheetah</em>  
                                             </p>
                         
                                             <section>
@@ -223,9 +224,9 @@
 
                                 </div>
 
-                                <div class="backdrop">
+                                <div class="backdrop backdrop--fixed" style="--backdrop-fixed-height: auto;">
 
-                                    <div class="backdrop__media gradient-mask-bottomx">
+                                    <div class="backdrop__media gradient-mask-bottom">
                                         <img class="opacity-80" src="./images/mega-menu-feature.jpg" alt="Placeholder">
                                     </div>
 
