@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Accordion • Natura11y</title>
+
+        <!-- Natura11y Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">
+  
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+    </head>
+
+    <body>
+
+        <div
+            id="map"
+            style="width: 100vw; aspect-ratio: 16/9; position: relative; overflow: hidden;"
+        ></div>
+
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+        <script>
+            // === Marker Data ===
+            const headquarters = [
+            {
+                name: "Namibia Headquarters",
+                address: "Otjiwarongo, Namibia",
+                lat: -20.4630,
+                lng: 16.6474,
+                type: "headquarters"
+            },
+            {
+                name: "Somaliland Office",
+                address: "Hargeisa, Somaliland",
+                lat: 9.5632,
+                lng: 44.0672,
+                type: "headquarters"
+            }
+            ];
+
+            const affiliates = [
+            {
+                name: "Australia Affiliate",
+                address: "Australia",
+                lat: -25.2744,
+                lng: 133.7751,
+                type: "affiliate"
+            },
+            {
+                name: "Canada Affiliate",
+                address: "Canada",
+                lat: 56.1304,
+                lng: -106.3468,
+                type: "affiliate"
+            },
+            {
+                name: "France Affiliate",
+                address: "Paris, France",
+                lat: 48.8566,
+                lng: 2.3522,
+                type: "affiliate"
+            },
+            {
+                name: "Italy Affiliate",
+                address: "Milan, Italy",
+                lat: 45.4642,
+                lng: 9.19,
+                type: "affiliate"
+            },
+            {
+                name: "Netherlands Affiliate",
+                address: "The Hague, Netherlands",
+                lat: 52.0705,
+                lng: 4.3007,
+                type: "affiliate"
+            },
+            {
+                name: "United Kingdom Affiliate",
+                address: "United Kingdom",
+                lat: 51.509865,
+                lng: -0.118092,
+                type: "affiliate"
+            },
+            {
+                name: "United States Affiliate",
+                address: "Alexandria, VA, USA",
+                lat: 38.8048,
+                lng: -77.0469,
+                type: "affiliate"
+            }
+            ];
+
+            // === Map Init ===
+            var map = L.map('map').setView([10, 10], 2);
+
+            L.tileLayer(
+            'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg',
+            {
+                maxZoom: 16,
+                attribution:
+                '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> ' +
+                '&copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a> ' +
+                '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+            }
+            ).addTo(map);
+
+            // === Marker Icons ===
+            const hqIcon = L.icon({
+            iconUrl: 'https://cdn.jsdelivr.net/gh/pointhi/leaflet-color-markers@master/img/marker-icon-blue.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
+            });
+            const affiliateIcon = L.icon({
+            iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
+            });
+
+            // === Add Headquarters Markers ===
+            headquarters.forEach(loc => {
+            L.marker([loc.lat, loc.lng], { icon: hqIcon })
+                .addTo(map)
+                .bindPopup(`<strong>${loc.name}</strong><br>${loc.address}`);
+            });
+
+            // === Add Affiliate Markers ===
+            affiliates.forEach(loc => {
+            L.marker([loc.lat, loc.lng], { icon: affiliateIcon })
+                .addTo(map)
+                .bindPopup(`<strong>${loc.name}</strong><br>${loc.address}`);
+            });
+
+        </script>
+    </body>
+
+</html>
