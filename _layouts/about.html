@@ -15,7 +15,7 @@ layout: global
             <div class="container text-align-right">
 
                 <h1 class="banner-headline gradient-mask-bottom opacity-50 text-shadow--lg">
-                    <em>{{ page.parent }}</em>	
+                    <em>{{ page.section }}</em>	
                 </h1>
 
             </div>
@@ -34,10 +34,17 @@ layout: global
                 aria-controls="target-id"
                 aria-expanded="false"
             >
-                    Navigation
+
+                <span class="icon icon-menu"></span>
+                <span class="button__text">{{ page.section }}</span>
+                    
             </button>
 
             <div class="position-sticky-top margin-y-4--xl">
+
+                {% assign nav = site.data.navigation | where: "label", page.section | first %}
+
+                {% if nav and nav.items %}
 
                 <nav
                     class="collapse display-block--xl"
@@ -46,29 +53,22 @@ layout: global
                 >
 
                     <ul class="nav nav--divider">
+                     {% for item in nav.items %}
                         <li>
-                            <a class="text-color-primary" href="#section-1" aria-current="page">
-                                Conservation
+                            <a
+                                href="#"
+                                 {% if page.url == item.url %}
+                                 aria-current="page"{% endif %}
+                            >
+                               {{ item.label }}
                             </a>
                         </li>
-                        <li>
-                            <a href="#section-2">
-                                Education
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#section-3">
-                                Research
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#section-3">
-                                International Cheetah Day
-                            </a>
-                        </li>
+                        {% endfor %}
                     </ul>
 
                 </nav>
+
+                {% endif %}
 
                 <div class="give font-size-md margin-y-2 display-none display-block--xl">
                 
