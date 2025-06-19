@@ -170,52 +170,56 @@
                         
                                             <section>
 
+                                                {% assign who_we_are = site.data.navigation | where: "label", "Who We Are" | first %}
+
                                                 <h2 class="h6 margin-bottom-3">
-                                                    Who We Are
+                                                    {{ who_we_are.label }}
                                                 </h2>
 
+                                                {% if who_we_are.items %}
                                                 <ul class="nav font-size-md">
+                                                    {% for item in who_we_are.items %}
                                                     <li>
-                                                        <a href="#1">CCF's Mission</a>
+                                                        <a
+                                                            href="{{ item.url }}"
+                                                            {% if page.url == item.url %}
+                                                            aria-current="page"
+                                                            {% endif %}
+                                                        >
+                                                            {{ item.label }}
+                                                        </a>
                                                     </li>
-                                                    <li>
-                                                        <a href="#1">Dr. Laurie Marker</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#1">Our Field Conservation Centres</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#1">CCF Staff</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#1">Governance</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="{{ site.url }}/about-us/who-we-are/ccf-global.html">CCF Global</a>
-                                                    </li>
+                                                    {% endfor %}
                                                 </ul>
+                                                {% endif %}
+
                                             </section>
 
                                             <section>
 
+                                                {% assign what_we_do = site.data.navigation | where: "label", "What We Do" | first %}
+
                                                 <h2 class="h6 margin-bottom-3">
-                                                    What We Do
+                                                    {{ what_we_do.label }}
                                                 </h2>
-                                                
+
+                                                {% if what_we_do.items %}
                                                 <ul class="nav font-size-md">
+                                                    {% for item in what_we_do.items %}
                                                     <li>
-                                                        <a href="{{ site.url }}/about-us/what-we-do/conservation.html">Conservation</a>
+                                                        <a
+                                                            href="{{ item.url }}"
+                                                            {% if page.url == item.url %}
+                                                            aria-current="page"
+                                                            {% endif %}
+                                                        >
+                                                            {{ item.label }}
+                                                        </a>
                                                     </li>
-                                                    <li>
-                                                        <a href="#1">Research</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#1">Education</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#1">International Cheetah Day</a>
-                                                    </li>
+                                                    {% endfor %}
                                                 </ul>
+                                                {% endif %}
+
                                             </section>
                                             
                                         </div>
@@ -224,7 +228,7 @@
 
                                 </div>
 
-                                <div class="backdrop backdrop--fixed" style="--backdrop-fixed-height: auto;">
+                                <article class="backdrop backdrop--fixed" style="--backdrop-fixed-height: auto;">
 
                                     <div class="backdrop__media gradient-mask-bottom">
                                         <img class="opacity-80" src="./images/mega-menu-feature.jpg" alt="Placeholder">
@@ -237,18 +241,19 @@
                                             <a class="button 👉 theme-primary font-size-md width-100--lg" href="#1">
                                                 2022 Annual Report
                                             </a>
-                                            
+                                                
                                         </div>
 
                                     </div>
 
-                                </div>
+                                </article>
 
                             </div>
 
                         </nav>
 
                     </li>
+
                     <li>
                         <button
                             data-toggle="dropdown"
@@ -259,42 +264,21 @@
                         >
                             Get Involved
                         </button>
-                        <ul
-                            class="nav__dropdown theme-secondary box-shadow-1--lg"
-                            id="menu-get-involved"
-                        >
+
+                        {% assign get_involved = site.data.navigation | where: "label", "Get Involved" | first %}
+
+                        <ul class="nav__dropdown theme-light theme-secondary--xl box-shadow-1--xl" id="menu-get-involved">
+                        {% if get_involved.items %}
+                            {% for item in get_involved.items %}
                             <li>
-                                <a href="{{ site.url }}/get-involved/ways-to-give">
-                                    Ways to Give
-                                </a>
+                                <a href="{{ item.url }}"
+                                >{{ item.label }}</a>
                             </li>
-                            <li>
-                                <a href="#1">
-                                    CCF Events
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Volunteer
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Visit CCF in Namibia
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Corporate Giving
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Shop
-                                </a>
-                            </li>
+                            {% endfor %}
+                        {% endif %}
                         </ul>
                     </li>
+
                     <li>
                         <button
                             data-toggle="dropdown"
@@ -305,52 +289,21 @@
                         >
                             Learn
                         </button>
-                        <ul
-                            class="nav__dropdown theme-secondary box-shadow-1--lg"
-                            id="menu-learn"
-                        >
+
+                        {% assign learn = site.data.navigation | where: "label", "Learn" | first %}
+
+                        <ul class="nav__dropdown theme-light theme-secondary--xl box-shadow-1--xl" id="menu-learn">
+                        {% if learn.items %}
+                            {% for item in learn.items %}
                             <li>
-                                <a href="{{ site.url }}/learn/resource-library">
-                                    Resource Library
-                                </a>
+                                <a href="{{ item.url }}"
+                                >{{ item.label }}</a>
                             </li>
-                            <li>
-                                <a href="#1">
-                                    About Cheetahs
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Human Wildlife Conflict
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Illegal Wildlife Trade
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Habitat Loss
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Sustainable Development Goals
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    CCF Videos
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    CCF Goals
-                                </a>
-                            </li>
+                            {% endfor %}
+                        {% endif %}
                         </ul>
                     </li>
+
                     <li>
                         <button
                             data-toggle="dropdown"
@@ -359,25 +312,18 @@
                         >
                             News
                         </button>
-                        <ul
-                            class="nav__dropdown theme-secondary box-shadow-1--lg"
-                            id="menu-news"
-                        >
+
+                        {% assign news = site.data.navigation | where: "label", "News" | first %}
+
+                        <ul class="nav__dropdown theme-light theme-secondary--xl box-shadow-1--xl" id="menu-news">
+                        {% if news.items %}
+                            {% for item in news.items %}
                             <li>
-                                <a href="#1">
-                                    CCF Blog
-                                </a>
+                                <a href="{{ item.url }}"
+                                >{{ item.label }}</a>
                             </li>
-                            <li>
-                                <a href="#1">
-                                    Cheetah Strides
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#1">
-                                    Press Releases
-                                </a>
-                            </li>
+                            {% endfor %}
+                        {% endif %}
                         </ul>
                     </li>
                   
@@ -394,5 +340,3 @@
     </header>
 
 </div>
-
-<main>
