@@ -226,64 +226,6 @@ In this file:
 }
 
 
- // List divider
-
-    .list-divider {
-        --_padding-x: 1em;
-        --_padding-y: 0.5em;
-
-        font-family: var(--sans-serif);
-
-        list-style: none;
-
-        > li {
-            overflow: hidden;
-
-            font-size: var(--font-size-md);
-
-            padding-block: var(--_padding-y);
-
-            display: flex;
-
-            align-items: center;
-            
-            min-height: calc( var(--list-item-target-size) + var(--_padding-y));
-
-            button {
-                --button-target-size: calc(var(--list-item-target-size) - 0.25em);
-            }
-        }
-
-        > li:not(:last-child) {
-            border-block-end: var(--border-width) var(--border-style) var(--border-color);
-        }
-
-        > li:not(:has([class*="__cell"])) {
-            --_padding-y: 0.75em;
-
-            padding-inline: var(--_padding-x);
-        }
-
-        > li:has([class*="__cell"]) {
-            justify-content: space-between;
-
-            gap: var(--spacer-2);
-
-            > [class*="__cell"]:nth-child(1) {
-                padding-inline: var(--_padding-x);
-            }
-        }
-
-        > li > [class*="__cell"]:nth-child(1) {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            
-            min-height: var(--button-icon-only-size);
-        }
-    }
-    
-
 .african-hr {
     border-top: none;
     height: 20px;
