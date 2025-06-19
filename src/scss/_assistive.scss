@@ -61,7 +61,8 @@ In this file:
 
         &:is(
             [class*="backdrop"], 
-            [class*="card"]
+            [class*="card"],
+            [class*="image-link"]
         ):focus-visible {
             position: relative;
             z-index: 1;
@@ -83,6 +84,7 @@ In this file:
             .button--outline,
             .lightbox-thumbnail,
             [class*="backdrop"],
+            .image-link,
             .tabs-nav--pill > li > :is(a, button)
         ) {
             --focus-outline-offset: calc(var(--focus-outline-width) * -3);

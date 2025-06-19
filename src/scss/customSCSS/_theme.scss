@@ -300,3 +300,27 @@ In this file:
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.image-link {
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  img {
+    transition: transform 0.25s ease-in-out;
+  }
+
+  &:is(:hover, :focus) {
+
+    img {
+      transform: scale(1.025);
+    }
+
+    .button{
+        text-decoration: underline;
+    }
+
+  }
+
+}

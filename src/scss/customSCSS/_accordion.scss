@@ -8,7 +8,6 @@ In this file:
 
 */
 
-
 //////////////////////////////////////////////
 // A. Modules
 //////////////////////////////////////////////
@@ -44,8 +43,6 @@ In this file:
 
     .accordion {
         display: grid;
-        
-        // gap: var(--gap-size, 0.2em);
     }
 
     // Accordion Elements
@@ -53,10 +50,6 @@ In this file:
     .accordion__button {
         position: relative;
         overflow: hidden;
-
-        // background-color: var(--subtle-fill-1);
-
-        // border-radius: var(--button-border-radius);
 
         &:not(:last-child) {
             border-bottom: var(--border-width) var(--border-style) var(--border-color);

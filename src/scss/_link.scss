@@ -18,15 +18,34 @@ In this file:
     }
 
     p > a {
-        text-decoration: underline;
 
+        &:not([class*="link--has-icon"]) {
+            text-decoration: underline;
+        }
+
+        &:has([class*="link--has-icon"]) {
+            text-decoration: none;
+        }
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+
+    }
+
+    p > a:not([class*="link--has-icon"]) {
+
+        text-decoration: underline;
+        
         &:hover,
         &:focus {
             text-decoration: none;
         }
     }
 
-    a[data-logo="brand"] {
+    [data-logo="brand"] {
+
         display: inline-block;
 
         &:focus-visible {
@@ -37,6 +56,7 @@ In this file:
             fill: currentColor;
             display: block;
         }
+
     }
 
 } // end @layer
@@ -50,8 +70,7 @@ In this file:
     // Link with Icon
 
     .link {
-        font-weight: var(--button-font-weight);
-        
+
         &:not([class*="text-color-"]) {
             color: var(--link-color);
         }
@@ -65,27 +84,8 @@ In this file:
 
     }
 
-    // :has() Selectors
-
-    .link:has([class*="icon"]) {
-        --icon-size: 1em;
-
-        display: inline-flex;
-        align-items: center;
-
-        gap: 0.5em;
-
-        &:hover,
-        &:focus {
-            [class*="text"] {
-                text-decoration: underline;
-            }
-        }
-    }
-
-    // Link Expanded  
-
     .link-expanded {
+
         &::before {
             position: absolute;
             content: "";
@@ -96,6 +96,7 @@ In this file:
 
             pointer-events: auto;
         }
+
     }
 
 } // end @layer

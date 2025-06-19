@@ -253,7 +253,9 @@
                         <button
                             data-toggle="dropdown"
                             aria-controls="menu-get-involved"
-                            data-trigger="hover"
+                            {% if page.url contains '/get-involved' %}
+                            aria-current="page"
+                            {% endif %}
                         >
                             Get Involved
                         </button>
@@ -262,7 +264,7 @@
                             id="menu-get-involved"
                         >
                             <li>
-                                <a href="#1">
+                                <a href="{{ site.url }}/get-involved/ways-to-give">
                                     Ways to Give
                                 </a>
                             </li>
