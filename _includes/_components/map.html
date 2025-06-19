@@ -7,7 +7,7 @@
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script>
 
-    // Marker Data 
+    // ===== Marker Data =====
 
     const headquarters = [
         {
@@ -78,52 +78,82 @@
         }
     ];
 
-    // Map Init
-    
-    var map = L.map('map').setView([10, 10], 2);
+    // ===== Icon Definitions =====
+
+    const ICON_URLS = {
+        headquarters: '{{ site.baseurl }}/images/map-flag-hq.svg',
+        affiliate: '{{ site.baseurl }}/images/map-flag-affiliate.svg'
+    };
+
+    const getIcon = type => L.icon({
+        iconUrl: ICON_URLS[type] ?? ICON_URLS.affiliate,
+        iconSize: [40, 56],
+        iconAnchor: [20, 56],
+        popupAnchor: [0, -56],
+        shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+        shadowSize: [50, 64],         // Try different values as needed for your design
+        shadowAnchor: [16, 62]        // Usually near the tip or base of your icon
+    });
+
+    // ===== Map Initialization =====
+
+    const map = L.map('map', {
+        attributionControl: false,
+        scrollWheelZoom: false
+    }).setView([10, 10], 2);
 
     L.tileLayer(
-    'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg',
-        {
-            maxZoom: 16,
-            attribution:
-            '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> ' +
-            '&copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a> ' +
-            '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
-        }
+        'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', {
+        maxZoom: 16
+    }
     ).addTo(map);
 
-    // Marker Icons
+    // ===== Add Markers Utility =====
 
-    const hqIcon = L.icon({
-        iconUrl: 'https://cheetah.org/wp-content/themes/ccf-twentynineteen/images/map-flag.svg',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
-    });
-    
-    const affiliateIcon = L.icon({
-        iconUrl: 'https://cheetah.org/wp-content/themes/ccf-twentynineteen/images/map-flag-affiliate.svg',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png'
-    });
+    const createPopup = ({ name, address, type }) => `
+    <div>
+        <strong>${name}</strong><br>
+        <span>${address}</span><br>
+        <small>${type === "headquarters" ? "Headquarters" : "Affiliate"}</small>
+    </div>
+    `;
 
-    // Add Headquarters Markers
-    
-    headquarters.forEach(loc => {
-    L.marker([loc.lat, loc.lng], { icon: hqIcon })
+    const addMarkers = (locations, iconType) =>
+    locations.map(loc =>
+        L.marker([loc.lat, loc.lng], { icon: getIcon(iconType) })
         .addTo(map)
-        .bindPopup(`<strong>${loc.name}</strong><br>${loc.address}`);
-    });
+        .bindPopup(createPopup(loc))
+    );
 
-    // === Add Affiliate Markers ===
-    affiliates.forEach(loc => {
-    L.marker([loc.lat, loc.lng], { icon: affiliateIcon })
-        .addTo(map)
-        .bindPopup(`<strong>${loc.name}</strong><br>${loc.address}`);
-    });
+    // ===== Add Markers =====
+
+    const hqMarkers = addMarkers(headquarters, 'headquarters');
+    const affiliateMarkers = addMarkers(affiliates, 'affiliate');
+
+    // ===== Responsive Fit-to-Bounds =====
+
+    const fitMapToMarkers = () => {
+        const allMarkers = [...hqMarkers, ...affiliateMarkers];
+        if (!allMarkers.length) return;
+
+        const width = document.getElementById('map').offsetWidth;
+
+        const breakpoints = [
+            { min: 1400, pad: 80 },
+            { min: 1000, pad: 60 },
+            { min: 600, pad: 30 },
+            { min: 400, pad: 10 },
+            { min: 0, pad: 0 }
+        ];
+        
+        const pad = breakpoints.find(b => width > b.min).pad;
+
+        const group = L.featureGroup(allMarkers);
+        
+        map.fitBounds(group.getBounds(), { padding: [pad, pad] });
+    };
+
+    fitMapToMarkers();
+    window.addEventListener('resize', fitMapToMarkers);
 
 </script>

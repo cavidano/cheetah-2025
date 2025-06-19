@@ -47,7 +47,7 @@ In this file:
 
     --html-background-color: var(--dark);
     
-    --narrow-width: 42rem;
+    --narrow-width: 44rem;
     --medium-width: calc( var(--narrow-width) * 1.5);
     --wide-width: calc( var(--narrow-width) * 2.5);
 
@@ -244,6 +244,8 @@ In this file:
             padding-block: var(--_padding-y);
 
             display: flex;
+
+            align-items: center;
             
             min-height: calc( var(--list-item-target-size) + var(--_padding-y));
 
