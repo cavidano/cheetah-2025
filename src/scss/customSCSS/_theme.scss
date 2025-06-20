@@ -252,3 +252,57 @@ In this file:
   }
 
 }
+
+.map-key {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+    gap: var(--spacer-1);
+
+    font-size: var(--font-size-md);
+}
+
+.map-key__item {
+    display: flex;
+    align-items: center;
+
+border-radius: var(--border-radius-1);
+overflow: hidden;
+    flex: 1 1 50%;
+
+    padding: 0.5em;
+
+    gap: 0.5em;
+
+
+
+    .map-key__icon {
+
+    display: inline-flex;
+       
+        color: currentColor;
+
+        svg {
+            width: 1.5em;
+            height: 1.5em;
+            fill: none;
+        }
+    }
+
+    .map-key__label {
+        font-family: var(--sans-serif);
+    }
+
+
+    &[class*="map-key__item--hq"] {
+        background-color: #FFC44E;
+    }   
+
+    &[class*="map-key__item--af"] {
+        background-color: #FDB8FF;
+    }   
+
+    &[class*="map-key__item--pa"] {
+        background-color: #66E5A8;
+    }   
+}
