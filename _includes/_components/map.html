@@ -1,14 +1,14 @@
-<div class="margin-y-5">
+<div class="global-map margin-y-5">
 
-    <div id="map" style="width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden;"></div>
+    <div class="global-map__map" id="map"></div>
 
     <div class="container medium margin-y-3">
         
-        <div class="map-key margin-y-2">
+        <div class="global-map__key margin-y-2">
             
-            <div class="map-key__item map-key__item--hq">
+            <div class="global-map__key__item global-map__key__item--hq">
 
-                <div class="map-key__icon">
+                <div class="global-map__key__item__icon">
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
                         <g clip-path="url(#a)">
@@ -24,15 +24,15 @@
                     
                 </div>
 
-                <p class="map-key__label">
+                <p class="global-map__key__item__label">
                     Headquarters
                 </p>
                     
             </div>
             
-            <div class="map-key__item map-key__item--af">
+            <div class="global-map__key__item global-map__key__item--af">
 
-                <div class="map-key__icon">
+                <div class="global-map__key__item__icon">
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 32 32">
                         <path stroke="currentColor" stroke-width="2" d="M16 1c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15C1 7.716 7.716 1 16 1Z"/>
@@ -41,15 +41,15 @@
                     
                 </div>
 
-                <p class="map-key__label">
+                <p class="global-map__key__item__label">
                     Affiliates
                 </p>
                     
             </div>
             
-            <div class="map-key__item map-key__item--pa">
+            <div class="global-map__key__item global-map__key__item--pa">
 
-                <div class="map-key__icon">
+                <div class="global-map__key__item__icon">
 
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
                         <path stroke="currentColor" stroke-width="2" d="M16 1c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15C1 7.716 7.716 1 16 1Z"/>
@@ -58,7 +58,7 @@
 
                 </div>
 
-                <p class="map-key__label">
+                <p class="global-map__key__item__label">
                     Partner Organizations 
                 </p>
                     
@@ -67,182 +67,208 @@
         </div>
 
         <p class="font-size-sm sans-serif text-align-center opacity-60">
-            <em>
-                Map tiles by
-                <a href="http://stamen.com/" target="_blank">Stamen Design</a>, under
-                <a href="http://creativecommons.org/licenses/by/3.0" target="_blank">CC BY 3.0</a>.
-                                            Data by
-                <a href="https://openstreetmap.org" target="_blank">OpenStreetMap</a>, under
-                <a href="https://www.openstreetmap.org/copyright" target="_blank">ODbL</a>
-            </em>
+            Map tiles by
+            <a href="http://stamen.com/" target="_blank">Stamen Design</a>, under
+            <a href="http://creativecommons.org/licenses/by/3.0" target="_blank">CC BY 3.0</a>.
+            Data by
+            <a href="https://openstreetmap.org" target="_blank">OpenStreetMap</a>, under
+            <a href="https://www.openstreetmap.org/copyright" target="_blank">ODbL</a>
         </p>
     </div>
 
 </div>
+
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script>
 
-    // ===== Marker Data =====
-
-    const headquarters = [
+  // === Modern Map Location Data ===
+  
+    const mapLocations = [
         {
-            name: "Namibia",
-            address: "Otjiwarongo, Namibia",
-            lat: -20.4630,
-            lng: 16.6474,
-            type: "headquarters"
+            id: 'namibia',
+            title: 'Namibia',
+            type: 'headquarters',
+            city: 'Otjiwarongo, Namibia',
+            lat: -20.4545,
+            lng: 16.6645
         },
         {
-            name: "Somaliland",
-            address: "Hargeisa, Somaliland",
-            lat: 9.5632,
-            lng: 44.0672,
-            type: "headquarters"
+            id: 'somaliland',
+            title: 'Somaliland',
+            type: 'headquarters',
+            city: 'Hargeisa, Somaliland',
+            lat: 9.56,
+            lng: 44.065
+        },
+        {
+            id: 'australia',
+            title: 'Australia',
+            type: 'affiliate',
+            city: 'Clovelly, New South Wales',
+            lat: -33.9121,
+            lng: 151.2629
+        },
+        {
+            id: 'canada',
+            title: 'Canada',
+            type: 'affiliate',
+            city: 'Carleton Place, Ontario',
+            lat: 45.13341,
+            lng: -76.14938
+        },
+        {
+            id: 'france',
+            title: 'France',
+            type: 'affiliate',
+            city: 'Poissy, France',
+            lat: 48.9296,
+            lng: 2.047
+        },
+        {
+            id: 'italy',
+            title: 'Italy',
+            type: 'affiliate',
+            city: 'Biella, Italy',
+            lat: 45.5628,
+            lng: 8.0583
+        },
+        {
+            id: 'netherlands',
+            title: 'Netherlands',
+            type: 'affiliate',
+            city: 'Tilburg, North Brabant',
+            lat: 51.560596,
+            lng: 5.0919143
+        },
+        {
+            id: 'united-kingdom',
+            title: 'United Kingdom',
+            type: 'affiliate',
+            city: 'Great Shelford, Cambridge',
+            lat: 51.940125,
+            lng: -0.533812
+        },
+        {
+            id: 'united-states',
+            title: 'United States',
+            type: 'affiliate',
+            city: 'Alexandria, Virginia',
+            lat: 38.818947,
+            lng: -77.059325
+        },
+        {
+            id: 'aktionsgemeinschaft-artenschutz-aga-ev',
+            title: 'Aktionsgemeinschaft Artenschutz (AGA) e.V.',
+            type: 'partner',
+            city: 'Möglingen, Germany',
+            lat: 48.853635,
+            lng: 9.090028
         }
     ];
 
-    const affiliates = [
-        {
-            name: "Australia",
-            address: "Australia",
-            lat: -25.2744,
-            lng: 133.7751,
-            type: "affiliate"
-        },
-        {
-            name: "Canada",
-            address: "Canada",
-            lat: 56.1304,
-            lng: -106.3468,
-            type: "affiliate"
-        },
-        {
-            name: "France",
-            address: "Paris, France",
-            lat: 48.8566,
-            lng: 2.3522,
-            type: "affiliate"
-        },
-        {
-            name: "Italy",
-            address: "Milan, Italy",
-            lat: 45.4642,
-            lng: 9.19,
-            type: "affiliate"
-        },
-        {
-            name: "Netherlands",
-            address: "The Hague, Netherlands",
-            lat: 52.0705,
-            lng: 4.3007,
-            type: "affiliate"
-        },
-        {
-            name: "United Kingdom",
-            address: "United Kingdom",
-            lat: 51.509865,
-            lng: -0.118092,
-            type: "affiliate"
-        },
-        {
-            name: "United States",
-            address: "Alexandria, VA, USA",
-            lat: 38.8048,
-            lng: -77.0469,
-            type: "affiliate"
-        }
-    ];
-
-    const partners = [
-        {
-            name: "Aktionsgemeinschaft Artenschutz (AGA) e.V.",
-            address: "Germany",
-            lat: 48.783333,
-            lng: 9.183333,
-            type: "partner"
-        }
-    ];
-
-    // ===== Icon Definitions =====
+    // === Map Icons ===
 
     const ICON_URLS = {
         headquarters: '{{ site.baseurl }}/images/map-pin-hq.svg',
         affiliate: '{{ site.baseurl }}/images/map-pin-affiliate.svg',
         partner: '{{ site.baseurl }}/images/map-pin-partner.svg'
     };
-
+    
+    // === Get Icon Utility ===
+    
     const getIcon = type => L.icon({
-        iconUrl: ICON_URLS[type] ?? ICON_URLS.affiliate,
-        iconSize: [40, 50],         // w, h
-        iconAnchor: [20, 50],       // x, y
-        popupAnchor: [0, -50],      // x, y
-        shadowUrl: '{{ site.baseurl }}/images/map-pin-shadow.png',
-        shadowSize: [56, 40],       // w, h
-        shadowAnchor: [28, 38]      // x, y
+      iconUrl: ICON_URLS[type] ?? ICON_URLS.affiliate,
+      iconSize: [40, 50], // width, height
+      iconAnchor: [20, 50], // center bottom
+      popupAnchor: [0, -44],
+      shadowUrl: '{{ site.baseurl }}/images/map-pin-shadow.png',
+      shadowSize: [56, 40],
+      shadowAnchor: [28, 38]
     });
-
-    // ===== Map Initialization =====
-
+    
+    // === Initialize Map ===
+    
     const map = L.map('map', {
         attributionControl: false,
         scrollWheelZoom: false
     }).setView([10, 10], 2);
 
-    L.tileLayer(
-        'https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', {
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg', {
         maxZoom: 16
-    }
-    ).addTo(map);
+    }).addTo(map);
 
-    // ===== Add Markers Utility =====
+    // === Add Markers ===
+    const markerRefs = [];
 
-    const createPopup = ({ name, address, type }) => `
-    <div>
-        <h6>${name}</h6>
-        <p>${address}</p>
-        <small>${type === "headquarters" ? "Headquarters" : "Affiliate"}</small>
-    </div>
-    `;
+    mapLocations.forEach(loc => {
 
-    const addMarkers = (locations, iconType) =>
-    locations.map(loc =>
-        L.marker([loc.lat, loc.lng], { icon: getIcon(iconType), riseOnHover: true })
-        .addTo(map)
-        .bindPopup(createPopup(loc), popupOptions = {
-            closeButton: false
-        })
-    );
+        const popupHtml = (`
+            <div class="popup-content__container">
+                <div class="popup-content__container__close">
+                    <button class="button button--icon-only" aria-label="Close" data-popup-close>
+                        <span class="icon icon-close" aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="popup-content__container__info">
+                    <h6>
+                        ${loc.title}
+                    </h6>
+                    <p>
+                        ${loc.city}
+                    </p>
+                    <p>
+                        ${loc.type === 'headquarters' ? 'Headquarters' : loc.type === 'affiliate' ? 'Affiliate' : 'Partner Organization'}
+                    </p>
+                    <a class="button" href="{{ page.url | absolute_url }}#${loc.id}" data-location-anchor>
+                        <span class="text">View on page</span>
+                        <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        `);
 
-    // ===== Add Markers =====
+        const marker = L.marker([loc.lat, loc.lng], { icon: getIcon(loc.type), riseOnHover: true })
+            .addTo(map)
+            .bindPopup(popupHtml, { closeButton: false });
+        
+        markerRefs.push(marker);
 
-    const hqMarkers = addMarkers(headquarters, 'headquarters');
-    const affiliateMarkers = addMarkers(affiliates, 'affiliate');
-    const partnerMarkers = addMarkers(partners, 'partner');
+    });
 
-    // ===== Responsive Fit-to-Bounds =====
+    // Custom close button handler for popups
+
+    map.on('popupopen', event => {
+        const popupNode = event.popup.getElement();
+        
+        const closeBtn = popupNode.querySelector('[data-popup-close]');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+            map.closePopup();
+            });
+        }
+    });
+
+    // === Fit map to all markers with responsive padding ===
 
     const fitMapToMarkers = () => {
-        const allMarkers = [...hqMarkers, ...affiliateMarkers];
-        if (!allMarkers.length) return;
+        if (!markerRefs.length) return;
 
         const width = document.getElementById('map').offsetWidth;
-
-        const breakpoints = [
-            { min: 1400, pad: 80 },
-            { min: 1000, pad: 60 },
-            { min: 600, pad: 30 },
-            { min: 400, pad: 10 },
-            { min: 0, pad: 0 }
-        ];
         
-        const pad = breakpoints.find(b => width > b.min).pad;
-
-        const group = L.featureGroup(allMarkers);
+        const pad =
+            width > 1400 ? 56 :
+            width > 1000 ? 48 :
+            width > 600 ? 24 :
+            width > 400 ? 8 : 0;
+        const group = L.featureGroup(markerRefs);
         
         map.fitBounds(group.getBounds(), { padding: [pad, pad] });
     };
 
     fitMapToMarkers();
+
     window.addEventListener('resize', fitMapToMarkers);
 
 </script>
