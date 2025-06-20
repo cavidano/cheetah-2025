@@ -86,14 +86,14 @@
 
     const headquarters = [
         {
-            name: "Namibia Headquarters",
+            name: "Namibia",
             address: "Otjiwarongo, Namibia",
             lat: -20.4630,
             lng: 16.6474,
             type: "headquarters"
         },
         {
-            name: "Somaliland Office",
+            name: "Somaliland",
             address: "Hargeisa, Somaliland",
             lat: 9.5632,
             lng: 44.0672,
@@ -103,49 +103,49 @@
 
     const affiliates = [
         {
-            name: "Australia Affiliate",
+            name: "Australia",
             address: "Australia",
             lat: -25.2744,
             lng: 133.7751,
             type: "affiliate"
         },
         {
-            name: "Canada Affiliate",
+            name: "Canada",
             address: "Canada",
             lat: 56.1304,
             lng: -106.3468,
             type: "affiliate"
         },
         {
-            name: "France Affiliate",
+            name: "France",
             address: "Paris, France",
             lat: 48.8566,
             lng: 2.3522,
             type: "affiliate"
         },
         {
-            name: "Italy Affiliate",
+            name: "Italy",
             address: "Milan, Italy",
             lat: 45.4642,
             lng: 9.19,
             type: "affiliate"
         },
         {
-            name: "Netherlands Affiliate",
+            name: "Netherlands",
             address: "The Hague, Netherlands",
             lat: 52.0705,
             lng: 4.3007,
             type: "affiliate"
         },
         {
-            name: "United Kingdom Affiliate",
+            name: "United Kingdom",
             address: "United Kingdom",
             lat: 51.509865,
             lng: -0.118092,
             type: "affiliate"
         },
         {
-            name: "United States Affiliate",
+            name: "United States",
             address: "Alexandria, VA, USA",
             lat: 38.8048,
             lng: -77.0469,
@@ -198,17 +198,19 @@
 
     const createPopup = ({ name, address, type }) => `
     <div>
-        <strong>${name}</strong><br>
-        <span>${address}</span><br>
+        <h6>${name}</h6>
+        <p>${address}</p>
         <small>${type === "headquarters" ? "Headquarters" : "Affiliate"}</small>
     </div>
     `;
 
     const addMarkers = (locations, iconType) =>
     locations.map(loc =>
-        L.marker([loc.lat, loc.lng], { icon: getIcon(iconType) })
+        L.marker([loc.lat, loc.lng], { icon: getIcon(iconType), riseOnHover: true })
         .addTo(map)
-        .bindPopup(createPopup(loc))
+        .bindPopup(createPopup(loc), popupOptions = {
+            closeButton: false
+        })
     );
 
     // ===== Add Markers =====
