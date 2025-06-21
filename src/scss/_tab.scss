@@ -20,13 +20,16 @@ In this file:
 ////////////////////////////////////////
 
 :root {
+
     // Tabs Nav
 
     --tab-button-padding-x: var(--button-padding-x);
 
     --tab-button-padding-y: var(--button-padding-y);
 
-    --tab-nav-text-color: var(--link-color, currentColor);
+    --tab-font-family: var(--button-font-family);
+
+    // --tab-nav-text-color: currentColor; // defaults to link color
 
     --tab-nav-background-color: var(--subtle-fill-1);
 
@@ -56,6 +59,9 @@ In this file:
     .tabs-nav {
         list-style: none;
 
+        font-family: var(--tab-font-family);
+        font-weight: var(--font-weight-normal);
+
         > li {
             position: relative;
         }
@@ -64,6 +70,9 @@ In this file:
             position: relative;
 
             width: 100%;
+
+            display: flex;
+            align-items: center;
             
             padding: var(--tab-button-padding-y) var(--tab-button-padding-x);
 
@@ -90,7 +99,7 @@ In this file:
 
         > li > :is(a, button) {
 
-            color: var(--tab-nav-text-color);
+            color: var(--tab-nav-text-color, var(--link-color));
             
             background-color: var(--tab-nav-background-color);
 
@@ -105,13 +114,13 @@ In this file:
 
                 width: var(--tab-nav-active-bar-size);
 
-                background-color: var(--tab-nav-active-bar-color);
+                background-color: var(--active-color, var(--tab-nav-active-bar-color));
                 
                 opacity: 0;
             }
 
             &.is-active {
-                color: var(--tab-nav-active-text-color);
+                color: var(--active-color, var(--tab-nav-active-text-color));
                 background-color: var(--tab-nav-active-background-color);
             }
 

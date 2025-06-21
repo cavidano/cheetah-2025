@@ -458,4 +458,42 @@ $headers: (
 
     }
 
+    .blockquote-hanging {
+        position: relative;
+
+        padding-inline-start: 1.3em;
+
+        p, 
+        cite {
+            &::before {
+                position: absolute;
+                inset-inline-start: 0;
+            }
+        }
+
+        p {
+            font-size: 1.125em;
+
+            &::before {
+                content: open-quote;
+                font-size: 1.75em;
+                line-height: 1.2;
+            }
+
+            &::after {
+                content: close-quote;
+            }
+        }
+
+        cite {
+            &::before {
+                content: "—";
+            }
+        }
+
+        cite > strong {
+            display: block;
+        }
+    }
+
 } // end @layer

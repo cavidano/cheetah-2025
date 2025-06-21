@@ -29,14 +29,14 @@ layout: global
         <div class="grid-sidebar__minor-start align-content-start theme-light theme-dark--xl padding-2--xl">
 
             <button
-                class="button width-100 theme-primary display-none--xl"
+                class="button button--disperse theme-primary display-none--xl"
                 data-toggle="collapse"
                 aria-controls="target-id"
                 aria-expanded="false"
             >
 
-                <span class="icon icon-menu"></span>
                 <span class="button__text">{{ page.section }}</span>
+                <span class="icon icon-menu"></span>
                     
             </button>
 
@@ -52,12 +52,13 @@ layout: global
                     aria-hidden="true"
                 >
 
-                    <ul class="nav nav--divider">
+                    <ul class="tabs-nav">
                      {% for item in nav.items %}
                         <li>
                             <a
                                 href="#"
                                  {% if page.url == item.url %}
+                                class="is-active"
                                  aria-current="page"{% endif %}
                             >
                                {{ item.label }}

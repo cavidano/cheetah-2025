@@ -42,6 +42,7 @@ In this file:
     --primary-text: var(--dark);
     --primary-border: hsla(0, 0%, 0%, 0.25);
     --primary-link: currentColor;
+    --primary-active: currentColor;
     --primary-confirm: #16db93;
     --primary-warn: #ff73aa;
 
@@ -50,6 +51,7 @@ In this file:
     --secondary-text: white;
     --secondary-border: hsla(0, 0%, 0%, 0.25);
     --secondary-link: var(--primary);
+    --secondary-active: currentColor;
     --secondary-confirm: #41e0f2;
     --secondary-warn: #ffa3a4;
 
@@ -57,7 +59,8 @@ In this file:
 
     --dark-text: white;
     --dark-border: hsla(0, 0%, 100%, 0.125);
-    --dark-link: #21b2fa;
+    --dark-link: hsl(200, 100%, 65%);
+    --dark-active: var(--primary);
     --dark-confirm: #00a242;
     --dark-warn: #fe3c3e;
 
@@ -66,6 +69,7 @@ In this file:
     --light-text: var(--dark);
     --light-border: hsla(0, 0%, 50%, 0.25);
     --light-link: #0066cc;
+    --light-active: var(--secondary);
     --light-confirm: #007e35;
     --light-warn: #ce1736;
 
@@ -74,6 +78,7 @@ In this file:
     --canvas-text: var(--dark);
     --canvas-border: hsla(0, 0%, 50%, 0.25);
     --canvas-link: #0066cc;
+    --canvas-active: var(--secondary);
     --canvas-confirm: #008237;
     --canvas-warn: #e4193c;
 }
@@ -85,6 +90,7 @@ $theme-colors: (
         text: var(--primary-text),
         border: var(--primary-border),
         link: var(--primary-link),
+        active: var(--primary-active),
         confirm: var(--primary-confirm),
         warn: var(--primary-warn)
     ), 
@@ -94,6 +100,7 @@ $theme-colors: (
         text: var(--secondary-text),
         border: var(--secondary-border),
         link: var(--secondary-link),
+        active: var(--secondary-active),
         confirm: var(--secondary-confirm),
         warn: var(--secondary-warn)
     ), 
@@ -103,6 +110,7 @@ $theme-colors: (
         text: var(--dark-text),
         border: var(--dark-border),
         link: var(--dark-link),
+        active: var(--dark-active),
         confirm: var(--dark-confirm),
         warn: var(--dark-warn)
     ),
@@ -112,6 +120,7 @@ $theme-colors: (
         text: var(--light-text),
         border: var(--light-border),
         link: var(--light-link),
+        active: var(--light-active),
         confirm: var(--light-confirm),
         warn: var(--light-warn)
     ),
@@ -121,6 +130,7 @@ $theme-colors: (
         text: var(--canvas-text),
         border: var(--canvas-border),
         link: var(--canvas-link),
+        active: var(--canvas-active),
         confirm: var(--canvas-confirm),
         warn: var(--canvas-warn)
     ) 
@@ -210,6 +220,7 @@ $theme-colors: (
                 $text: map.get($color-map, "text");
                 $border: map.get($color-map, "border");
                 $link: map.get($color-map, "link");
+                $active: map.get($color-map, "active");
 
                 $confirm: map.get($color-map, "confirm");
                 $warn: map.get($color-map, "warn");
@@ -219,6 +230,7 @@ $theme-colors: (
                     --text-color: #{$text};
                     --border-color: #{$border};
                     --link-color: #{$link};
+                    --active-color: #{$active};
                     --confirm-color: #{$confirm};
                     --warn-color: #{$warn};
                 }
