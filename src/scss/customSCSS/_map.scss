@@ -36,9 +36,9 @@ In this file:
     }
 
     .leaflet-popup-content {
-        --h6-font-size: var(--font-size-rg);
-
         margin: 0;
+
+        --h6-font-size: var(--font-size-rg);
 
         font-size: var(--font-size-sm);
 
@@ -65,7 +65,8 @@ In this file:
         }
         
         .popup-content__container__close {
-           order: 2;
+            transform: translate(0.2em, -0.2em);
+            order: 2;
         }
     }
 }
@@ -77,6 +78,18 @@ In this file:
     overflow: hidden;
 
     aspect-ratio: 16/9; 
+}
+
+.global-map__attribute {
+
+    font-size: var(--font-size-sm);
+    font-family: var(--sans-serif);
+    text-align: center;
+    opacity: 0.75;
+
+    a {
+        color: currentColor;
+    }
 }
 
 .global-map__key {
@@ -92,8 +105,8 @@ In this file:
     display: flex;
     align-items: center;
 
-    border-radius: var(--border-radius-1);
     overflow: hidden;
+    border-radius: var(--border-radius-1);
     
     flex: 1 1 50%;
 
@@ -115,6 +128,7 @@ In this file:
 
     .global-map__key__item__label {
         font-family: var(--sans-serif);
+        font-weight: var(--font-weight-medium);
     }
 
     &[class*="__item--hq"] {
