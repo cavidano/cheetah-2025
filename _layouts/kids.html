@@ -16,7 +16,7 @@ layout: global
 
                 <div class="container text-align-center">
 
-                    <img src="/images/ccf-kids-logo.svg" height="240px" alt="">
+                    <img src="/images/ccf-kids-logo.svg" height="224px" alt="">
 
                 </div>
 
@@ -32,7 +32,7 @@ layout: global
                     <li>
                         <a
                             href="/kids"
-                            {% if page.url contains '/kids' %}
+                            {% if page.title contains 'CCF Kids' %}
                             class="is-active"
                             aria-current="page"
                             {% endif %}
@@ -44,8 +44,8 @@ layout: global
                     </li>
                     <li>
                         <a
-                            href="/news/cheetah-strides/"
-                            {% if page.url contains '/news/cheetah-strides' %}
+                            href="/kids/cheetah-facts/"
+                            {% if page.url contains '/kids/cheetah-facts' %}
                             class="is-active"
                             aria-current="page"
                             {% endif %}
