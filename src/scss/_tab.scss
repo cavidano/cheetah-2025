@@ -138,7 +138,11 @@ In this file:
     .tabs-nav--pill {
         color: var(--tab-nav-text-color);
         
-        background-color: var(--tab-nav-background-color);
+        background-color: var(--subtle-fill-2);
+
+        :is(a, button) {
+        display: block !important;
+        }
 
          .is-active{
             color: var(--tab-nav-pill-active-text-color);

@@ -312,7 +312,9 @@
                         <button
                             data-toggle="dropdown"
                             aria-controls="menu-news"
-                            data-trigger="hover"
+                            {% if page.url contains '/news' %}
+                            aria-current="page"
+                            {% endif %}
                         >
                             News
                         </button>

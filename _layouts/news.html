@@ -1,0 +1,65 @@
+---
+layout: global
+---
+
+<div>
+
+    <header class="backdrop backdrop--fixed theme-dark" >
+
+        <div class="backdrop__media gradient-mask-bottom">
+            <img class="opacity-30" src="https://cheetah.org/wp-content/themes/ccf-twentynineteen/images/banner-news.jpg" alt="Placeholder">
+        </div>
+
+        <div class="backdrop__cover">
+
+            <div class="container text-align-center">
+
+                <h1 class="banner-headline text-shadow">
+                    {{ page.title }}
+                </h1>
+
+                    <div class="container medium">
+                    
+                        <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal">
+                            <li>
+                                <button
+                                    id="tab-button-pill-01"
+                                    aria-controls="tab-panel-pill-01"
+                                    aria-current="page"
+                                    class="is-active"
+                                    role="tab">
+                                        CCF Blog
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="tab-button-pill-02"
+                                    aria-controls="tab-panel-pill-02"
+                                    aria-selected="false"
+                                    role="tab">
+                                        Cheeta Strides
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="tab-button-pill-03"
+                                    aria-controls="tab-panel-pill-03"
+                                    aria-selected="false"
+                                    role="tab">
+                                        Press Releases
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+            </div>
+
+    </header>
+
+    <div class="margin-y-6">
+
+        {{ content }}
+
+    </div>
+
+</div>
