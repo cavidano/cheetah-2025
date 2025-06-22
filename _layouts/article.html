@@ -6,17 +6,21 @@ layout: global
 
     <div class="container wide">
 
-        <ul class="nav-breadcrumb">
+        <ul class="nav-breadcrumb font-size-md">
             <li>
                 <a class="button button--icon-only" href="#1">
                     <span class="icon icon-home" aria-hidden="true"></span>
                 </a>
             </li>
             <li>
-                <a href="{{ site.url}}/news/blog/">News</a>
+                <a href="{{ site.url}}/news/blog/">
+                    News
+                </a>
             </li>
             <li>
-                <a href="{{ site.url}}/news/blog/">CCF Blog</a>
+                <a href="{{ site.url}}/news/blog/">
+                    CCF Blog
+                </a>
             </li>
             <li class="text-color-secondary">
                 Why Helping People Is Key to Saving the Endangered Cheetah
@@ -29,49 +33,45 @@ layout: global
 
 <div class="margin-y-6">
 
-    <div class="container medium">
+    <header class="container medium margin-y-5">
 
-        <header class="medium margin-y-5">
+        <p class="topic font-size-md margin-bottom-1">
+            {{ page.topic }}
+        </p>
 
-            <p class="topic font-size-md margin-bottom-1">
-                {{ page.topic }}
-            </p>
+        <h1 class="font-weight-normal">
+            {{ page.title }}
+        </h1>
 
-            <h1 class="font-weight-normal">
-                {{ page.title }}
-            </h1>
-
-            <div class="display-flex gap-3 align-items-center">
+        <div class="display-flex gap-3 align-items-center">
             
-                <div class="author">
-                    <img
-                        class="border-radius-circle"
-                        width="120"
-                        height="120"
-                        src="https://cheetah.org/wp-content/uploads/2024/01/LMBruceNewYear_Avatar.jpg"
-                        alt=""
-                    />
-                </div>
-
-                <div class="font-size-md">
-                    <p class="margin-bottom-0">
-                    by
-                    <a href="#">Dr. Laurie Marker</a>
-                    </p>
-
-                    <span class="text-muted">March 3, 2021</span> 
-                </div>
-
+            <div class="author">
+                <img
+                    class="border-radius-circle"
+                    width="120"
+                    height="120"
+                    src="https://cheetah.org/wp-content/uploads/2024/01/LMBruceNewYear_Avatar.jpg"
+                    alt=""
+                />
             </div>
 
-        </header>
+            <div class="font-size-md">
+                <p class="margin-bottom-0">
+                by
+                <a href="#">Dr. Laurie Marker</a>
+                </p>
 
-        <article>
+                <span class="text-muted">March 3, 2021</span> 
+            </div>
 
-            {{ content }}
+        </div>
+
+    </header>
+
+    <article>
+
+        {{ content }}
         
-        </article>
-
-    </div>
+    </article>
 
 </div>
