@@ -34,47 +34,62 @@
                 
                 <div class="margin-y-6">
 
-                    <header class="backdrop backdrop--fixed theme-dark">
+<div class="news-header">
 
-                        <div class="backdrop__media gradient-mask-bottom">
-                            <img class="opacity-30" src="https://cheetah.org/wp-content/themes/ccf-twentynineteen/images/banner-news.jpg" alt="Placeholder">
-                        </div>
+    <header class="backdrop backdrop--fixed theme-dark margin-bottom-3">
 
-                        <div class="backdrop__cover">
+        <div class="backdrop__media gradient-mask-bottom">
+            <img class="opacity-30" src="https://cheetah.org/wp-content/themes/ccf-twentynineteen/images/banner-news.jpg" alt="Placeholder">
+        </div>
 
-                            <div class="container text-align-center">
+        <div class="backdrop__cover">
 
-                                <h1 class="banner-headline text-shadow">
-                                    Cheetah News
-                                </h1>
+            <div class="container text-align-center">
 
-                                <div class="container medium">
-                                
-                                    <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal">
-                                        <li>
-                                            <button id="tab-button-pill-01" aria-controls="tab-panel-pill-01" aria-current="page" class="is-active" role="tab">
-                                                    CCF Blog
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button id="tab-button-pill-02" aria-controls="tab-panel-pill-02" aria-selected="false" role="tab">
-                                                    Cheeta Strides
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <button id="tab-button-pill-03" aria-controls="tab-panel-pill-03" aria-selected="false" role="tab">
-                                                    Press Releases
-                                            </button>
-                                        </li>
-                                    </ul>
-                                    
-                                </div>
+                <h1 class="banner-headline text-shadow">
+                    {{ page.title }}
+                </h1>
 
-                            </div>
+            </div>
 
-                        </div>
+        </div>
 
-                    </header>
+    </header>
+                <nav class="news-header__tabs">
+                
+                    <div class="container medium">
+                    
+                        <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal--md">
+                            <li>
+                                <a
+                                    href="/news/blog/"
+                                    class="is-active"
+                                    aria-current="page"
+                                >
+                                    CCF Blog
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="/news/cheetah-strides/"
+                                >
+                                    Cheeta Strides
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="/news/press-releases/"
+                                >
+                                    Press Releases
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+
+
+</div>
 
                 </div>
 

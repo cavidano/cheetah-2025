@@ -4,59 +4,74 @@ layout: global
 
 <div>
 
-    <header class="backdrop backdrop--fixed theme-dark" >
+    <div class="news-header">
 
-        <div class="backdrop__media gradient-mask-bottom">
-            <img class="opacity-30" src="https://cheetah.org/wp-content/themes/ccf-twentynineteen/images/banner-news.jpg" alt="Placeholder">
-        </div>
+        <header class="backdrop backdrop--fixed theme-dark margin-bottom-3">
 
-        <div class="backdrop__cover">
+            <div class="backdrop__media gradient-mask-bottom">
+                <img class="opacity-30" src="https://cheetah.org/wp-content/themes/ccf-twentynineteen/images/banner-news.jpg" alt="Placeholder">
+            </div>
 
-            <div class="container text-align-center">
+            <div class="backdrop__cover">
 
-                <h1 class="banner-headline text-shadow">
-                    {{ page.title }}
-                </h1>
+                <div class="container text-align-center">
 
-                    <div class="container medium">
-                    
-                        <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal">
-                            <li>
-                                <button
-                                    id="tab-button-pill-01"
-                                    aria-controls="tab-panel-pill-01"
-                                    aria-current="page"
-                                    class="is-active"
-                                    role="tab">
-                                        CCF Blog
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="tab-button-pill-02"
-                                    aria-controls="tab-panel-pill-02"
-                                    aria-selected="false"
-                                    role="tab">
-                                        Cheeta Strides
-                                </button>
-                            </li>
-                            <li>
-                                <button
-                                    id="tab-button-pill-03"
-                                    aria-controls="tab-panel-pill-03"
-                                    aria-selected="false"
-                                    role="tab">
-                                        Press Releases
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
+                    <h1 class="banner-headline text-shadow">
+                        {{ page.title }}
+                    </h1>
+
+                </div>
 
             </div>
 
-    </header>
+        </header>
 
-    <div class="margin-y-6">
+        <nav class="news-header__tabs">
+
+            <div class="container medium">
+            
+                <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal--md">
+                    <li>
+                        <a
+                            href="/news/blog/"
+                            {% if page.url contains '/news/blog' %}
+                            class="is-active"
+                            aria-current="page"
+                            {% endif %}
+                        >
+                            CCF Blog
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/news/cheetah-strides/"
+                            {% if page.url contains '/news/cheetah-strides' %}
+                            class="is-active"
+                            aria-current="page"
+                            {% endif %}
+                        >
+                            Cheeta Strides
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            href="/news/press-releases/"
+                            {% if page.url contains '/news/press-releases' %}
+                            class="is-active"
+                            aria-current="page"
+                            {% endif %}
+                        >
+                            Press Releases
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+    </div>
+
+    <div class="margin-y-5">
 
         {{ content }}
 

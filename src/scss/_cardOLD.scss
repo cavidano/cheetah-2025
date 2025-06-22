@@ -58,10 +58,7 @@ In this file:
     .card--horizontal {
         display: grid;
 
-
         grid-template-columns: 1fr 2fr;
-
-        align-items: start;
 
         .card__media {
             grid-area: media;
@@ -75,7 +72,6 @@ In this file:
 
         .card__head {
             grid-area: head;
-        outline: 3px solid red;
         }
         
         .card__body {
