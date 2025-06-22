@@ -12,14 +12,27 @@ In this file:
 
 @use 'sass:map';
 @use '../breakpoint';
+@use '../typography';
+
 //////////////////////////////////////////////
 // A. Custom Properties
 //////////////////////////////////////////////
+
+@font-face {
+  font-family: 'cheetah-tracks-regular';
+  src:
+    url('/dist/cheetah-tracks-regular/cheetah-tracks-regular-webfont.woff2') format('woff2'),
+    url('/dist/cheetah-tracks-regular/cheetah-tracks-regular-webfont.woff') format('woff');
+  
+  font-weight: normal;
+  font-style: normal;
+}
 
 :root {
 
     --serif: 'Georgia', serif;
     --sans-serif: 'Roboto', sans-serif;
+    --cheetah-tracks-regular: 'cheetah-tracks-regular';
 
     // Body Font Stack
 
@@ -119,6 +132,18 @@ In this file:
     font-family: var(--sans-serif);
 }
 
+.cheetah-tracks {
+    font-family: var(--cheetah-tracks-regular);
+    font-weight: normal;
+    line-height: normal;
+
+    @each $key, $header-map in typography.$headers {
+
+        &.#{$key} {
+            font-size: calc(map.get($header-map, "size") * 1.25);
+        }
+    }
+}
 //////////////////////////////////////////////
 // B. About Banner
 //////////////////////////////////////////////
@@ -262,12 +287,10 @@ In this file:
 
 }
 
-
 .news-header {
     --tab-nav-background-color: var(--light);
     position: relative;
 }
-
 
   @include breakpoint.breakpoint-down('md') {
 

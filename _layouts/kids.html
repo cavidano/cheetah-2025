@@ -16,9 +16,7 @@ layout: global
 
                 <div class="container text-align-center">
 
-                    <h1 class="banner-headline text-shadow">
-                        {{ page.title }}
-                    </h1>
+                    <img src="/images/ccf-kids-logo.svg" height="240px" alt="">
 
                 </div>
 
@@ -30,16 +28,18 @@ layout: global
 
             <div class="container medium">
             
-                <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal--md">
+                <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal--md cheetah-tracks">
                     <li>
                         <a
-                            href="/news/blog/"
-                            {% if page.url contains '/news/blog' %}
+                            href="/kids"
+                            {% if page.url contains '/kids' %}
                             class="is-active"
                             aria-current="page"
                             {% endif %}
                         >
-                            CCF Blog
+                        <span class="h6 cheetah-tracks">
+                            CCF Kids
+                        </span>
                         </a>
                     </li>
                     <li>
@@ -50,20 +50,12 @@ layout: global
                             aria-current="page"
                             {% endif %}
                         >
-                            Cheetah Strides
+                        <span class="h6 cheetah-tracks">
+                            Cheetah Facts
+                        </span>
                         </a>
                     </li>
-                    <li>
-                        <a
-                            href="/news/press-releases/"
-                            {% if page.url contains '/news/press-releases' %}
-                            class="is-active"
-                            aria-current="page"
-                            {% endif %}
-                        >
-                            Press Releases
-                        </a>
-                    </li>
+    
                 </ul>
             </div>
 

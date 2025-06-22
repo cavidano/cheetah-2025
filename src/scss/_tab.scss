@@ -129,7 +129,7 @@ In this file:
 
     .tabs-nav--pill,
     .tabs-nav--pill > li > :is(a, button) {
-        border-radius: calc( var(--button-target-size) * 0.5);
+        border-radius: var(--border-radius-pill);
         overflow: hidden;
     }
 
