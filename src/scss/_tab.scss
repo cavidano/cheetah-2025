@@ -27,9 +27,9 @@ In this file:
 
     --tab-button-padding-y: var(--button-padding-y);
 
-    --tab-font-family: var(--button-font-family);
+    --tabs-nav-font-family: var(--sans-serif);
 
-    // --tab-nav-text-color: currentColor; // defaults to link color
+    --tab-nav-text-color: currentColor; // defaults to link color
 
     --tab-nav-background-color: var(--subtle-fill-1);
 
@@ -59,8 +59,7 @@ In this file:
     .tabs-nav {
         list-style: none;
 
-        font-family: var(--tab-font-family);
-        font-weight: var(--font-weight-normal);
+        font-family: var(--tabs-nav-font-family);
 
         > li {
             position: relative;
@@ -71,8 +70,7 @@ In this file:
 
             width: 100%;
 
-            display: flex;
-            align-items: center;
+            display: block;
             
             padding: var(--tab-button-padding-y) var(--tab-button-padding-x);
 
@@ -101,9 +99,9 @@ In this file:
 
             color: var(--tab-nav-text-color, var(--link-color));
             
-            background-color: var(--tab-nav-background-color);
+            // background-color: var(--tab-nav-background-color);
 
-            text-align: left;
+            text-align: start;
         
             &::before {
                 position: absolute;
@@ -138,10 +136,10 @@ In this file:
     .tabs-nav--pill {
         color: var(--tab-nav-text-color);
         
-        background-color: var(--subtle-fill-2);
+        background-color: var(--tab-nav-background-color);
 
-        :is(a, button) {
-        display: block !important;
+        > li > :is(a, button) {
+            text-align: center;
         }
 
          .is-active{

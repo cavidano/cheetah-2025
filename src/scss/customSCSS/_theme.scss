@@ -99,11 +99,8 @@ In this file:
 
     // Tab
 
-    // --tab-nav-active-bar-color: var(--primary);
-    --tab-nav-background-color: transparent;
-    --tab-nav-text-color: currentColor;
-    // --tab-nav-text-color: currentColor;
-    // --tab-nav-active-text-color: var(--primary);
+    --tab-nav-pill-active-text-color: var(--primary-text);
+    --tab-nav-pill-active-background-color: var(--primary);
 }
 
 //////////////////////////////////////////////
