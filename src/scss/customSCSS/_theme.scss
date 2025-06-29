@@ -21,8 +21,8 @@ In this file:
 @font-face {
   font-family: 'cheetah-tracks-regular';
   src:
-    url('/dist/cheetah-tracks-regular/cheetah-tracks-regular-webfont.woff2') format('woff2'),
-    url('/dist/cheetah-tracks-regular/cheetah-tracks-regular-webfont.woff') format('woff');
+    url('/dist/cheetah-tracks-regular/CheetahTracksRegular.woff2') format('woff2'),
+    url('/dist/cheetah-tracks-regular/CheetahTracksRegular.woff') format('woff');
   
   font-weight: normal;
   font-style: normal;
@@ -135,7 +135,7 @@ In this file:
 .cheetah-tracks {
     font-family: var(--cheetah-tracks-regular);
     font-weight: normal;
-    line-height: normal;
+    line-height: var(--header-line-height);
 
     @each $key, $header-map in typography.$headers {
 
@@ -292,21 +292,21 @@ In this file:
     position: relative;
 }
 
-  @include breakpoint.breakpoint-down('md') {
+@include breakpoint.breakpoint-down('md') {
 
-.news-header {
-  --backdrop-fixed-height: 200px;
-}
-  
-  }
-
-  @include breakpoint.breakpoint-up('md') {
-.news-header__tabs {
-position: absolute;
-inset-inline-start: 0;
-inset-inline-end: 0;
-inset-block-end: 0;
-transform: translateY(50%);
+    .news-header {
+        --backdrop-fixed-height: 200px;
+    }
 
 }
-  }
+
+@include breakpoint.breakpoint-up('md') {
+    .news-header__tabs {
+        position: absolute;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        inset-block-end: 0;
+        transform: translateY(50%);
+
+    }
+}

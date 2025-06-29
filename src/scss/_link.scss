@@ -91,10 +91,10 @@ In this file:
         color: currentColor;
 
         text-decoration-line: underline;
-        text-decoration-color: var(--primary-dark);
+        text-decoration-color: var(--primary-dark) !important;
         text-decoration-thickness: calc( var(--border-width) * 2);
         text-underline-offset: 0.25em;
-        text-decoration-style: wavy; /* solid | double | dotted | dashed | wavy */
+        text-decoration-style: solid; /* solid | double | dotted | dashed | wavy */
 
     }
 

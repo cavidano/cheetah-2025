@@ -5,137 +5,170 @@ section: "News"
 heroImage: "https://cheetah.org/wp-content/uploads/2019/03/cheetah-conservation-fund-ways-to-give.jpg"
 ---
 
-<section class="margin-y-6" id="the-latest">
+<div class="container wide margin-y-5">
 
-                <h2 class="screen-reader-only">
-                    The Latest
-                </h2>
+    <div class="padding-1 border font-size-sm">
+        
+        <button class="button">
+            <span class="text">Filter by Author</span>
+            <span class="icon icon-caret-down"></span>
+        </button>
 
-                <div class="container wide">
-                
-                    <ul class="grid grid--divider--fill-y gap-4 grid--column-3--lg">
+        <button class="button">
+            <span class="text">Filter by Topic</span>
+            <span class="icon icon-caret-down"></span>
+        </button>
+
+    </div>
+
+</div>
+
+<section class="margin-y-5" id="the-latest">
+
+    <h2 class="screen-reader-only">
+        The Latest News from CCF
+    </h2>
+
+    <div class="container wide">
+    
+        <ul class="grid grid--divider--fill-x gap-4 grid--column-3--xl">
+        
+            <li class="grid__colspan-2--xl">
+
+                <a href="{{ site.url}}/news/blog/article-example/" target="_blank">
+
+                    <article class="backdrop backdrop--stack--xl theme-dark">
+
+                        <div class="backdrop__media gradient-mask-bottom">
+
+                            <img class="opacity-70--xl" src="https://cheetah.org/wp-content/uploads/2025/06/2025_Kids_Cora_BlogFeatured.jpg" alt="Placeholder">
+                        
+                        </div>
+
+                        <div class="backdrop__cover justify-content-end">
+
+                            <div class="container margin-y-4">
+
+                            <div class="width-70--xl">
+                            
+                                <span class="display-inline-flex theme-primary font-size-sm padding-y-1 padding-x-2 margin-bottom-2">
+                                    August 8, 2023 &nbsp;|&nbsp;<span class="sans-serif font-weight-bold">For Kids</span> 
+                                </span>
+                                <h2 class="text-shadow">
+                                    From Cheetahs to Scat Dogs: A Kid’s Look Inside CCF
+                                </h2>
+                                <p class="text-shadow">
+                                    My name is Cora and I’m 11 years old. Recently I visited Namibia and loved staying at the Cheetah conservation fund! I thought it was just going to be touring around and seeing the cheetahs, which would’ve been amazing, but there was so much more!
+                                </p>
+                            </div>
+
+                            </div>
+
+                        </div>
+
+                    </article>
                     
-                        <li class="grid__colspan-2--lg">
+                </a>
+            
+            </li>
 
-                            <a href="{{ site.url}}/news/blog/article-example/" target="_blank">
+            <li>
+            
+                <a href="{{ site.url}}/news/blog/article-example/" target="_blank">
 
-                                <article class="backdrop backdrop--stack--lg theme-dark">
+                    <article>
+                        <div class="position-relative margin-bottom-2">
 
-                                    <div class="backdrop__media gradient-mask-bottom">
+                            <span class="display-block position-bottom-left theme-primary font-size-sm padding-y-1 padding-x-2">
+                                August 8, 2023 &nbsp;|&nbsp;<span class="sans-serif font-weight-bold">Conservation</span>
+                            </span>
+                            <img src="https://cheetah.org/wp-content/uploads/2025/06/2025_BlogFeaturedLeadStudy_CatherineH_.jpg" alt="" />
+                        </div>
 
-                                        <img src="https://cheetah.org/wp-content/uploads/2025/06/2025_Kids_Cora_BlogFeatured.jpg" alt="Placeholder">
-                                    
-                                    
-                                    </div>
+                        <h2 class="h4">
+                            Investigating Lead Poisoning in a Captive Cheetah: What We Found and Why It Matters
+                        </h2>
 
-                                    <div class="backdrop__cover justify-content-end">
+                        <p>
+                            Acute lead poisoning from bullet ingestion in a captive cheetah (Acinonyx jubatus) in Namibia.
+                        </p>
+                    </article>
+                </a>
 
-                                        <div class="container margin-y-4">
-                                            <span class="display-inline-flex theme-primary font-size-sm padding-y-1 padding-x-2 margin-bottom-2">
-                    August 8, 2023
-                </span>
-                                            <h2 class="text-shadow">
-                                                From Cheetahs to Scat Dogs: A Kid’s Look Inside CCF
-                                            </h2>
+            </li> 
 
-                                        </div>
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/06/2025_BlogFeatured_KidsArtContest2.jpg"
+                    title="Celebrating Young Artists: Cheetah Conservation Fund Virtual Art Contest Winners"
+                %}
+            </li>
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/05/2025_BlogFeatured_BushblokPackaging.jpg"
+                    title="Bushblok’s Bold New Look Signals a Bigger Impact for Conservation and Communities"
+                %}
+            </li>
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/05/2025_BlogFeatured_PBSLMNewshour.jpg"
+                    title="Dr. Laurie Marker on PBS NewsHour"
+                %}
+            </li>
 
-                                    </div>
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/05/2025_BlogFeatured_Jess_TSwift.jpg"
+                    title="Help T-Swift to Begin Again"
+                %}
+            </li>
 
-                                </article>
-                                
-                            </a>
-                        
-                        </li>
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/05/2025_BlogFeatured_Darwin2.jpg"
+                    title="Community based human-wildlife coexistence project in communal conservancies of Namibia"
+                %}
+            </li>
+            
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/04/2025_BlogFeatured_CameraTrapDogStudy.jpg"
+                    title="Tracking Spots and Saving Species: CCF Featured on the Cover of Ecological Solutions and Evidence"
+                %}
+            </li>
 
-                        <li>
-                        
-                            <a href="{{ site.url}}/news/blog/article-example/" target="_blank">
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/05/2025_BlogFeatured_Jess_TSwift.jpg"
+                    title="Help T-Swift to Begin Again"
+                %}
+            </li>
 
-                                <article>
-                                    <img class="margin-bottom-2" src="https://cheetah.org/wp-content/uploads/2025/06/2025_BlogFeaturedLeadStudy_CatherineH_.jpg" alt="Placeholder">
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/04/2025_BlogFeatured_DayandNight.jpg"
+                    title="CCF Contributes to Landmark Global Study on Mammalian Activity Patterns"
+                %}
+            </li>
 
-                                    <h2 class="h3">
-                                        Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
-                                    </h2>
+            <li>
+                {% include _components/news-preview.html
+                    date="August 8, 2023"
+                    img_src="https://cheetah.org/wp-content/uploads/2025/01/2025_BlogFeatured_CheetahCubNaming.jpg"
+                    title="Name the Cub, You Must. Protect the Wild, You Will"
+                %}
+            </li>
 
-                                    <p>
-                                        Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
-                                    </p>
+        </ul>
+    
+    </div>
 
-                                    <p class="sans-serif font-size-sm opacity-60">
-                                        Photo by <span class="text-decoration-underline">Jean Wimmerlin</span>
-                                    </p>
-                                </article>
-                            </a>
-
-                        </li>  
-                       
-                        <li>
-                        
-                            <a href="{{ site.url}}/news/blog/article-example/" target="_blank">
-
-                                <img class="margin-bottom-2" src="https://cheetah.org/wp-content/uploads/2025/06/2025_BlogFeatured_KidsArtContest2.jpg" alt="Placeholder">
-
-                                <h2 class="h3">
-                                    Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
-                                </h2>
-
-                                <p>
-                                    Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
-                                </p>
-
-                                <p class="sans-serif font-size-sm opacity-60">
-                                    Photo by <span class="text-decoration-underline">David Clode</span>
-                                </p>
-                            </a>
-
-                        </li>
-
-                        <li>
-                        
-                            <a href="{{ site.url}}/news/blog/article-example/" target="_blank">
-
-                                <img class="margin-bottom-2" src="https://cheetah.org/wp-content/uploads/2025/05/2025_BlogFeatured_BushblokPackaging.jpg" alt="Placeholder">
-
-                                <h2 class="h3">
-                                    Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
-                                </h2>
-
-                                <p>
-                                    Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
-                                </p>
-                                
-                                <p class="sans-serif font-size-sm opacity-60">
-                                    Photo by <span class="text-decoration-underline">Alex Rose</span>
-                                </p>
-                            </a>
-
-                        </li>
-
-                        <li>
-                        
-                            <a href="https://unsplash.com/@chrisstenger" target="_blank">
-
-                                <img class="margin-bottom-2" src="https://cheetah.org/wp-content/uploads/2025/05/2025_BlogFeatured_PBSLMNewshour.jpg" alt="Placeholder">
-
-                                <h2 class="h3">
-                                    Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
-                                </h2>
-
-                                <p>
-                                    Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
-                                </p>
-
-                                <p class="sans-serif font-size-sm opacity-60">
-                                    Photo by <span class="text-decoration-underline">Chris Stenger</span>
-                                </p>
-                            </a>
-
-                        </li>
-
-                    </ul>
-                
-                </div>
-
-            </section>
+</section>
