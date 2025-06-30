@@ -1,5 +1,13 @@
 title: Cheetah Conservation Fund
 
 url: "https://cavidano.github.io/cheetah-2025"
+
 exclude:
+  - README.md
+  - node_modules
+  - src
   - package.json
+  - package-lock.json
+  - webpack.common.js
+  - webpack.dev.js
+  - webpack.prod.js
