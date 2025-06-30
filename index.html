@@ -6,7 +6,7 @@ title: Home
 <section class="backdrop backdrop--stack--lg theme-light theme-dark--lg" id="introduction">
 
     <div class="backdrop__media gradient-mask-bottom--lg">
-        <img class="opacity-80--lg" src="./images/banner-introduction.jpg" alt="Placeholder">
+        <img class="opacity-80--lg" src="{{ site.url }}/images/banner-introduction.jpg" alt="Placeholder">
     </div>
 
     <div class="backdrop__cover justify-content-end">
@@ -46,7 +46,7 @@ title: Home
         <div class="backdrop backdrop--fixed theme-dark">
 
             <div class="backdrop__media gradient-mask-bottom">
-                <img class="opacity-70" src="./images/feature-01.jpg" alt="Placeholder">
+                <img class="opacity-70" src="{{ site.url }}/images/feature-01.jpg" alt="Placeholder">
             </div>
 
             <div class="backdrop__cover justify-content-end">
@@ -82,7 +82,7 @@ title: Home
         <div class="backdrop backdrop--fixed theme-dark">
 
             <div class="backdrop__media gradient-mask-bottom">
-                <img class="opacity-80" src="./images/feature-02.jpg" alt="Placeholder">
+                <img class="opacity-80" src="{{ site.url }}/images/feature-02.jpg" alt="Placeholder">
             </div>
 
             <div class="backdrop__cover justify-content-end">
@@ -102,7 +102,7 @@ title: Home
         <div class="backdrop backdrop--fixed theme-dark">
 
             <div class="backdrop__media gradient-mask-bottom">
-                <img class="opacity-80" src="./images/feature-03.jpg" alt="Placeholder">
+                <img class="opacity-80" src="{{ site.url }}/images/feature-03.jpg" alt="Placeholder">
             </div>
 
             <div class="backdrop__cover justify-content-end">
@@ -141,19 +141,19 @@ title: Home
 
         {% include _components/news-preview.html
             date="August 8, 2023"
-            img_src="./images/news-01.jpg"
+            img_src="{{ site.url }}/images/news-01.jpg"
             title="Title of First Article"
         %}
 
         {% include _components/news-preview.html
             date="August 8, 2023"
-            img_src="./images/news-02.jpg"
+            img_src="{{ site.url }}/images/news-02.jpg"
             title="Title of Second Article"
         %}
 
         {% include _components/news-preview.html
             date="August 8, 2023"
-            img_src="./images/news-03.jpg"
+            img_src="{{ site.url }}/images/news-03.jpg"
             title="Title of Third Article"
         %}
 
@@ -206,7 +206,7 @@ title: Home
         <div class="backdrop theme-dark">
 
             <div class="backdrop__media gradient-mask-bottom">
-                <img class="opacity-50" src="./images/livesock-gaurding-dog.jpg" alt="Placeholder" />
+                <img class="opacity-50" src="{{ site.url }}/images/livesock-gaurding-dog.jpg" alt="Placeholder" />
             </div>
 
             <div class="backdrop__cover justify-content-end">
@@ -233,7 +233,7 @@ title: Home
         <div class="backdrop theme-dark">
 
             <div class="backdrop__media">
-                <img class="opacity-50" src="./images/illegal-pet-trade.jpg" alt="Placeholder" />
+                <img class="opacity-50" src="{{ site.url }}/images/illegal-pet-trade.jpg" alt="Placeholder" />
             </div>
 
             <div class="backdrop__cover justify-content-end">
@@ -279,7 +279,7 @@ title: Home
             <div class="flex-column align-content-center">
 
                 <div class="border-radius-circle margin-x-auto margin-bottom-2">
-                    <img src="./images/cheetah-facts-01.jpg" alt="Placeholder" />
+                    <img src="{{ site.url }}/images/cheetah-facts-01.jpg" alt="Placeholder" />
                 </div>
 
                 <h3 class="h5 text-color-secondary">
@@ -293,7 +293,7 @@ title: Home
             <div class="flex-column align-content-center">
 
                 <div class="border-radius-circle margin-x-auto margin-bottom-2">
-                    <img src="./images/cheetah-facts-02.jpg" alt="Placeholder" />
+                    <img src="{{ site.url }}/images/cheetah-facts-02.jpg" alt="Placeholder" />
                 </div>
 
                 <h3 class="h5 text-color-secondary">
@@ -307,7 +307,7 @@ title: Home
             <div class="flex-column align-content-center">
 
                 <div class="border-radius-circle margin-x-auto margin-bottom-2">
-                    <img src="./images/cheetah-facts-03.jpg" alt="Placeholder" />
+                    <img src="{{ site.url }}/images/cheetah-facts-03.jpg" alt="Placeholder" />
                 </div>
 
                 <h3 class="h5 text-color-secondary">
@@ -334,7 +334,7 @@ title: Home
 
         <div class="backdrop__media gradient-mask-left--lg">
             <picture>
-                <source media="(max-width: 768px)" srcset="./images/cheetah-range-sm.svg">
+                <source media="(max-width: 768px)" srcset="{{ site.url }}/images/cheetah-range-sm.svg">
                 <img src="images/cheetah-range-lg.svg" alt="Description of image">
             </picture>
         </div>
@@ -365,21 +365,21 @@ title: Home
 
                     <a href="#1" class="display-block">
                         <div class="grid gap-3 text-align-center">
-                            <img class="border-radius-circle" src="./images/ccf-conservation.jpg" alt="">
+                            <img class="border-radius-circle" src="{{ site.url }}/images/ccf-conservation.jpg" alt="">
                             <p class="h6">Conservation</p>
                         </div>
                     </a>
 
                     <a href="#1" class="display-block">
                         <div class="grid gap-3 text-align-center">
-                            <img class="border-radius-circle" src="./images/ccf-research.jpg" alt="">
+                            <img class="border-radius-circle" src="{{ site.url }}/images/ccf-research.jpg" alt="">
                             <p class="h6">Research</p>
                         </div>
                     </a>
 
                     <a href="#1" class="display-block">
                         <div class="grid gap-3 text-align-center">
-                            <img class="border-radius-circle" src="./images/ccf-education.jpg" alt="">
+                            <img class="border-radius-circle" src="{{ site.url }}/images/ccf-education.jpg" alt="">
                             <p class="h6">Education</p>
                         </div>
                     </a>
@@ -399,7 +399,7 @@ title: Home
 <section class="backdrop backdrop--stack--lg theme-dark" id="sign-up">
 
     <div class="backdrop__media gradient-mask-bottom">
-        <img class="opacity-30" src="./images/banner-donate.jpg" alt="Placeholder">
+        <img class="opacity-30" src="{{ site.url }}/images/banner-donate.jpg" alt="Placeholder">
     </div>
 
     <div class="backdrop__cover">
