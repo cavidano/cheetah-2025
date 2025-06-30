@@ -185,7 +185,7 @@
                                                     {% for item in who_we_are.items %}
                                                     <li>
                                                         <a
-                                                            href="{{ item.url }}"
+                                                            href="{{ site.url }}{{ item.url }}"
                                                             {% if page.url == item.url %}
                                                             aria-current="page"
                                                             {% endif %}
@@ -212,7 +212,7 @@
                                                     {% for item in what_we_do.items %}
                                                     <li>
                                                         <a
-                                                            href="{{ item.url }}"
+                                                            href="{{ site.url }}{{ item.url }}"
                                                             {% if page.url == item.url %}
                                                             aria-current="page"
                                                             {% endif %}
@@ -275,7 +275,7 @@
                         {% if get_involved.items %}
                             {% for item in get_involved.items %}
                             <li>
-                                <a href="{{ item.url }}"
+                                <a href="{{ site.url }}{{ item.url }}"
                                 >{{ item.label }}</a>
                             </li>
                             {% endfor %}
@@ -300,7 +300,7 @@
                         {% if learn.items %}
                             {% for item in learn.items %}
                             <li>
-                                <a href="{{ item.url }}"
+                                <a href="{{ site.url }}{{ item.url }}"
                                 >{{ item.label }}</a>
                             </li>
                             {% endfor %}
@@ -325,7 +325,7 @@
                         {% if news.items %}
                             {% for item in news.items %}
                             <li>
-                                <a href="{{ item.url }}"
+                                <a href="{{ site.url }}{{ item.url }}"
                                 >{{ item.label }}</a>
                             </li>
                             {% endfor %}
