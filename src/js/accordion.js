@@ -86,26 +86,27 @@ export default class Accordion {
                 currentAccordionPanel.classList.toggle('show', isExpanded);
                 this.#setFocusableElements(currentAccordionPanel, isExpanded);
 
-                // Delegate click event for accordion toggle to the accordion container
-                delegateEvent(accordion, 'click', '[data-accordion="button"]', (event) => {
-                    if (event.target === accordionButton) {
-                        this.#initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList);
-                    }
-                });
+            });
 
-                // Delegate keydown event for navigation between buttons within the accordion container
-                delegateEvent(accordion, 'keydown', '[data-accordion="button"]', (event) => {
-                    if (event.target === accordionButton) {
-                        this.#handleKeyNavigation(event, accordionButtonList, index);
-                    }
-                });
+            // Delegate events once per accordion container
+            delegateEvent(accordion, 'click', '[data-accordion="button"]', (event) => {
+                const clickedButton = event.target;
+                const clickedPanel = clickedButton.nextElementSibling;
+                this.#initAccordion(event, clickedButton, clickedPanel, accordionPanelList);
+            });
 
-                // Delegate keyup event for handling Enter key to toggle accordion within the accordion container
-                delegateEvent(accordion, 'keyup', '[data-accordion="button"]', (event) => {
-                    if (event.code === 'Enter') {
-                        this.#initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList);
-                    }
-                });
+            delegateEvent(accordion, 'keydown', '[data-accordion="button"]', (event) => {
+                const clickedButton = event.target;
+                const buttonIndex = Array.from(accordionButtonList).indexOf(clickedButton);
+                this.#handleKeyNavigation(event, accordionButtonList, buttonIndex);
+            });
+
+            delegateEvent(accordion, 'keyup', '[data-accordion="button"]', (event) => {
+                if (event.code === 'Enter' || event.code === 'Space') {
+                    const clickedButton = event.target;
+                    const clickedPanel = clickedButton.nextElementSibling;
+                    this.#initAccordion(event, clickedButton, clickedPanel, accordionPanelList);
+                }
             });
         });
     

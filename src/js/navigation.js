@@ -1,6 +1,5 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { delegateEvent } from './utilities/eventDelegation';
-
 import { getCurrentBreakpoint } from './utilities/getCurrentBreakpoint';
 
 export default class Navigation {
@@ -17,10 +16,8 @@ export default class Navigation {
 
     dropdownButton.setAttribute('aria-expanded', 'true');
     dropdownMenu.classList.add('shown');
-    
-    const { isDesktop } = getCurrentBreakpoint();
 
-    if ([...dropdownMenu.classList].some(cls => cls.startsWith('mega-menu')) && isDesktop) {
+    if (dropdownMenu.classList.contains('mega-menu')) {
       handleOverlayOpen();
     }
   }
@@ -31,9 +28,7 @@ export default class Navigation {
     dropdownMenu.classList.remove('shown');
     dropdownButton.setAttribute('aria-expanded', 'false');
 
-    const { isDesktop } = getCurrentBreakpoint();
-    
-    if ([...dropdownMenu.classList].some(cls => cls.startsWith('mega-menu')) && isDesktop) {
+    if (dropdownMenu.classList.contains('mega-menu')) {
       handleOverlayClose();
     }
   }
@@ -114,6 +109,105 @@ export default class Navigation {
         ? this.#closeDropdown(dropdownButton, dropdownMenu)
         : this.#openDropdown(dropdownButton, dropdownMenu);
     });
+
+    // Helper to manage hover event listeners
+    const addHoverListeners = () => {
+      document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"]').forEach((dropdownButton) => {
+        // Prevent duplicate listeners
+        if (dropdownButton._hasHoverListeners) return;
+        dropdownButton._hasHoverListeners = true;
+
+        const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
+        const dropdownMenu = document.getElementById(dropdownMenuId);
+        if (!dropdownMenu) return;
+
+        let openedByKeyboardOrClick = false;
+        dropdownButton.addEventListener('click', () => {
+          openedByKeyboardOrClick = true;
+        });
+        dropdownButton.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            openedByKeyboardOrClick = true;
+          }
+        });
+        dropdownMenu.addEventListener('keydown', () => {
+          openedByKeyboardOrClick = true;
+        });
+
+        // Hover in
+        dropdownButton.addEventListener('mouseenter', dropdownButton._hoverInHandler = () => {
+          if (!openedByKeyboardOrClick) {
+            this.#openDropdown(dropdownButton, dropdownMenu);
+          }
+        });
+        dropdownMenu.addEventListener('mouseenter', dropdownMenu._hoverInHandler = () => {
+          if (!openedByKeyboardOrClick) {
+            this.#openDropdown(dropdownButton, dropdownMenu);
+          }
+        });
+        // Hover out
+        const hoverOutHandler = () => {
+          setTimeout(() => {
+            if (
+              !dropdownMenu.matches(':hover') &&
+              !dropdownButton.matches(':hover') &&
+              !openedByKeyboardOrClick
+            ) {
+              this.#closeDropdown(dropdownButton, dropdownMenu);
+              openedByKeyboardOrClick = false;
+            }
+          }, 200);
+        };
+        dropdownButton.addEventListener('mouseleave', dropdownButton._hoverOutHandler = hoverOutHandler);
+        dropdownMenu.addEventListener('mouseleave', dropdownMenu._hoverOutHandler = hoverOutHandler);
+
+        // Also reset the flag when closed by other means
+        const observer = new MutationObserver(() => {
+          if (!dropdownMenu.classList.contains('shown')) {
+            openedByKeyboardOrClick = false;
+          }
+        });
+        observer.observe(dropdownMenu, { attributes: true, attributeFilter: ['class'] });
+        dropdownButton._hoverObserver = observer;
+      });
+    };
+
+    const removeHoverListeners = () => {
+      document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"]').forEach((dropdownButton) => {
+        if (!dropdownButton._hasHoverListeners) return;
+        dropdownButton._hasHoverListeners = false;
+        const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
+        const dropdownMenu = document.getElementById(dropdownMenuId);
+        if (!dropdownMenu) return;
+        // Remove event listeners
+        if (dropdownButton._hoverInHandler) dropdownButton.removeEventListener('mouseenter', dropdownButton._hoverInHandler);
+        if (dropdownMenu._hoverInHandler) dropdownMenu.removeEventListener('mouseenter', dropdownMenu._hoverInHandler);
+        if (dropdownButton._hoverOutHandler) dropdownButton.removeEventListener('mouseleave', dropdownButton._hoverOutHandler);
+        if (dropdownMenu._hoverOutHandler) dropdownMenu.removeEventListener('mouseleave', dropdownMenu._hoverOutHandler);
+        if (dropdownButton._hoverObserver) dropdownButton._hoverObserver.disconnect();
+        delete dropdownButton._hoverInHandler;
+        delete dropdownMenu._hoverInHandler;
+        delete dropdownButton._hoverOutHandler;
+        delete dropdownMenu._hoverOutHandler;
+        delete dropdownButton._hoverObserver;
+      });
+    };
+
+    // Responsive hover logic
+    const setupResponsiveHover = () => {
+      if (
+        window.matchMedia &&
+        window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
+        getCurrentBreakpoint().isDesktop
+      ) {
+        addHoverListeners();
+      } else {
+        removeHoverListeners();
+      }
+    };
+
+    setupResponsiveHover();
+    window.addEventListener('resize', setupResponsiveHover);
 
     // Delegate focusout for focus handling on dropdowns
     document.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
