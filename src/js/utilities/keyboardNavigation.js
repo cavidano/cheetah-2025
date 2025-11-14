@@ -29,6 +29,14 @@ export const handleArrowKeyNavigation = (
       targetIndex = currentIndex + 1 >= itemList.length ? 0 : currentIndex + 1;
       break;
 
+    case 'ArrowUp':
+      targetIndex = currentIndex - 1 < 0 ? itemList.length - 1 : currentIndex - 1;
+      break;
+
+    case 'ArrowDown':
+      targetIndex = currentIndex + 1 >= itemList.length ? 0 : currentIndex + 1;
+      break;
+
     case 'Home':
       targetIndex = 0;
       break;

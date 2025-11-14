@@ -9,11 +9,16 @@ In this file:
 
 import { handleOverlayClose } from './overlay';
 
+// Track active focus trap handlers to prevent memory leaks
+const activeFocusTraps = new Map();
+
 //////////////////////////////////////////////
 // A. Focusable Elements
 //////////////////////////////////////////////
 
-export const getFocusableElements = (element = document) => {
+export const getFocusableElements = (element = document, options = {}) => {
+
+    const { exclude = [] } = options;
 
     const els = [
         'a[href]',
@@ -33,7 +38,8 @@ export const getFocusableElements = (element = document) => {
     ];
 
     return [...element.querySelectorAll(els)].filter((el) => {
-        return !el.hasAttribute('disabled');
+        return !el.hasAttribute('disabled') &&
+               !exclude.some(exclusion => el.closest(exclusion));
     });
 }
 
@@ -51,7 +57,14 @@ export const focusTrap = (element, firstFocusTarget = element) => {
     firstFocusTarget.setAttribute('tabindex', '-1');
     firstFocusTarget.focus();
 
-    element.addEventListener('keydown', (event) => {
+    // Remove existing focus trap handler if any to prevent memory leaks
+    const existingHandler = activeFocusTraps.get(element);
+    if (existingHandler) {
+        element.removeEventListener('keydown', existingHandler);
+    }
+
+    // Create new keydown handler
+    const keydownHandler = (event) => {
 
         switch (event.code) {
             case 'Tab':
@@ -79,6 +92,9 @@ export const focusTrap = (element, firstFocusTarget = element) => {
             default:
                 // do nothing
         }
-    
-    });
+    };
+
+    // Add new handler and store it for cleanup
+    element.addEventListener('keydown', keydownHandler);
+    activeFocusTraps.set(element, keydownHandler);
 }

@@ -1,22 +1,17 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { delegateEvent } from './utilities/eventDelegation';
 import { getCurrentBreakpoint } from './utilities/getCurrentBreakpoint';
-import { getFocusableElements } from './utilities/focus';
-import { handleArrowKeyNavigation } from './utilities/keyboardNavigation';
 
 export default class Navigation {
   
   // Private properties
-
+  
   #isAnyDropdownOpen = false;
-  #hoverTimeout = 400;
-
-  #primaryNavMenuList = document.querySelectorAll('.primary-nav__menu');
 
   // Private methods
 
   #openDropdown(dropdownButton, dropdownMenu) {
-
+  
     this.#isAnyDropdownOpen = true;
 
     dropdownButton.setAttribute('aria-expanded', 'true');
@@ -25,11 +20,10 @@ export default class Navigation {
     if (dropdownMenu.classList.contains('mega-menu')) {
       handleOverlayOpen();
     }
-
   }
 
   #closeDropdown(dropdownButton, dropdownMenu) {
-
+    
     this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
     dropdownMenu.classList.remove('shown');
     dropdownButton.setAttribute('aria-expanded', 'false');
@@ -37,7 +31,6 @@ export default class Navigation {
     if (dropdownMenu.classList.contains('mega-menu')) {
       handleOverlayClose();
     }
-
   }
 
   #checkAnyDropdownOpen() {
@@ -53,20 +46,13 @@ export default class Navigation {
     document.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
       const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
 
-      if (dropdownMenu && dropdownMenu.classList.contains('shown')) {
-        // Check if click is inside dropdown menu
-        if (dropdownMenu.contains(event.target)) {
-          return;
-        }
-        
-        // For nav-link-dropdown, check the entire wrapper
-        const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
-        const clickTarget = linkDropdownItem || dropdownButton;
-        
-        // If click is outside the entire component, close dropdown
-        if (!clickTarget.contains(event.target)) {
-          this.#closeDropdown(dropdownButton, dropdownMenu);
-        }
+      if (
+        dropdownMenu &&
+        dropdownMenu.classList.contains('shown') &&
+        !dropdownMenu.contains(event.target) &&
+        !dropdownButton.contains(event.target)
+      ) {
+        this.#closeDropdown(dropdownButton, dropdownMenu);
       }
     });
   };
@@ -101,33 +87,6 @@ export default class Navigation {
     }
   };
 
-  #cleanupEventListeners(dropdownButton, dropdownMenu) {
-    const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
-    const hoverTarget = linkDropdownItem || dropdownButton;
-    
-    if (hoverTarget._hoverInHandler) {
-      hoverTarget.removeEventListener('mouseenter', hoverTarget._hoverInHandler);
-      delete hoverTarget._hoverInHandler;
-    }
-    if (dropdownMenu._hoverInHandler) {
-      dropdownMenu.removeEventListener('mouseenter', dropdownMenu._hoverInHandler);
-      delete dropdownMenu._hoverInHandler;
-    }
-    if (hoverTarget._hoverOutHandler) {
-      hoverTarget.removeEventListener('mouseleave', hoverTarget._hoverOutHandler);
-      delete hoverTarget._hoverOutHandler;
-    }
-    if (dropdownMenu._hoverOutHandler) {
-      dropdownMenu.removeEventListener('mouseleave', dropdownMenu._hoverOutHandler);
-      delete dropdownMenu._hoverOutHandler;
-    }
-    if (dropdownButton._hoverObserver) {
-      dropdownButton._hoverObserver.disconnect();
-      delete dropdownButton._hoverObserver;
-    }
-    dropdownButton._hasHoverListeners = false;
-  }
-
   // Public methods
 
   init() {
@@ -136,6 +95,8 @@ export default class Navigation {
       const dropdownButton = event.target;
       const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
       const dropdownMenu = document.getElementById(dropdownMenuId);
+
+      console.log(dropdownButton)
 
       if (!dropdownMenu) {
         console.warn(`No dropdown menu found for ${dropdownMenuId}`);
@@ -151,9 +112,7 @@ export default class Navigation {
 
     // Helper to manage hover event listeners
     const addHoverListeners = () => {
-      // Target both data-hover="true" and nav-link-dropdown buttons
-      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
-      hoverButtons.forEach((dropdownButton) => {
+      document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"]').forEach((dropdownButton) => {
         // Prevent duplicate listeners
         if (dropdownButton._hasHoverListeners) return;
         dropdownButton._hasHoverListeners = true;
@@ -175,23 +134,9 @@ export default class Navigation {
           openedByKeyboardOrClick = true;
         });
 
-        // Hover in - check if this is a nav-link-dropdown item
-        const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
-        const hoverTarget = linkDropdownItem || dropdownButton;
-        
-        hoverTarget.addEventListener('mouseenter', hoverTarget._hoverInHandler = () => {
+        // Hover in
+        dropdownButton.addEventListener('mouseenter', dropdownButton._hoverInHandler = () => {
           if (!openedByKeyboardOrClick) {
-            // Close any other open dropdowns immediately to prevent multiple menus showing
-            document.querySelectorAll('[data-toggle="dropdown"][aria-expanded="true"]').forEach((otherButton) => {
-              if (otherButton !== dropdownButton) {
-                const otherMenuId = otherButton.getAttribute('aria-controls');
-                const otherMenu = document.getElementById(otherMenuId);
-                if (otherMenu) {
-                  this.#closeDropdown(otherButton, otherMenu);
-                }
-              }
-            });
-            
             this.#openDropdown(dropdownButton, dropdownMenu);
           }
         });
@@ -203,17 +148,17 @@ export default class Navigation {
         // Hover out
         const hoverOutHandler = () => {
           setTimeout(() => {
-            const hoverCheck = linkDropdownItem ? 
-              !linkDropdownItem.matches(':hover') && !dropdownMenu.matches(':hover') :
-              !dropdownButton.matches(':hover') && !dropdownMenu.matches(':hover');
-              
-            if (hoverCheck && !openedByKeyboardOrClick) {
+            if (
+              !dropdownMenu.matches(':hover') &&
+              !dropdownButton.matches(':hover') &&
+              !openedByKeyboardOrClick
+            ) {
               this.#closeDropdown(dropdownButton, dropdownMenu);
               openedByKeyboardOrClick = false;
             }
-          }, this.#hoverTimeout);
+          }, 200);
         };
-        hoverTarget.addEventListener('mouseleave', hoverTarget._hoverOutHandler = hoverOutHandler);
+        dropdownButton.addEventListener('mouseleave', dropdownButton._hoverOutHandler = hoverOutHandler);
         dropdownMenu.addEventListener('mouseleave', dropdownMenu._hoverOutHandler = hoverOutHandler);
 
         // Also reset the flag when closed by other means
@@ -228,14 +173,23 @@ export default class Navigation {
     };
 
     const removeHoverListeners = () => {
-      // Target both data-hover="true" and nav-link-dropdown buttons
-      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
-      hoverButtons.forEach((dropdownButton) => {
+      document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"]').forEach((dropdownButton) => {
         if (!dropdownButton._hasHoverListeners) return;
+        dropdownButton._hasHoverListeners = false;
         const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
         const dropdownMenu = document.getElementById(dropdownMenuId);
         if (!dropdownMenu) return;
-        this.#cleanupEventListeners(dropdownButton, dropdownMenu);
+        // Remove event listeners
+        if (dropdownButton._hoverInHandler) dropdownButton.removeEventListener('mouseenter', dropdownButton._hoverInHandler);
+        if (dropdownMenu._hoverInHandler) dropdownMenu.removeEventListener('mouseenter', dropdownMenu._hoverInHandler);
+        if (dropdownButton._hoverOutHandler) dropdownButton.removeEventListener('mouseleave', dropdownButton._hoverOutHandler);
+        if (dropdownMenu._hoverOutHandler) dropdownMenu.removeEventListener('mouseleave', dropdownMenu._hoverOutHandler);
+        if (dropdownButton._hoverObserver) dropdownButton._hoverObserver.disconnect();
+        delete dropdownButton._hoverInHandler;
+        delete dropdownMenu._hoverInHandler;
+        delete dropdownButton._hoverOutHandler;
+        delete dropdownMenu._hoverOutHandler;
+        delete dropdownButton._hoverObserver;
       });
     };
 
@@ -269,22 +223,5 @@ export default class Navigation {
 
     window.addEventListener('click', this.#handleWindowClick);
     document.addEventListener('keydown', this.#handleEscapeKeyPress);
-
-    // Keyboard navigation
-    this.#primaryNavMenuList.forEach(nav => {
-      delegateEvent(nav, 'keydown', ':is(button, a)', (event) => {
-      
-        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) return;
-
-        const items = getFocusableElements(nav, { exclude: ['.nav__dropdown', '[class*="mega-menu"]'] });
-        const index = items.indexOf(event.target);
-
-        if (index === -1) return;
-
-        handleArrowKeyNavigation(event, index, items, (targetIndex) => items[targetIndex].focus());
-      });
-    });
-
   }
-  
 }
