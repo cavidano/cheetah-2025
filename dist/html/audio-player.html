@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class="theme-"  lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>Audio Player • Natura11y</title>
+        
+        <!-- Natura11y Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v2/dist/natura11y-icons.min.css">
+    
+    </head>
+
+    <body>
+
+        <main>
+            <section>
+
+                <header class="margin-y-4 text-align-center">
+                    <h1 class="banner-headline">Audio Player</h1>
+                </header>
+
+                <figure class="container narrow margin-y-5">
+                            
+                    <div class="audio-player">
+
+                        <audio id="audio" preload="metadata">
+                            <source src="./mp3/purr.mp3" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+
+                        <div class="audio-player__controls" id="controls">
+
+                            <button class="button button--icon-only audio-player__play-pause" id="play-pause-button">
+                                <span class="icon icon-play" aria-hidden="true"></span>
+                            </button>
+
+                            <div class="audio-player__cover">
+                                <p>
+                                    Audio Title <span class="audio-player__duration" id="cover-duration">--:--</span> 
+                                </p>
+                                <a class="link" href="#1">
+                                    Learn more
+                                </a>
+                            </div>
+
+                            <div class="audio-player__progress-container">
+
+                                <div class="audio-player__progress" id="progress-bar" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Use arrow keys to forward or rewind the audio" role="slider">
+                                    <div class="audio-player__progress__fill">
+                                        <span class="audio-player__thumb"></span>
+                                    </div>
+                                </div>
+
+                                <span class="audio-player__timestamp" id="current-total-time" aria-live="polite" aria-atomic="true" aria-label="Current time and total duration">
+                                    --:--/--:--
+                                </span>
+                            
+                            </div>
+
+                            <div class="audio-player__volume-container">
+
+                                <button id="mute-button">
+                                    <span class="icon icon-volume"></span>
+                                </button>
+
+                                <div class="audio-player__volume" tabindex="0" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-label="Use arrow keys to adjust volume" role="slider">
+                                    <div class="audio-player__volume__fill">
+                                        <span class="audio-player__thumb"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </figure>
+
+            </section>
+        </main>
+
+    </body>
+
+</html>

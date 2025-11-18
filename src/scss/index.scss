@@ -62,9 +62,10 @@ In this file:
 // C. Custom Partials
 //////////////////////////////////////////////
 
-@use './customSCSS/accordion';
-@use './customSCSS/color';
-@use './customSCSS/list';
-@use './customSCSS/map';
-@use './customSCSS/nav';
-@use './customSCSS/theme';
+@use './project/accordion';
+@use './project/audio-player';
+@use './project/color';
+@use './project/list';
+@use './project/map';
+@use './project/nav';
+@use './project/theme';

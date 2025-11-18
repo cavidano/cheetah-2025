@@ -1,0 +1,186 @@
+/*
+
+In this file:
+
+// A. Selector Resets
+// B. Components
+// C. Components
+
+*/
+
+////////////////////////////////////////
+// A. Variables
+////////////////////////////////////////
+
+:root {
+  --audio-player-padding-x: calc(var(--container-padding-x) * .5);
+
+  --audio-player-track-height: 0.375rem;
+  --audio-player-track-fill-color: currentColor;
+  --audio-player-thumb-size: calc(var(--audio-player-track-height) * 2.5);
+}
+
+////////////////////////////////////////
+// B. Components
+////////////////////////////////////////
+
+@layer component {
+
+  .audio-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    width: 100%;
+  }
+
+  .audio-player__controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: var(--audio-player-padding-x);
+    
+    width: 100%;
+  }
+  
+  .audio-player__progress-container,
+  .audio-player__volume-container,
+  .audio-player__cover {
+    --_thumb-overflow: calc(var(--audio-player-thumb-size) * 0.5);
+  --subtle-fill-1: color-mix(in srgb, currentColor 12.5%, transparent);
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    padding-inline: var(--_thumb-overflow);
+  }
+  
+  .audio-player__progress-container,
+  .audio-player__volume-container {
+    gap: var(--audio-player-padding-x);
+  }
+  
+  .audio-player__progress-container,
+  .audio-player__cover {
+    flex: 1;
+  }
+  
+  .audio-player__progress-container {
+    justify-content: space-between;
+  }
+  
+  .audio-player__cover {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+
+    gap: 0.5em;
+
+    font-size: var(--font-size-md);
+    
+    opacity: 0.8;
+
+    p {
+      margin-block-end: unset;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+  
+  .audio-player__play-pause {
+    border-radius: var(--border-radius-pill);
+  }
+
+  .audio-player__volume-container {
+    flex: 0 0 6.5rem;
+  }
+
+  .audio-player__progress {--focus-outline-offset: calc(var(--focus-outline-width) * 2);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+
+    flex: 1;
+    height: var(--audio-player-track-height);
+
+    background-color: var(--subtle-fill-1);
+
+    border-radius: calc(var(--border-radius) * 0.5);
+    
+    &:focus-visible {
+      outline: 
+        var(--focus-outline-width)
+        var(--focus-outline-style) 
+        var(--focus-outline-color, var(--link-color, currentColor));
+        
+      outline-offset: var(--focus-outline-offset);
+    }
+  }
+
+  .audio-player__volume {--focus-outline-offset: calc(var(--focus-outline-width) * 2);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    height: var(--audio-player-track-height);
+
+    background-color: var(--subtle-fill-1);
+
+    border-radius: calc(var(--border-radius) * 0.5);
+    
+    &:focus-visible {
+      outline: 
+        var(--focus-outline-width)
+        var(--focus-outline-style) 
+        var(--focus-outline-color, var(--link-color, currentColor));
+        
+      outline-offset: var(--focus-outline-offset);
+    }
+  }
+
+  .audio-player__volume {
+    gap: var(--spacer-1);
+
+    font-size: var(--font-size-sm);
+  }
+
+  [class*="__fill"] {
+    height: 100%;
+    width: 0;
+
+    background-color: var(--audio-player-track-fill-color);
+
+    border-top-left-radius: calc(var(--border-radius) * 0.5);
+    border-bottom-left-radius: calc(var(--border-radius) * 0.5);
+  }
+
+  .audio-player__timestamp {
+    font-size: var(--font-size-sm);
+    opacity: 0.7;
+    font-family: ui-monospace, Monaco, Consolas, 'Courier New', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .audio-player__thumb {
+    display: block;
+    position: absolute;
+    
+    inset-block-start: 50%;
+    inset-inline-end: calc(var(--audio-player-thumb-size) * -0.5);
+    
+    block-size: var(--audio-player-thumb-size);
+    inline-size: var(--audio-player-thumb-size);
+    
+    background-color: var(--audio-player-track-fill-color);
+    border-radius: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+}
+
+// end @layer

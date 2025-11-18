@@ -52,9 +52,12 @@ In this file:
             opacity: 0.85;
         }
 
+        > :is(svg, img) {
+            display: block;
+        }
+
         > svg {
             fill: currentColor;
-            display: block;
         }
 
     }

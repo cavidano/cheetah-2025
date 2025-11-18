@@ -14,6 +14,7 @@ const devPages = {
     // Components
 
     'Accordion': 'accordion',
+    'AudioPlayer': 'audio-player',
     'Alert': 'alert',
     'Article': 'article',
     'Button': 'button',
@@ -39,7 +40,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Accordion}.html`;
+const devPage = `${devPages.Tab}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

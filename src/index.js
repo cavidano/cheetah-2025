@@ -10,6 +10,7 @@ import './scss/index.scss';
 
 import Accordion from './js/accordion';
 import AlertDismissable from './js/alert';
+import AudioPlayer from './js/project/audio-player';
 import Backdrop from './js/backdrop';
 import Collapse from './js/collapse';
 import FormInput, { FormSubmission, FormFileUpload } from './js/form';
@@ -31,6 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const alertDismissable = new AlertDismissable();
   alertDismissable.init();
+
+  // Initialize all audio players on the page
+  const audioPlayerContainers = document.querySelectorAll('.audio-player');
+  audioPlayerContainers.forEach(container => {
+    const audioPlayer = new AudioPlayer();
+    audioPlayer.init(container);
+  });
 
   const backdrop = new Backdrop();
   backdrop.init();
