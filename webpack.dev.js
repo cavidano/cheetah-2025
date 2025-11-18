@@ -70,7 +70,12 @@ module.exports = merge(common, {
                             injectType: 'singletonStyleTag'
                         },
                     },
-                    'css-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            url: false
+                        }
+                    },
                     { 
                         loader: 'postcss-loader'
                     },
