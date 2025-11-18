@@ -1,0 +1,29 @@
+/**
+ * Cheetah Tracks Regular Font
+ * 
+ * A portable font file for the Cheetah Tracks Regular font.
+ * 
+ * Usage:
+ * 1. Copy this file and the font files (woff2, woff) to your project
+ * 2. Keep them in the same directory
+ * 3. Link this CSS file in your HTML: <link rel="stylesheet" href="path/to/cheetah-tracks-regular.css">
+ * 
+ * For WordPress:
+ * - Place in your theme's assets/fonts/cheetah-tracks/ directory
+ * - Enqueue in functions.php: wp_enqueue_style('cheetah-tracks-font', get_template_directory_uri() . '/assets/fonts/cheetah-tracks/cheetah-tracks-regular.css');
+ */
+
+@font-face {
+  font-family: 'cheetah-tracks-regular';
+  src:
+    url('./cheetah-tracks-regular.woff2') format('woff2'),
+    url('./cheetah-tracks-regular.woff') format('woff');
+  
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Improves loading performance */
+}
+
+:root {
+  --cheetah-tracks-regular: 'cheetah-tracks-regular';
+}

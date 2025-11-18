@@ -1,0 +1,91 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Component
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+:root {
+    // Background Pattern Images
+    // These can be overridden per project to use absolute paths or different locations
+
+    --pattern-cheetah-spots-url: url(../images/pattern-cheetah-spots.svg);
+    --pattern-01-url: url(../images/pattern-01.svg);
+    --pattern-african-hr-url: url(../images/african-hr.svg);
+
+    // Gradient Text
+    --gradient-start: var(--primary);
+    --gradient-end: var(--secondary);
+}
+
+//////////////////////////////////////////////
+// B. Component
+//////////////////////////////////////////////
+
+@layer utility {
+
+    // Cheetah Spots Pattern
+
+    .cheetah-spots {
+        background-image: var(--pattern-cheetah-spots-url);
+        background-image: var(--pattern-cheetah-spots-url), none;
+        background-repeat: repeat;
+    }
+
+    // African Border Block Pattern
+
+    .african-border-block {
+        --height: 40px;
+
+        position: relative;
+
+        &::before, 
+        &::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: var(--height);
+            inset-inline-start: 0;
+            background-image: var(--pattern-01-url);
+            background-image: var(--pattern-01-url), none;
+            background-repeat: repeat;
+        }
+
+        &::before {
+            inset-block-start: 0;
+        }
+
+        &::after {
+            inset-block-start: 100%;
+            margin-block-start: calc(var(--height) * -1);
+            transform: rotate(180deg);
+        }
+    }
+
+    // African HR Pattern
+
+    .african-hr {
+        border-top: none;
+        height: 20px;
+        background-image: var(--pattern-african-hr-url);
+        background-image: var(--pattern-african-hr-url), none;
+        background-repeat: repeat;
+    }
+
+    // Gradient Text Effect
+
+    .gradient-text {
+        background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+} // end @layer
+

@@ -18,16 +18,6 @@ In this file:
 // A. Custom Properties
 //////////////////////////////////////////////
 
-@font-face {
-  font-family: 'cheetah-tracks-regular';
-  src:
-    url('/dist/cheetah-tracks-regular/CheetahTracksRegular.woff2') format('woff2'),
-    url('/dist/cheetah-tracks-regular/CheetahTracksRegular.woff') format('woff');
-  
-  font-weight: normal;
-  font-style: normal;
-}
-
 :root {
 
     --serif: 'Georgia', serif;
@@ -227,42 +217,6 @@ In this file:
     }
 }
 
-.african-border-block {
-    --height: 40px;
-
-    position: relative;
-
-    &::before, 
-    &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: var(--height);
-        inset-inline-start: 0;
-        background-image: url(../images/pattern-01.svg);
-        background-image: url(../images/pattern-01.svg), none;
-        background-repeat: repeat;
-    }
-
-    &::before {
-        inset-block-start: 0;
-    }
-
-    &::after {
-        inset-block-start: 100%;
-        margin-block-start: calc(var(--height) * -1);
-        transform: rotate(180deg);
-    }
-}
-
-.african-hr {
-    border-top: none;
-    height: 20px;
-    background-image: url(../images/african-hr.svg);
-    background-image: url(../images/african-hr.svg), none;
-    background-repeat: repeat;
-}
-
 .image-link {
   overflow: hidden;
 
@@ -285,11 +239,4 @@ In this file:
 
   }
 
-}
-
-
-.cheetah-spots {
-    background-image: url(../images/pattern-cheetah-spots.svg);
-    background-image: url(../images/pattern-cheetah-spots.svg), none;
-    background-repeat: repeat;
 }
