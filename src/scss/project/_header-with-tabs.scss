@@ -1,0 +1,49 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Component
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use '../breakpoint';
+
+//////////////////////////////////////////////
+// B. Component
+//////////////////////////////////////////////
+
+@layer component {
+
+    // Header with Tabs Block
+
+    .header-with-tabs {
+        --tab-nav-background-color: var(--light);
+        position: relative;
+    }
+
+    // Header with Tabs Elements
+
+    @include breakpoint.breakpoint-down('md') {
+
+        .header-with-tabs {
+            --backdrop-fixed-height: 300px;
+        }
+
+    }
+
+    @include breakpoint.breakpoint-up('md') {
+        .header-with-tabs__nav {
+            position: absolute;
+            inset-inline-start: 0;
+            inset-inline-end: 0;
+            inset-block-end: 0;
+            transform: translateY(50%);
+        }
+    }
+
+} // end @layer

@@ -81,6 +81,8 @@ In this file:
         .is-active {
             font-weight: var(--font-weight-bold);
 
+            text-decoration: underline;
+
             --focus-outline-color: var(--tab-nav-active-text-color);
 
             &::before {
@@ -129,7 +131,7 @@ In this file:
 
     .tabs-nav--pill,
     .tabs-nav--pill > li > :is(a, button) {
-        border-radius: var(--border-radius-pill);
+        // border-radius: var(--border-radius-2);
         overflow: hidden;
     }
 

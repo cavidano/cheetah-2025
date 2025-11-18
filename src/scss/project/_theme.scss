@@ -286,27 +286,3 @@ In this file:
   }
 
 }
-
-.news-header {
-    --tab-nav-background-color: var(--light);
-    position: relative;
-}
-
-@include breakpoint.breakpoint-down('md') {
-
-    .news-header {
-        --backdrop-fixed-height: 200px;
-    }
-
-}
-
-@include breakpoint.breakpoint-up('md') {
-    .news-header__tabs {
-        position: absolute;
-        inset-inline-start: 0;
-        inset-inline-end: 0;
-        inset-block-end: 0;
-        transform: translateY(50%);
-
-    }
-}
