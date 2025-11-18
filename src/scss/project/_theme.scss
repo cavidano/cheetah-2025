@@ -286,3 +286,10 @@ In this file:
   }
 
 }
+
+
+.cheetah-spots {
+    background-image: url(../images/pattern-cheetah-spots.svg);
+    background-image: url(../images/pattern-cheetah-spots.svg), none;
+    background-repeat: repeat;
+}
