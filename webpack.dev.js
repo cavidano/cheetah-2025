@@ -40,7 +40,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Tab}.html`;
+const devPage = `${devPages.GlobalHeader}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
